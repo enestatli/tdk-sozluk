@@ -1,9 +1,9 @@
 import React from 'react'
-import { View, Text, Button } from 'react-native'
+import { View, Text, Button, StyleSheet } from 'react-native'
 
 const SearchView = ({ navigation }) => {
   return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+    <View>
       <Text>Search</Text>
       <Button
         title="go to details"
@@ -12,5 +12,13 @@ const SearchView = ({ navigation }) => {
     </View>
   )
 }
+
+const styles = StyleSheet.create({
+  button: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center'
+  }
+})
 
 export default SearchView
