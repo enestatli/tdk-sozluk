@@ -4,6 +4,6 @@ module.exports = {
   rules: {
     semi: 'off',
     'comma-dangle': 'off',
-    'no-shadow': 'off',
-  },
-};
+    'no-shadow': 'off'
+  }
+}
