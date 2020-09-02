@@ -11,7 +11,7 @@ const Tab = createBottomTabNavigator()
 
 const SearchStack = () => {
   return (
-    <HomeStack.Navigator>
+    <HomeStack.Navigator headerMode="none">
       <HomeStack.Screen name="Search" component={SearchView} />
       <HomeStack.Screen name="Details" component={DetailView} />
     </HomeStack.Navigator>

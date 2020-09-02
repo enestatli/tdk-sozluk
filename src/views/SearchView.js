@@ -1,6 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react'
-import { View, Button, StyleSheet } from 'react-native'
+import { View, StyleSheet } from 'react-native'
 import { Logo } from '../components/icons'
 import theme from '../utils/theme'
 import SearchBox from '../components/SearchBox'

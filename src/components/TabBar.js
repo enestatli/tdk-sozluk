@@ -48,8 +48,12 @@ const TabBar = ({ state, descriptors, navigation }) => {
           </View>
         ) : (
           <Button style={styles.otherButtons} key={label} onPress={onPress}>
-            {label === 'History' && <RotateCcw color={colors.gray} />}
-            {label === 'Favorite' && <Bookmark color={colors.gray} />}
+            {label === 'History' && (
+              <RotateCcw color={isFocused ? colors.red : colors.gray} />
+            )}
+            {label === 'Favorite' && (
+              <Bookmark color={isFocused ? colors.red : colors.gray} />
+            )}
             <View
               style={[
                 styles.focused,
@@ -65,7 +69,9 @@ const TabBar = ({ state, descriptors, navigation }) => {
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: 'row'
+    flexDirection: 'row',
+    paddingBottom: 15,
+    backgroundColor: 'white'
   },
   searchButtonContainer: {
     padding: 15,
@@ -91,9 +97,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center'
   },
   focused: {
-    width: 3,
-    height: 3,
-    marginTop: 6
+    width: 4,
+    height: 4,
+    marginTop: 6,
+    backgroundColor: 'white'
   }
 })
 

@@ -1,13 +1,19 @@
 /* eslint-disable react-native/no-inline-styles */
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { StyleSheet, View, Keyboard, Text } from 'react-native'
-import { Input, Button } from './shared'
+
 import theme from '../utils/theme'
+
+import { Input, Button } from './shared'
 import { Close, Search } from './icons'
 
-const SearchBox = () => {
+const SearchBox = ({ onChangeFocus }) => {
   const [isFocus, setIsFocus] = useState(false)
   const [value, setValue] = useState('')
+
+  // useEffect(() => {
+  //   onChangeFocus(isFocus)
+  // }, [isFocus, onChangeFocus])
 
   const onCancel = () => {
     setIsFocus(false)
