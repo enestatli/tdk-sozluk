@@ -41,8 +41,8 @@ const TabBar = ({ state, descriptors, navigation }) => {
         }
 
         return label === 'Search' ? (
-          <View style={styles.searchButtonContainer}>
-            <Button style={styles.searchButton} key={label} onPress={onPress}>
+          <View style={styles.searchButtonContainer} key={label}>
+            <Button style={styles.searchButton} onPress={onPress}>
               <SearchIcon color={colors.gray} />
             </Button>
           </View>
