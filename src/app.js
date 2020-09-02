@@ -4,6 +4,7 @@ import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { FavoriteView, HistoryView, SearchView, DetailView } from './views'
+import TabBar from './components/TabBar'
 
 const HomeStack = createStackNavigator()
 const Tab = createBottomTabNavigator()
@@ -20,7 +21,10 @@ const SearchStack = () => {
 const App = () => {
   return (
     <NavigationContainer>
-      <Tab.Navigator>
+      <Tab.Navigator
+        initialRouteName="Search"
+        tabBar={(props) => <TabBar {...props} />}
+      >
         <Tab.Screen name="History" component={HistoryView} />
         <Tab.Screen name="Search" component={SearchStack} />
         <Tab.Screen name="Favorite" component={FavoriteView} />
