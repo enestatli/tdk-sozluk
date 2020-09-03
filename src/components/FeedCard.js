@@ -2,14 +2,16 @@ import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 import { Card, Placeholder } from './shared'
 
-const FeedCard = ({ data }) => {
+const FeedCard = ({ data, onPress }) => {
   return (
     <View>
       <Text> Bir Kelime</Text>
-      <Card style={styles.container}>
-        <Card.Title>Title</Card.Title>
-        <Card.Summary>long summary</Card.Summary>
-      </Card>
+      <View style={styles.container}>
+        <Card onPress={onPress}>
+          <Card.Title>Title</Card.Title>
+          <Card.Summary>long summary</Card.Summary>
+        </Card>
+      </View>
     </View>
   )
 }

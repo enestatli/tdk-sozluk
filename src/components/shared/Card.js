@@ -2,9 +2,9 @@ import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 import Button from './Button'
 
-const Card = ({ children }) => {
+const Card = ({ children, ...props }) => {
   return (
-    <Button style={styles.button}>
+    <Button style={styles.button} {...props}>
       <View style={styles.container}>{children}</View>
     </Button>
   )

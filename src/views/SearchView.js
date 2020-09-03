@@ -8,7 +8,8 @@ import {
   Animated,
   Text,
   StatusBar,
-  Platform
+  Platform,
+  FlatList
 } from 'react-native'
 import { useFocusEffect } from '@react-navigation/native'
 
@@ -20,6 +21,27 @@ import { Logo } from '../components/icons'
 import FeedCard from '../components/FeedCard'
 
 const heroHeight = Dimensions.get('window').height / 3
+
+const Item = ({ title }) => (
+  <View style={styles.item}>
+    <Text style={styles.title}>{title}</Text>
+  </View>
+)
+
+const flatListData = [
+  {
+    id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
+    title: 'First Item'
+  },
+  {
+    id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
+    title: 'Second Item'
+  },
+  {
+    id: '58694a0f-3da1-471f-bd96-145571e29d72',
+    title: 'Third Item'
+  }
+]
 
 const SearchView = ({ navigation }) => {
   const [isSearchFocus, setIsSearchFocus] = useState(false)
@@ -52,6 +74,8 @@ const SearchView = ({ navigation }) => {
     }
   }, [isSearchFocus, heroHeightAnim])
 
+  const renderItem = ({ item }) => <Item title={item.title} />
+
   return (
     <View style={styles.container}>
       <Animated.View style={[styles.animateBox, { height: heroHeightAnim }]}>
@@ -62,19 +86,34 @@ const SearchView = ({ navigation }) => {
             </View>
           </ImageBackground>
         )}
-        <View style={[styles.searchBox, isSearchFocus && { top: 15 }]}>
+        <View
+          style={[
+            styles.searchBox,
+            isSearchFocus && { top: StatusBar.currentHeight / 10 }
+          ]}
+        >
           <SearchBox onChangeFocus={(status) => setIsSearchFocus(status)} />
         </View>
       </Animated.View>
 
       {isSearchFocus ? (
-        <View>
-          <Text>History Items</Text>
+        <View style={styles.historyList}>
+          <FlatList
+            data={flatListData}
+            renderItem={renderItem}
+            keyExtractor={(item) => item.id}
+          />
         </View>
       ) : (
         <View style={styles.feedContainer}>
-          <FeedCard data={data} />
-          <FeedCard data={data} />
+          <FeedCard
+            data={data}
+            onPress={() => navigation.navigate('Details')}
+          />
+          <FeedCard
+            data={data}
+            onPress={() => navigation.navigate('Details')}
+          />
         </View>
       )}
     </View>
@@ -117,6 +156,16 @@ const styles = StyleSheet.create({
   feedContainer: {
     padding: 16,
     marginTop: 48
+  },
+  historyList: {
+    flex: 1,
+    marginTop: 0
+  },
+  item: {
+    backgroundColor: 'white',
+    padding: 16,
+    marginVertical: 4,
+    marginHorizontal: 16
   }
 })
 
