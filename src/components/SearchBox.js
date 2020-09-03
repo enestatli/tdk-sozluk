@@ -79,10 +79,7 @@ const styles = StyleSheet.create({
   closeButton: {
     position: 'absolute',
     right: 12,
-    top: 14,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center'
+    top: 14
   },
   searchButton: {
     position: 'absolute',

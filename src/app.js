@@ -29,7 +29,8 @@ const SearchStack = () => {
           return {
             title: (route.params && route.params.title) || 'Bos',
             headerStyle: {
-              backgroundColor: theme.colors.softRed
+              backgroundColor: theme.colors.softRed,
+              elevation: 0
             },
             headerLeft: () => (
               //TODO navigation
