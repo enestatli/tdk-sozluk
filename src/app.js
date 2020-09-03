@@ -5,15 +5,46 @@ import { createStackNavigator } from '@react-navigation/stack'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { FavoriteView, HistoryView, SearchView, DetailView } from './views'
 import TabBar from './components/TabBar'
+import theme from './utils/theme'
+import { Button } from './components/shared'
+import { Left, More } from './components/icons'
 
 const HomeStack = createStackNavigator()
 const Tab = createBottomTabNavigator()
 
 const SearchStack = () => {
   return (
-    <HomeStack.Navigator headerMode="none">
-      <HomeStack.Screen name="Search" component={SearchView} />
-      <HomeStack.Screen name="Details" component={DetailView} />
+    <HomeStack.Navigator>
+      <HomeStack.Screen
+        name="Search"
+        component={SearchView}
+        options={() => {
+          return { headerShown: false }
+        }}
+      />
+      <HomeStack.Screen
+        name="Details"
+        component={DetailView}
+        options={({ route, navigation }) => {
+          return {
+            title: (route.params && route.params.title) || 'Bos',
+            headerStyle: {
+              backgroundColor: theme.colors.softRed
+            },
+            headerLeft: () => (
+              //TODO navigation
+              <Button onPress={() => navigation.goBack()}>
+                <Left color="red" />
+              </Button>
+            ),
+            headerRight: () => (
+              <Button onPress={() => navigation.goBack()}>
+                <More color="red" />
+              </Button>
+            )
+          }
+        }}
+      />
     </HomeStack.Navigator>
   )
 }

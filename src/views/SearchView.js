@@ -108,7 +108,7 @@ const SearchView = ({ navigation }) => {
         <View style={styles.feedContainer}>
           <FeedCard
             data={data}
-            onPress={() => navigation.navigate('Details')}
+            onPress={() => navigation.navigate('Details', { title: 'title' })}
           />
           <FeedCard
             data={data}
