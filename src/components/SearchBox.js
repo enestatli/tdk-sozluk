@@ -11,9 +11,9 @@ const SearchBox = ({ onChangeFocus }) => {
   const [isFocus, setIsFocus] = useState(false)
   const [value, setValue] = useState('')
 
-  // useEffect(() => {
-  //   onChangeFocus(isFocus)
-  // }, [isFocus, onChangeFocus])
+  useEffect(() => {
+    onChangeFocus(isFocus)
+  }, [isFocus, onChangeFocus])
 
   const onCancel = () => {
     setIsFocus(false)
@@ -73,7 +73,8 @@ const styles = StyleSheet.create({
     borderRadius: 6,
     borderWidth: 1,
     borderColor: 'transparent',
-    color: theme.colors.textDark
+    color: theme.colors.textDark,
+    backgroundColor: 'white'
   },
   closeButton: {
     position: 'absolute',
