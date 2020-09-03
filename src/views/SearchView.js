@@ -1,13 +1,16 @@
 /* eslint-disable react-native/no-inline-styles */
-import React, { useState, useRef, useEffect } from 'react'
+import React, { useState, useRef, useEffect, useCallback } from 'react'
 import {
   View,
   StyleSheet,
   ImageBackground,
   Dimensions,
   Animated,
-  Text
+  Text,
+  StatusBar,
+  Platform
 } from 'react-native'
+import { useFocusEffect } from '@react-navigation/native'
 
 import theme from '../utils/theme'
 import SearchBox from '../components/SearchBox'
@@ -20,6 +23,16 @@ const heroHeight = Dimensions.get('window').height / 3
 const SearchView = ({ navigation }) => {
   const [isSearchFocus, setIsSearchFocus] = useState(false)
   const heroHeightAnim = useRef(new Animated.Value(heroHeight)).current
+
+  useFocusEffect(
+    useCallback(() => {
+      StatusBar.setBarStyle(isSearchFocus ? 'dark-content' : 'light-content')
+      Platform.OS === 'android' &&
+        StatusBar.setBackgroundColor(
+          isSearchFocus ? theme.colors.softRed : theme.colors.red
+        )
+    }, [isSearchFocus])
+  )
 
   useEffect(() => {
     if (isSearchFocus) {
