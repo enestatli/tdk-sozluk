@@ -17,12 +17,14 @@ import SearchBox from '../components/SearchBox'
 import bg from '../assets/bg.jpg'
 
 import { Logo } from '../components/icons'
+import FeedCard from '../components/FeedCard'
 
 const heroHeight = Dimensions.get('window').height / 3
 
 const SearchView = ({ navigation }) => {
   const [isSearchFocus, setIsSearchFocus] = useState(false)
   const heroHeightAnim = useRef(new Animated.Value(heroHeight)).current
+  const data = []
 
   useFocusEffect(
     useCallback(() => {
@@ -65,9 +67,14 @@ const SearchView = ({ navigation }) => {
         </View>
       </Animated.View>
 
-      {isSearchFocus && (
+      {isSearchFocus ? (
         <View>
           <Text>History Items</Text>
+        </View>
+      ) : (
+        <View style={styles.feedContainer}>
+          <FeedCard data={data} />
+          <FeedCard data={data} />
         </View>
       )}
     </View>
@@ -106,6 +113,10 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center'
+  },
+  feedContainer: {
+    padding: 16,
+    marginTop: 48
   }
 })
 
