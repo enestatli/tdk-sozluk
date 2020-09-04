@@ -2,20 +2,21 @@ import React from 'react'
 import { StyleSheet, Text, View, ActivityIndicator } from 'react-native'
 import { Card, Placeholder } from './shared'
 
-const FeedCard = ({ data, onPress, border, navigation }) => {
+const FeedCard = ({ data, navigation }) => {
+  console.log(data)
   return (
     <View>
       <Text> Bir Kelime</Text>
       <View style={styles.container}>
         <Card
           onPress={() =>
-            navigation.navigate('Details', { title: data?.kelime[0].madde })
+            navigation.navigate('Details', { title: data?.kelime.madde })
           }
         >
           {data ? (
             <>
-              <Card.Title>{data?.kelime[0].madde}</Card.Title>
-              <Card.Summary>{data?.kelime[0].anlam}</Card.Summary>
+              <Card.Title>{data?.kelime.madde}</Card.Title>
+              <Card.Summary>{data?.kelime.anlam}</Card.Summary>
             </>
           ) : (
             <ActivityIndicator />
@@ -23,13 +24,13 @@ const FeedCard = ({ data, onPress, border, navigation }) => {
         </Card>
         <Card
           onPress={() =>
-            navigation.navigate('Details', { title: data?.atasoz[0].madde })
+            navigation.navigate('Details', { title: data?.atasoz.madde })
           }
         >
           {data ? (
             <>
-              <Card.Title>{data?.atasoz[0].madde}</Card.Title>
-              <Card.Summary>{data?.atasoz[0].anlam}</Card.Summary>
+              <Card.Title>{data?.atasoz.madde}</Card.Title>
+              <Card.Summary>{data?.atasoz.anlam}</Card.Summary>
             </>
           ) : (
             <ActivityIndicator />

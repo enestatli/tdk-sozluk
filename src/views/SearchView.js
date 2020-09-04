@@ -1,5 +1,11 @@
 /* eslint-disable react-native/no-inline-styles */
-import React, { useState, useRef, useEffect, useCallback } from 'react'
+import React, {
+  useState,
+  useRef,
+  useEffect,
+  useCallback,
+  useContext
+} from 'react'
 import {
   View,
   StyleSheet,
@@ -16,9 +22,10 @@ import { useFocusEffect } from '@react-navigation/native'
 import theme from '../utils/theme'
 import SearchBox from '../components/SearchBox'
 import bg from '../assets/bg.jpg'
+import FeedCard from '../components/FeedCard'
 
 import { Logo } from '../components/icons'
-import FeedCard from '../components/FeedCard'
+import { homeContext } from '../context'
 
 const heroHeight = Dimensions.get('window').height / 3
 
@@ -44,18 +51,12 @@ const flatListData = [
 ]
 
 const SearchView = ({ navigation }) => {
+  const homeData = useContext(homeContext)
   const [isSearchFocus, setIsSearchFocus] = useState(false)
   const heroHeightAnim = useRef(new Animated.Value(heroHeight)).current
-  const [homeData, setHomeData] = useState(null)
-
-  const getHomeData = async () => {
-    const response = await fetch('https://sozluk.gov.tr/icerik')
-    const data = await response.json()
-    setHomeData(data)
-  }
 
   useEffect(() => {
-    getHomeData()
+    homeData.setData()
   }, [])
 
   useFocusEffect(
@@ -116,7 +117,7 @@ const SearchView = ({ navigation }) => {
         </View>
       ) : (
         <View style={styles.feedContainer}>
-          <FeedCard data={homeData} navigation={navigation} />
+          <FeedCard data={homeData?.data} navigation={navigation} />
         </View>
       )}
     </View>

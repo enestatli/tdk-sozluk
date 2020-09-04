@@ -34,8 +34,9 @@ const DetailView = ({ route, navigation }) => {
   return (
     <View style={styles.container}>
       <View>
-        <Text>Title</Text>
-        <Text>Keyword</Text>
+        {/* TODO */}
+        <Text>{keyword}</Text>
+        <Text>lisan</Text>
         <View>
           <View style={styles.actionButtonsFrame}>
             <ActionButton>
