@@ -46,7 +46,17 @@ const flatListData = [
 const SearchView = ({ navigation }) => {
   const [isSearchFocus, setIsSearchFocus] = useState(false)
   const heroHeightAnim = useRef(new Animated.Value(heroHeight)).current
-  const data = []
+  const [homeData, setHomeData] = useState(null)
+
+  const getHomeData = async () => {
+    const response = await fetch('https://sozluk.gov.tr/icerik')
+    const data = await response.json()
+    setHomeData(data)
+  }
+
+  useEffect(() => {
+    getHomeData()
+  }, [])
 
   useFocusEffect(
     useCallback(() => {
@@ -106,14 +116,7 @@ const SearchView = ({ navigation }) => {
         </View>
       ) : (
         <View style={styles.feedContainer}>
-          <FeedCard
-            data={data}
-            onPress={() => navigation.navigate('Details', { title: 'title' })}
-          />
-          <FeedCard
-            data={data}
-            onPress={() => navigation.navigate('Details')}
-          />
+          <FeedCard data={homeData} navigation={navigation} />
         </View>
       )}
     </View>

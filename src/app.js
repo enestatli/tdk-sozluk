@@ -27,7 +27,7 @@ const SearchStack = () => {
         component={DetailView}
         options={({ route, navigation }) => {
           return {
-            title: (route.params && route.params.title) || 'Bos',
+            title: route.params?.title,
             headerStyle: {
               backgroundColor: theme.colors.softRed,
               elevation: 0

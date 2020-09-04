@@ -1,10 +1,11 @@
 import React, { useCallback } from 'react'
 import { View, Text, StatusBar, Platform, StyleSheet } from 'react-native'
 import { useFocusEffect } from '@react-navigation/native'
+
 import theme from '../utils/theme'
 import FeedCard from '../components/FeedCard'
-import { Card } from '../components/shared'
 import ActionButton from '../components/ActionButton'
+
 import { Sound, Favorite, Hand } from '../components/icons'
 
 const DetailView = () => {
@@ -35,7 +36,7 @@ const DetailView = () => {
           </View>
           <View>
             <FeedCard />
-            <FeedCard />
+            <FeedCard border />
             <FeedCard />
           </View>
         </View>
@@ -49,6 +50,7 @@ export default DetailView
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    padding: 16,
     backgroundColor: theme.colors.softRed
   },
   actionButtonsFrame: {
