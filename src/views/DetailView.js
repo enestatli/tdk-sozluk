@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react'
+import React, { useCallback, useState, useEffect } from 'react'
 import { View, Text, StatusBar, Platform, StyleSheet } from 'react-native'
 import { useFocusEffect } from '@react-navigation/native'
 
@@ -7,8 +7,23 @@ import FeedCard from '../components/FeedCard'
 import ActionButton from '../components/ActionButton'
 
 import { Sound, Favorite, Hand } from '../components/icons'
+import DetailCard from '../components/DetailCard'
 
-const DetailView = () => {
+const DetailView = ({ route, navigation }) => {
+  const [detailData, setDetailData] = useState(null)
+  // const keyword = route.params.keyword
+  const keyword = 'gelmek'
+
+  const getDetailData = async (keyword) => {
+    const response = await fetch(`https://sozluk.gov.tr/gts?ara=${keyword}`)
+    const data = await response.json()
+    setDetailData(data)
+  }
+
+  useEffect(() => {
+    getDetailData(keyword)
+  }, [keyword])
+
   useFocusEffect(
     useCallback(() => {
       StatusBar.setBarStyle('dark-content')
@@ -35,9 +50,7 @@ const DetailView = () => {
             </ActionButton>
           </View>
           <View>
-            <FeedCard />
-            <FeedCard border />
-            <FeedCard />
+            <DetailCard data={detailData !== null && detailData} />
           </View>
         </View>
       </View>

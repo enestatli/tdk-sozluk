@@ -14,7 +14,6 @@ const FeedCard = ({ data, onPress, border, navigation }) => {
         >
           {data ? (
             <>
-              <View style={border && styles.borderTop} />
               <Card.Title>{data?.kelime[0].madde}</Card.Title>
               <Card.Summary>{data?.kelime[0].anlam}</Card.Summary>
             </>
@@ -29,7 +28,6 @@ const FeedCard = ({ data, onPress, border, navigation }) => {
         >
           {data ? (
             <>
-              <View style={border && styles.borderTop} />
               <Card.Title>{data?.atasoz[0].madde}</Card.Title>
               <Card.Summary>{data?.atasoz[0].anlam}</Card.Summary>
             </>
@@ -51,13 +49,5 @@ const styles = StyleSheet.create({
   summaryPlaceholder: {
     marginTop: 16,
     width: 240
-  },
-  borderTop: {
-    position: 'absolute',
-    top: 0,
-    left: 12,
-    right: 12,
-    height: 1,
-    backgroundColor: 'black'
   }
 })
