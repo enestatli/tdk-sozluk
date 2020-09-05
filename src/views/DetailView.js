@@ -1,28 +1,30 @@
-import React, { useCallback, useState, useEffect } from 'react'
-import { View, Text, StatusBar, Platform, StyleSheet } from 'react-native'
+import React, { useCallback, useState, useEffect, useContext } from 'react'
+import {
+  View,
+  Text,
+  StatusBar,
+  Platform,
+  StyleSheet,
+  ScrollView
+} from 'react-native'
 import { useFocusEffect } from '@react-navigation/native'
 
 import theme from '../utils/theme'
 import FeedCard from '../components/FeedCard'
 import ActionButton from '../components/ActionButton'
-
-import { Sound, Favorite, Hand } from '../components/icons'
 import DetailCard from '../components/DetailCard'
 
+import { Sound, Favorite, Hand } from '../components/icons'
+import { resultsContext } from '../context'
+
 const DetailView = ({ route, navigation }) => {
-  const [detailData, setDetailData] = useState(null)
   // const keyword = route.params.keyword
   const keyword = 'gelmek'
-
-  const getDetailData = async (keyword) => {
-    const response = await fetch(`https://sozluk.gov.tr/gts?ara=${keyword}`)
-    const data = await response.json()
-    setDetailData(data)
-  }
+  const resultsData = useContext(resultsContext)
 
   useEffect(() => {
-    getDetailData(keyword)
-  }, [keyword])
+    resultsData.getResults(keyword)
+  }, [])
 
   useFocusEffect(
     useCallback(() => {
@@ -50,9 +52,15 @@ const DetailView = ({ route, navigation }) => {
               <ActionButton.Title>Title</ActionButton.Title>
             </ActionButton>
           </View>
-          <View>
-            <DetailCard data={detailData !== null && detailData} />
-          </View>
+          {/* TODO make it FlatList */}
+          <ScrollView>
+            {(resultsData.data?.anlamlarListe ?? [1, 2, 3]).map((item) => (
+              <DetailCard
+                data={typeof item === 'number' ? undefined : item}
+                key={item?.anlam_sira ?? item}
+              />
+            ))}
+          </ScrollView>
         </View>
       </View>
     </View>

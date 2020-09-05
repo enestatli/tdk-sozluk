@@ -7,7 +7,7 @@ const getHomeData = async () => {
 }
 
 const getDetailData = async (keyword) => {
-  const response = await fetch(`${BASE_URL}/gts/ara=${keyword}`)
+  const response = await fetch(`${BASE_URL}/gts?ara=${keyword}`)
   const pureDetailData = await response.json()
   return await pureDetailData
 }

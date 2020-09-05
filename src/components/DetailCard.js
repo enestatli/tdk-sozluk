@@ -1,45 +1,37 @@
 import React from 'react'
-import {
-  StyleSheet,
-  Text,
-  View,
-  ActivityIndicator,
-  FlatList
-} from 'react-native'
+import { StyleSheet, Text, View } from 'react-native'
 import { Card, Placeholder } from './shared'
 
 const DetailCard = ({ data, border }) => {
-  // console.log(data[0]?.anlamlarListe)
+  console.log(data)
 
   return (
     <View>
-      {data && (
-        <FlatList
-          data={data}
-          keyExtractor={(item) => item.id}
-          renderItem={({ item }) => (
-            <View>
-              {item.anlamlarListe.map((i) => (
-                <View style={styles.container}>
-                  <>
-                    {i.ozelliklerListe && (
-                      <Text>{i.ozelliklerListe[0]?.tam_adi}</Text>
-                    )}
-                    <Card>
-                      <View style={border && styles.borderTop} />
-                      <Card.Summary>{i.anlam}</Card.Summary>
-                      {i.orneklerListe && (
-                        <Card.Summary>{i.orneklerListe[0]?.ornek}</Card.Summary>
-                      )}
-                    </Card>
-                  </>
-                </View>
-              ))}
-            </View>
-          )}
-        />
-      )}
+      <Card>
+        <Text>{data?.tam_adi}</Text>
+        <Card.Summary>{data?.anlam}</Card.Summary>
+        {data?.orneklerListe?.map((ornek) => (
+          <View key={ornek.ornek_id}>
+            <Card.Summary>{ornek.ornek}</Card.Summary>
+          </View>
+        ))}
+      </Card>
     </View>
+
+    // <View>
+    //   <View>
+    //     <View style={styles.container}>
+    //       <>
+    //         <Text>tam_adi</Text>
+    //         <Card>
+    //           <View style={border && styles.borderTop} />
+    //           <Card.Summary>anlam</Card.Summary>
+    //           <Card.Summary>summary</Card.Summary>
+    //         </Card>
+    //       </>
+    //     </View>
+    //   </View>
+    // </View>
   )
 }
 

@@ -117,7 +117,22 @@ const SearchView = ({ navigation }) => {
         </View>
       ) : (
         <View style={styles.feedContainer}>
-          <FeedCard data={homeData?.data} navigation={navigation} />
+          <FeedCard
+            data={homeData.data?.kelime}
+            onPress={() =>
+              navigation.navigate('Details', {
+                title: homeData?.data?.kelime.madde
+              })
+            }
+          />
+          <FeedCard
+            data={homeData.data?.atasoz}
+            onPress={() =>
+              navigation.navigate('Details', {
+                title: homeData?.data?.atasoz.madde
+              })
+            }
+          />
         </View>
       )}
     </View>
@@ -158,8 +173,9 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   feedContainer: {
-    padding: 16,
-    marginTop: 48
+    flex: 1,
+    paddingVertical: 40,
+    paddingHorizontal: 16
   },
   historyList: {
     flex: 1,
