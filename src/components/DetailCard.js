@@ -3,8 +3,6 @@ import { StyleSheet, Text, View } from 'react-native'
 import { Card, Placeholder } from './shared'
 
 const DetailCard = ({ data, border }) => {
-  console.log(data)
-
   return (
     <View>
       <Card>

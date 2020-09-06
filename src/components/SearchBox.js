@@ -1,27 +1,29 @@
 /* eslint-disable react-native/no-inline-styles */
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { StyleSheet, View, Keyboard, Text } from 'react-native'
 
 import theme from '../utils/theme'
 
 import { Input, Button } from './shared'
 import { Close, Search } from './icons'
+import { searchContext } from '../context'
 
 const SearchBox = ({ onChangeFocus }) => {
   const [isFocus, setIsFocus] = useState(false)
-  const [value, setValue] = useState('')
+  const searchData = useContext(searchContext)
 
   useEffect(() => {
     onChangeFocus(isFocus)
   }, [isFocus, onChangeFocus])
 
   const onCancel = () => {
+    searchData.setKeyword('')
     setIsFocus(false)
     Keyboard.dismiss()
   }
 
   const onClear = () => {
-    setValue('')
+    searchData.setKeyword('')
   }
 
   return (
@@ -32,10 +34,10 @@ const SearchBox = ({ onChangeFocus }) => {
           placeholder="Türkçe Sözlük'te Ara"
           placeholderTextColor="textMedium" //TODO fix here
           onFocus={() => setIsFocus(true)}
-          value={value}
-          onChangeText={(text) => setValue(text)}
+          value={searchData.keyword}
+          onChangeText={(text) => searchData.setKeyword(text)}
         />
-        {value.length > 0 && (
+        {searchData.keyword.length > 0 && (
           <Button
             style={styles.closeButton}
             onPress={onClear}

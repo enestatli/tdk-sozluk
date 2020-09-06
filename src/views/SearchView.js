@@ -25,7 +25,8 @@ import bg from '../assets/bg.jpg'
 import FeedCard from '../components/FeedCard'
 
 import { Logo } from '../components/icons'
-import { homeContext } from '../context'
+import { homeContext, searchContext } from '../context'
+import SearchSuggestionList from '../components/SearchSuggestionList'
 
 const heroHeight = Dimensions.get('window').height / 3
 
@@ -52,11 +53,13 @@ const flatListData = [
 
 const SearchView = ({ navigation }) => {
   const homeData = useContext(homeContext)
+  const searchData = useContext(searchContext)
   const [isSearchFocus, setIsSearchFocus] = useState(false)
   const heroHeightAnim = useRef(new Animated.Value(heroHeight)).current
 
   useEffect(() => {
     homeData.setData()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   useFocusEffect(
@@ -68,6 +71,8 @@ const SearchView = ({ navigation }) => {
         )
     }, [isSearchFocus])
   )
+
+  //TODO fix animation!!!
 
   useEffect(() => {
     if (isSearchFocus) {
@@ -106,14 +111,24 @@ const SearchView = ({ navigation }) => {
           <SearchBox onChangeFocus={(status) => setIsSearchFocus(status)} />
         </View>
       </Animated.View>
-
+      {console.log(heroHeightAnim)}
       {isSearchFocus ? (
-        <View style={styles.historyList}>
-          <FlatList
-            data={flatListData}
-            renderItem={renderItem}
-            keyExtractor={(item) => item.id}
-          />
+        <View>
+          {searchData.keyword.length >= 3 ? (
+            <SearchSuggestionList
+              onPress={(k) => navigation.navigate('Detail', { keyword: k })}
+              keyword={searchData.keyword}
+              data={searchData.getSuggestions()}
+            />
+          ) : (
+            <View style={styles.historyList}>
+              <FlatList
+                data={flatListData}
+                renderItem={renderItem}
+                keyExtractor={(item) => item.id}
+              />
+            </View>
+          )}
         </View>
       ) : (
         <View style={styles.feedContainer}>

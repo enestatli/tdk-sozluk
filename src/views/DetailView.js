@@ -1,4 +1,4 @@
-import React, { useCallback, useState, useEffect, useContext } from 'react'
+import React, { useCallback, useEffect, useContext } from 'react'
 import {
   View,
   Text,
@@ -10,7 +10,7 @@ import {
 import { useFocusEffect } from '@react-navigation/native'
 
 import theme from '../utils/theme'
-import FeedCard from '../components/FeedCard'
+
 import ActionButton from '../components/ActionButton'
 import DetailCard from '../components/DetailCard'
 
@@ -24,6 +24,7 @@ const DetailView = ({ route, navigation }) => {
 
   useEffect(() => {
     resultsData.getResults(keyword)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   useFocusEffect(
