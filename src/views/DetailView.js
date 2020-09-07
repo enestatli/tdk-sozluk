@@ -14,19 +14,23 @@ import theme from '../utils/theme'
 import ActionButton from '../components/ActionButton'
 import DetailCard from '../components/DetailCard'
 
-import { Sound, Favorite, Hand } from '../components/icons'
-import { resultsContext, historyContext } from '../context'
+import { Sound, Favorite, Hand, FavoriteSolid } from '../components/icons'
+import { resultsContext, historyContext, favoriteContext } from '../context'
+import throttle from 'lodash.throttle'
 
 const DetailView = ({ route, navigation }) => {
-  // const keyword = route.params.keyword
-  const keyword = 'gelmek'
+  const keyword = route.params.title
+  // const keyword = 'gelmek'
   const resultsData = useContext(resultsContext)
   const history = useContext(historyContext)
+  const favorites = useContext(favoriteContext)
+  const isFavorited = favorites.favorites.find((f) => f.title === keyword)
 
   useEffect(() => {
     if (!history.history.find((el) => el.title === keyword)) {
       history.addToHistory(keyword)
     }
+    console.log(favorites, 'favorites')
     resultsData.getResults(keyword)
     return () => {
       resultsData.clearResults()
@@ -52,8 +56,18 @@ const DetailView = ({ route, navigation }) => {
             <ActionButton>
               <Sound color="red" />
             </ActionButton>
-            <ActionButton>
-              <Favorite color="red" />
+            <ActionButton
+              onPress={throttle(() => {
+                isFavorited
+                  ? favorites.removeFromFavorites(keyword)
+                  : favorites.addToFavorites(keyword)
+              }, 500)}
+            >
+              {isFavorited ? (
+                <FavoriteSolid color="red" />
+              ) : (
+                <Favorite color="black" />
+              )}
             </ActionButton>
             <ActionButton>
               <Hand color="red" />

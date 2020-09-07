@@ -2,6 +2,7 @@ import homeContext, { HomeProvider } from './home'
 import resultsContext, { ResultsProvider } from './results'
 import searchContext, { SearchProvider } from './search'
 import historyContext, { HistoryProvider } from './history'
+import favoriteContext, { FavoriteProvider } from './favorite'
 
 export {
   homeContext,
@@ -11,5 +12,7 @@ export {
   searchContext,
   SearchProvider,
   historyContext,
-  HistoryProvider
+  HistoryProvider,
+  favoriteContext,
+  FavoriteProvider
 }

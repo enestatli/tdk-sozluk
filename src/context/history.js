@@ -34,7 +34,10 @@ const HistoryProvider = ({ children }) => {
       try {
         const item = { id: Date.now() + '', title: k }
         const newHistory = [
-          ...history.filter((el) => el.title !== item.title),
+          ...history
+            .filter((el) => el.title !== item.title)
+            .slice(0, 13)
+            .reverse(),
           item
         ].reverse()
         console.log(newHistory, 'newHistory')

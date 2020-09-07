@@ -6,20 +6,23 @@ import {
   HomeProvider,
   ResultsProvider,
   SearchProvider,
-  HistoryProvider
+  HistoryProvider,
+  FavoriteProvider
 } from './context/'
 
 const App = () => {
   return (
-    <HistoryProvider>
-      <ResultsProvider>
-        <HomeProvider>
-          <SearchProvider>
-            <Navigation />
-          </SearchProvider>
-        </HomeProvider>
-      </ResultsProvider>
-    </HistoryProvider>
+    <FavoriteProvider>
+      <HistoryProvider>
+        <ResultsProvider>
+          <HomeProvider>
+            <SearchProvider>
+              <Navigation />
+            </SearchProvider>
+          </HomeProvider>
+        </ResultsProvider>
+      </HistoryProvider>
+    </FavoriteProvider>
   )
 }
 
