@@ -117,7 +117,7 @@ const SearchView = ({ navigation }) => {
             <SearchSuggestionList
               onPress={(k) => navigation.navigate('Detail', { keyword: k })}
               keyword={searchData.keyword}
-              data={searchData.getSuggestions()}
+              data={searchData.suggestions}
             />
           ) : (
             <View style={styles.historyList}>
