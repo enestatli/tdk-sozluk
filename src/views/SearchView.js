@@ -111,7 +111,6 @@ const SearchView = ({ navigation }) => {
           <SearchBox onChangeFocus={(status) => setIsSearchFocus(status)} />
         </View>
       </Animated.View>
-      {console.log(heroHeightAnim)}
       {isSearchFocus ? (
         <View>
           {searchData.keyword.length >= 3 ? (
@@ -160,7 +159,9 @@ const styles = StyleSheet.create({
     backgroundColor: theme.colors.softRed
   },
   animateBox: {
-    height: heroHeight
+    height: heroHeight,
+    zIndex: 1,
+    position: 'relative'
   },
   image: {
     width: '100%',

@@ -2,17 +2,24 @@ import 'react-native-gesture-handler'
 import * as React from 'react'
 
 import Navigation from './navigation'
-import { HomeProvider, ResultsProvider, SearchProvider } from './context/'
+import {
+  HomeProvider,
+  ResultsProvider,
+  SearchProvider,
+  HistoryProvider
+} from './context/'
 
 const App = () => {
   return (
-    <ResultsProvider>
-      <HomeProvider>
-        <SearchProvider>
-          <Navigation />
-        </SearchProvider>
-      </HomeProvider>
-    </ResultsProvider>
+    <HistoryProvider>
+      <ResultsProvider>
+        <HomeProvider>
+          <SearchProvider>
+            <Navigation />
+          </SearchProvider>
+        </HomeProvider>
+      </ResultsProvider>
+    </HistoryProvider>
   )
 }
 

@@ -42,12 +42,16 @@ const TabBar = ({ state, descriptors, navigation }) => {
 
         return label === 'Search' ? (
           <View style={styles.searchButtonContainer} key={label}>
-            <Button style={styles.searchButton} onPress={onPress}>
+            <Button extraStyles={styles.searchButton} onPress={onPress}>
               <SearchIcon color={colors.gray} />
             </Button>
           </View>
         ) : (
-          <Button style={styles.otherButtons} key={label} onPress={onPress}>
+          <Button
+            extraStyles={styles.otherButtons}
+            key={label}
+            onPress={onPress}
+          >
             {label === 'History' && (
               <RotateCcw color={isFocused ? colors.red : colors.gray} />
             )}
@@ -82,19 +86,13 @@ const styles = StyleSheet.create({
   searchButton: {
     width: 56,
     height: 56,
-    backgroundColor: colors.red,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 9999
+    backgroundColor: colors.red
   },
   otherButtons: {
     flex: 1,
     flexDirection: 'column',
     paddingTop: 6,
-    height: 56,
-    alignItems: 'center',
-    justifyContent: 'center'
+    height: 56
   },
   focused: {
     width: 4,

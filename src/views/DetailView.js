@@ -15,15 +15,22 @@ import ActionButton from '../components/ActionButton'
 import DetailCard from '../components/DetailCard'
 
 import { Sound, Favorite, Hand } from '../components/icons'
-import { resultsContext } from '../context'
+import { resultsContext, historyContext } from '../context'
 
 const DetailView = ({ route, navigation }) => {
   // const keyword = route.params.keyword
   const keyword = 'gelmek'
   const resultsData = useContext(resultsContext)
+  const history = useContext(historyContext)
 
   useEffect(() => {
+    if (!history.history.find((el) => el.title === keyword)) {
+      history.addToHistory(keyword)
+    }
     resultsData.getResults(keyword)
+    return () => {
+      resultsData.clearResults()
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
