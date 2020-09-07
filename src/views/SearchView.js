@@ -135,7 +135,7 @@ const SearchView = ({ navigation }) => {
             data={homeData.data?.kelime}
             onPress={() =>
               navigation.navigate('Details', {
-                title: homeData?.data?.kelime.madde
+                keyword: homeData.data?.kelime.madde
               })
             }
           />
@@ -143,7 +143,7 @@ const SearchView = ({ navigation }) => {
             data={homeData.data?.atasoz}
             onPress={() =>
               navigation.navigate('Details', {
-                title: homeData?.data?.atasoz.madde
+                keyword: homeData.data?.atasoz.madde
               })
             }
           />

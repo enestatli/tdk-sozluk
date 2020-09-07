@@ -40,7 +40,6 @@ const HistoryProvider = ({ children }) => {
             .reverse(),
           item
         ].reverse()
-        console.log(newHistory, 'newHistory')
         setHistory(newHistory)
         await AsyncStorage.setItem(
           'history',

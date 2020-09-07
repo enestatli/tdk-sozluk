@@ -19,8 +19,7 @@ import { resultsContext, historyContext, favoriteContext } from '../context'
 import throttle from 'lodash.throttle'
 
 const DetailView = ({ route, navigation }) => {
-  const keyword = route.params.title
-  // const keyword = 'gelmek'
+  const keyword = route.params?.keyword
   const resultsData = useContext(resultsContext)
   const history = useContext(historyContext)
   const favorites = useContext(favoriteContext)
@@ -30,11 +29,8 @@ const DetailView = ({ route, navigation }) => {
     if (!history.history.find((el) => el.title === keyword)) {
       history.addToHistory(keyword)
     }
-    console.log(favorites, 'favorites')
     resultsData.getResults(keyword)
-    return () => {
-      resultsData.clearResults()
-    }
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
@@ -43,6 +39,10 @@ const DetailView = ({ route, navigation }) => {
       StatusBar.setBarStyle('dark-content')
       Platform.OS === 'android' &&
         StatusBar.setBackgroundColor(theme.colors.softRed)
+      return () => {
+        resultsData.clearResults()
+      }
+      // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
   )
   return (
@@ -69,9 +69,16 @@ const DetailView = ({ route, navigation }) => {
                 <Favorite color="black" />
               )}
             </ActionButton>
-            <ActionButton>
+            <ActionButton
+              disabled={keyword ? false : true}
+              onPress={throttle(() => {
+                resultsData.signSheet
+                  ? resultsData.closeSignSheet()
+                  : resultsData.openSignSheet(keyword)
+              }, 500)}
+            >
               <Hand color="red" />
-              <ActionButton.Title>Title</ActionButton.Title>
+              <ActionButton.Title>Sign Language</ActionButton.Title>
             </ActionButton>
           </View>
           {/* TODO make it FlatList */}

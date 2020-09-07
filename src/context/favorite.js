@@ -47,7 +47,6 @@ const FavoriteProvider = ({ children }) => {
     removeFromFavorites: async (k) => {
       try {
         const newFavorites = favorites.filter((f) => f.title !== k)
-        console.log(newFavorites)
         setFavorites(newFavorites)
         await AsyncStorage.setItem(
           'favorites',
