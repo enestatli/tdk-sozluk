@@ -1,4 +1,10 @@
-import React, { useCallback, useEffect, useContext } from 'react'
+import React, {
+  useCallback,
+  useEffect,
+  useContext,
+  useState,
+  useRef
+} from 'react'
 import {
   View,
   Text,
@@ -8,13 +14,19 @@ import {
   ScrollView
 } from 'react-native'
 import { useFocusEffect } from '@react-navigation/native'
+import Sound from 'react-native-sound'
 
 import theme from '../utils/theme'
 
 import ActionButton from '../components/ActionButton'
 import DetailCard from '../components/DetailCard'
 
-import { Sound, Favorite, Hand, FavoriteSolid } from '../components/icons'
+import {
+  Sound as SoundIcon,
+  Favorite,
+  Hand,
+  FavoriteSolid
+} from '../components/icons'
 import { resultsContext, historyContext, favoriteContext } from '../context'
 import throttle from 'lodash.throttle'
 
@@ -25,10 +37,25 @@ const DetailView = ({ route, navigation }) => {
   const favorites = useContext(favoriteContext)
   const isFavorited = favorites.favorites.find((f) => f.title === keyword)
 
+  const playSound = throttle(() => {
+    const track = new Sound(
+      `https://sozluk.gov.tr/ses/${resultsData?.soundCode}.wav`,
+      '',
+      (error) => {
+        if (error) {
+          console.log('error loading track', error)
+        } else {
+          track.play(() => {
+            track.release()
+          })
+        }
+      }
+    )
+  }, 1000)
+
   useEffect(() => {
     history.addToHistory(keyword)
     resultsData.getResults(keyword)
-    console.log(resultsData.soundCode, 'soundcode')
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [keyword])
 
@@ -43,6 +70,7 @@ const DetailView = ({ route, navigation }) => {
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
   )
+
   return (
     <View style={styles.container}>
       <View>
@@ -55,22 +83,10 @@ const DetailView = ({ route, navigation }) => {
         <View>
           <View style={styles.actionButtonsFrame}>
             <ActionButton
-              disabled={resultsData.soundCode.length === 0}
-              onPress={throttle(() => {
-                const track = new Sound(
-                  `https://sozluk.gov.tr/ses/${resultsData.soundCode}.wav`,
-                  null,
-                  (e) => {
-                    if (e) {
-                      console.log('error loading track', e)
-                    } else {
-                      track.play()
-                    }
-                  }
-                )
-              }, 1000)}
+              disabled={resultsData?.soundCode.length === 0}
+              onPress={playSound}
             >
-              <Sound color="red" />
+              <SoundIcon color="red" />
             </ActionButton>
             <ActionButton
               onPress={throttle(() => {
