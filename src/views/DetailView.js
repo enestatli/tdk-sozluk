@@ -19,7 +19,8 @@ import { resultsContext, historyContext, favoriteContext } from '../context'
 import throttle from 'lodash.throttle'
 
 const DetailView = ({ route, navigation }) => {
-  const keyword = route.params?.keyword
+  // const keyword = route.params?.keyword
+  const keyword = 'gelmek'
   const resultsData = useContext(resultsContext)
   const history = useContext(historyContext)
   const favorites = useContext(favoriteContext)
@@ -83,14 +84,16 @@ const DetailView = ({ route, navigation }) => {
             </ActionButton>
           </View>
           {/* TODO make it FlatList */}
-          <ScrollView>
-            {(resultsData.data?.anlamlar ?? [1, 2, 3]).map((item) => (
-              <DetailCard
-                data={typeof item === 'number' ? undefined : item}
-                key={item?.id ?? item}
-              />
-            ))}
-          </ScrollView>
+          <View style={styles.detailCards}>
+            <ScrollView>
+              {(resultsData.data?.anlamlar ?? [1, 2, 3]).map((item) => (
+                <DetailCard
+                  data={typeof item === 'number' ? undefined : item}
+                  key={item?.id ?? item}
+                />
+              ))}
+            </ScrollView>
+          </View>
         </View>
       </View>
     </View>
@@ -108,5 +111,8 @@ const styles = StyleSheet.create({
   actionButtonsFrame: {
     flexDirection: 'row',
     marginTop: 24
+  },
+  detailCards: {
+    marginTop: 20
   }
 })
