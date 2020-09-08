@@ -28,7 +28,7 @@ const DetailView = ({ route, navigation }) => {
   useEffect(() => {
     history.addToHistory(keyword)
     resultsData.getResults(keyword)
-    console.log(resultsData.data)
+    console.log(resultsData.soundCode, 'soundcode')
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [keyword])
 
@@ -54,7 +54,22 @@ const DetailView = ({ route, navigation }) => {
         </Text>
         <View>
           <View style={styles.actionButtonsFrame}>
-            <ActionButton>
+            <ActionButton
+              disabled={resultsData.soundCode.length === 0}
+              onPress={throttle(() => {
+                const track = new Sound(
+                  `https://sozluk.gov.tr/ses/${resultsData.soundCode}.wav`,
+                  null,
+                  (e) => {
+                    if (e) {
+                      console.log('error loading track', e)
+                    } else {
+                      track.play()
+                    }
+                  }
+                )
+              }, 1000)}
+            >
               <Sound color="red" />
             </ActionButton>
             <ActionButton

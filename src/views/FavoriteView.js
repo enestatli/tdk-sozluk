@@ -7,7 +7,6 @@ import SimpleList from '../components/SimpleList'
 
 const FavoriteView = ({ navigation }) => {
   const favorites = useContext(favoriteContext)
-  console.log(favorites)
 
   return (
     <View>
