@@ -4,7 +4,7 @@ import { StyleSheet, Text, View, FlatList } from 'react-native'
 import { Card } from './shared'
 import { Right } from './icons'
 
-const SearchHistoryList = ({
+const SimpleList = ({
   data,
   hasHeader = true,
   chevron = false,
@@ -34,6 +34,6 @@ const SearchHistoryList = ({
   )
 }
 
-export default SearchHistoryList
+export default SimpleList
 
 const styles = StyleSheet.create({})

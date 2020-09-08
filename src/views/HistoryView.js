@@ -4,7 +4,7 @@ import { View, Text } from 'react-native'
 import { Left, RotateCcw } from '../components/icons'
 import { Button } from '../components/shared'
 
-import SearchHistoryList from '../components/SearchHistoryList'
+import SimpleList from '../components/SimpleList'
 import { historyContext } from '../context'
 
 const HistoryView = ({ navigation }) => {
@@ -20,7 +20,7 @@ const HistoryView = ({ navigation }) => {
       </View>
       <View>
         {history.history.length > 0 ? (
-          <SearchHistoryList
+          <SimpleList
             hasHeader={false}
             chevron={true}
             onPress={(k) => navigation.navigate('Details', { keyword: k })}

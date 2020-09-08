@@ -19,8 +19,7 @@ import { resultsContext, historyContext, favoriteContext } from '../context'
 import throttle from 'lodash.throttle'
 
 const DetailView = ({ route, navigation }) => {
-  // const keyword = route.params?.keyword
-  const keyword = 'gelmek'
+  const keyword = route.params?.keyword
   const resultsData = useContext(resultsContext)
   const history = useContext(historyContext)
   const favorites = useContext(favoriteContext)
