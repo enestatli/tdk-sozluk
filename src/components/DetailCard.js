@@ -3,14 +3,17 @@ import { StyleSheet, Text, View } from 'react-native'
 import { Card, Placeholder } from './shared'
 
 const DetailCard = ({ data, border }) => {
+  console.log(data)
   return (
     <View>
       <Card>
-        <Text>{data?.tam_adi}</Text>
+        <Text>{data?.anlam_sira}</Text>
+        <Text>{data?.ozellik}</Text>
         <Card.Summary>{data?.anlam}</Card.Summary>
-        {data?.orneklerListe?.map((ornek) => (
-          <View key={ornek.ornek_id}>
+        {data?.ornek?.map((ornek) => (
+          <View key={ornek.id}>
             <Card.Summary>{ornek.ornek}</Card.Summary>
+            <Text>{ornek.yazar}</Text>
           </View>
         ))}
       </Card>

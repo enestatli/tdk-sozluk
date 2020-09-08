@@ -4,6 +4,7 @@ import BottomSheet from 'reanimated-bottom-sheet'
 import SignLanguage from '../components/SignLanguage'
 
 import { getDetailData } from '../utils/api'
+import parseResult from '../utils/parseResult'
 
 export const resultsContextDefault = {
   data: {},
@@ -47,7 +48,8 @@ const ResultsProvider = ({ children }) => {
     getResults: async (keyword) => {
       getDetailData(keyword)
         .then((res) => {
-          setResults(res[0])
+          // setResults(res[0])
+          setResults(parseResult(res[0]))
         })
         .catch((err) => {
           console.log('Error when fetching results', err)

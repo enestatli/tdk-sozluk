@@ -26,13 +26,11 @@ const DetailView = ({ route, navigation }) => {
   const isFavorited = favorites.favorites.find((f) => f.title === keyword)
 
   useEffect(() => {
-    if (!history.history.find((el) => el.title === keyword)) {
-      history.addToHistory(keyword)
-    }
+    history.addToHistory(keyword)
     resultsData.getResults(keyword)
-
+    console.log(resultsData.data)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [keyword])
 
   useFocusEffect(
     useCallback(() => {
@@ -50,7 +48,10 @@ const DetailView = ({ route, navigation }) => {
       <View>
         {/* TODO */}
         <Text>{keyword}</Text>
-        <Text>lisan</Text>
+        <Text>
+          {resultsData.data?.telaffuz ? resultsData.data?.telaffuz + ' ' : ''}
+          {resultsData.data?.lisan ?? ''}
+        </Text>
         <View>
           <View style={styles.actionButtonsFrame}>
             <ActionButton>
@@ -83,10 +84,10 @@ const DetailView = ({ route, navigation }) => {
           </View>
           {/* TODO make it FlatList */}
           <ScrollView>
-            {(resultsData.data?.anlamlarListe ?? [1, 2, 3]).map((item) => (
+            {(resultsData.data?.anlamlar ?? [1, 2, 3]).map((item) => (
               <DetailCard
                 data={typeof item === 'number' ? undefined : item}
-                key={item?.anlam_sira ?? item}
+                key={item?.id ?? item}
               />
             ))}
           </ScrollView>
