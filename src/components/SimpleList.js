@@ -35,7 +35,7 @@ const SimpleList = ({
             }
           >
             <Card.Title>{item.title}</Card.Title>
-            {selectable && <FavoritesModal bool={true} />}
+
             {selectable ? (
               selectedList.includes(item) ? (
                 <CircleCheck color="black" />

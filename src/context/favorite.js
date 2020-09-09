@@ -1,5 +1,7 @@
-import React, { createContext, useState, useEffect } from 'react'
+import React, { createContext, useState, useEffect, useRef } from 'react'
 import AsyncStorage from '@react-native-community/async-storage'
+import BottomSheet from 'reanimated-bottom-sheet'
+import FavoritesModal from '../components/FavoritesModal'
 
 export const favoriteDefaultContext = {
   favorites: [],
@@ -18,6 +20,7 @@ const FavoriteProvider = ({ children }) => {
   const [favorites, setFavorites] = useState([])
   const [selectedList, setSelectedList] = useState([])
   const [isSelectable, setSelectable] = useState(false)
+  const favoritesModalRef = useRef()
 
   useEffect(() => {
     AsyncStorage.getItem('favorite')
@@ -43,14 +46,22 @@ const FavoriteProvider = ({ children }) => {
     setSelectable: (status) => {
       if (status !== undefined) {
         if (status === false) {
+          favoritesModalRef.current.snapTo(1)
+          favoritesModalRef.current.snapTo(1)
           setSelectedList([])
         } else {
+          favoritesModalRef.current.snapTo(0)
+          favoritesModalRef.current.snapTo(0)
         }
         setSelectable(status)
       } else {
         if (!isSelectable === false) {
           setSelectedList([])
+          favoritesModalRef.current.snapTo(1)
+          favoritesModalRef.current.snapTo(1)
         } else {
+          favoritesModalRef.current.snapTo(0)
+          favoritesModalRef.current.snapTo(0)
         }
         setSelectable(!isSelectable)
       }
@@ -67,6 +78,8 @@ const FavoriteProvider = ({ children }) => {
           JSON.stringify({ data: newFavorites })
         )
         setSelectedList(false)
+        favoritesModalRef.current.snapTo(1)
+        favoritesModalRef.current.snapTo(1)
       } catch {
         console.log('error in multiple favorite remove asyncStorage')
       }
@@ -103,6 +116,13 @@ const FavoriteProvider = ({ children }) => {
   return (
     <favoriteContext.Provider value={values}>
       {children}
+      <BottomSheet
+        ref={favoritesModalRef}
+        enabledGestureInteraction={true}
+        snapPoints={[220, 0]}
+        initialSnap={1}
+        renderContent={() => <FavoritesModal />}
+      />
     </favoriteContext.Provider>
   )
 }

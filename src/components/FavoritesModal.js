@@ -1,12 +1,5 @@
-import React, { useContext, useState } from 'react'
-import {
-  Alert,
-  Modal,
-  StyleSheet,
-  Text,
-  TouchableHighlight,
-  View
-} from 'react-native'
+import React, { useContext } from 'react'
+import { StyleSheet, Text, View } from 'react-native'
 
 import { favoriteContext } from '../context'
 import { Button } from './shared'
@@ -15,95 +8,77 @@ import theme from '../utils/theme'
 
 const FavoritesModal = ({ bool }) => {
   const favorites = useContext(favoriteContext)
-  const [modalVisible, setModalVisible] = useState(bool)
 
   return (
-    // <View style={styles.centeredView}>
-    //   <Modal
-    //     animationType="slide"
-    //     transparent={true}
-    //     visible={modalVisible}
-    //     onRequestClose={() => {
-    //       Alert.alert('Modal has been closed.')
-    //     }}
-    //   >
-    //     <View style={styles.centeredView}>
-    //       <View style={styles.modalView}>
-    //         <Text style={styles.modalText}>Hello World!</Text>
-
-    //         <TouchableHighlight
-    //           style={{ ...styles.openButton, backgroundColor: '#2196F3' }}
-    //           onPress={() => {
-    //             setModalVisible(!modalVisible)
-    //           }}
-    //         >
-    //           <Text style={styles.textStyle}>Hide Modal</Text>
-    //         </TouchableHighlight>
-    //       </View>
-    //     </View>
-    //   </Modal>
-    // </View>
-
-    <Modal
-      animationType="slide"
-      transparent={true}
-      visible={modalVisible}
-      onRequestClose={() => {
-        Alert.alert('Modal has been closed.')
-      }}
-    >
-      <View style={styles.bottomView}>
-        <View style={styles.modalView}>
-          <View style={styles.container}>
-            <View style={styles.secondContainer}>
-              <View style={styles.thirdContainer}>
-                <Button extraStyles={styles.trashButton}>
-                  <View style={styles.buttonFrame}>
-                    <Trash style={styles.trash} />
-                  </View>
-                  <Text style={styles.buttonText}>{`Sil ${bool}`}</Text>
-                </Button>
-                <Button extraStyles={styles.selectAllButton}>
-                  <Text style={styles.selectAlButtonText}>
-                    {bool && 'Secimi Temizle'}
-                  </Text>
-                </Button>
+    <View style={styles.bottomView}>
+      <View style={styles.container}>
+        <View style={styles.secondContainer}>
+          <View style={styles.thirdContainer}>
+            <Button
+              disabled={favorites.selectedList.length === 0}
+              extraStyles={[
+                styles.trashButton,
+                favorites.selectedList.length === 0
+                  ? theme.colors.light
+                  : theme.colors.red
+              ]}
+              onPress={() => favorites.removeSelected()}
+            >
+              <View style={styles.buttonFrame}>
+                <Trash
+                  style={[
+                    styles.trash,
+                    favorites.selectedList.length === 0
+                      ? theme.colors.textLight
+                      : 'red'
+                  ]}
+                />
               </View>
-              <View style={styles.cancelButtonContainer}>
-                <Button extraStyles={styles.cancelButton}>
-                  <Text>Vazgec</Text>
-                </Button>
-              </View>
-            </View>
+              <Text
+                style={[
+                  styles.buttonText,
+                  favorites.selectedList.length === 0 && {
+                    color: theme.colors.textLight
+                  }
+                ]}
+              >{`Sil (${favorites.selectedList.length})`}</Text>
+            </Button>
+            <Button
+              onPress={() =>
+                favorites.updateSelectedList(
+                  favorites.selectedList.length === favorites.favorites.length
+                    ? []
+                    : favorites.favorites
+                )
+              }
+              extraStyles={styles.selectAllButton}
+            >
+              <Text style={styles.selectAlButtonText}>
+                {favorites.selectedList.length === favorites.favorites.length
+                  ? 'Secimi Temizle'
+                  : 'Tumunu Sec'}
+              </Text>
+            </Button>
+          </View>
+          <View style={styles.cancelButtonContainer}>
+            <Button
+              onPress={() => {
+                favorites.setSelectable(false)
+              }}
+              extraStyles={styles.cancelButton}
+            >
+              <Text style={styles.cancelText}>Vazgec</Text>
+            </Button>
           </View>
         </View>
       </View>
-    </Modal>
+    </View>
   )
 }
 
 const styles = StyleSheet.create({
-  bottomView: {
-    flex: 1,
-    justifyContent: 'flex-end',
-    marginBottom: 120
-  },
-  modalView: {
-    backgroundColor: 'white',
-    borderRadius: 20,
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    elevation: 5
-  },
   container: {
-    height: '40%',
-    borderColor: 'red',
-    borderWidth: 1
+    height: '100%'
   },
   secondContainer: {
     flexDirection: 'column',
@@ -155,51 +130,15 @@ const styles = StyleSheet.create({
     height: 48,
     width: '100%'
   },
+  cancelText: {
+    fontWeight: 'bold',
+    color: theme.colors.textLight
+  },
   trash: {
     color: 'white',
     width: 18,
     height: 12
   }
 })
-
-// const styles = StyleSheet.create({
-//   centeredView: {
-//     flex: 1,
-//     flexDirection: 'column',
-//     justifyContent: 'flex-end',
-//     alignItems: 'center',
-//     marginBottom: 100
-//   },
-//   modalView: {
-//     margin: 20,
-//     backgroundColor: 'white',
-//     borderRadius: 20,
-//     padding: 35,
-//     alignItems: 'center',
-//     shadowColor: '#000',
-//     shadowOffset: {
-//       width: 0,
-//       height: 2
-//     },
-//     shadowOpacity: 0.25,
-//     shadowRadius: 3.84,
-//     elevation: 5
-//   },
-//   openButton: {
-//     backgroundColor: '#F194FF',
-//     borderRadius: 20,
-//     padding: 10,
-//     elevation: 2
-//   },
-//   textStyle: {
-//     color: 'white',
-//     fontWeight: 'bold',
-//     textAlign: 'center'
-//   },
-//   modalText: {
-//     marginBottom: 15,
-//     textAlign: 'center'
-//   }
-// })
 
 export default FavoritesModal
