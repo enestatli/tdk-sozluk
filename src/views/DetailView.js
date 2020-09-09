@@ -86,7 +86,13 @@ const DetailView = ({ route, navigation }) => {
               disabled={resultsData?.soundCode.length === 0}
               onPress={playSound}
             >
-              <SoundIcon color="red" />
+              <SoundIcon
+                color={
+                  resultsData?.soundCode.length > 0
+                    ? theme.colors.textLight
+                    : theme.colors.softRed
+                }
+              />
             </ActionButton>
             <ActionButton
               onPress={throttle(() => {

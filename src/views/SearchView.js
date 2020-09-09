@@ -115,7 +115,7 @@ const SearchView = ({ navigation }) => {
         <View>
           {searchData.keyword.length >= 3 ? (
             <SearchSuggestionList
-              onPress={(k) => navigation.navigate('Detail', { keyword: k })}
+              onPress={(k) => navigation.navigate('Details', { keyword: k })}
               keyword={searchData.keyword}
               data={searchData.suggestions}
             />

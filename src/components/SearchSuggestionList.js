@@ -34,7 +34,7 @@ const SearchSuggestionList = ({ keyword, data, onPress }) => {
         keyExtractor={(item) => item.id + ''}
         renderItem={({ item }) => (
           <View>
-            <Card>
+            <Card onPress={() => onPress(item.madde)}>
               <Card.Title>{emphasize(keyword, item.madde)}</Card.Title>
             </Card>
             <Right color={theme.colors.red} />

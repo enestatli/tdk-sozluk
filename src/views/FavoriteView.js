@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import { View, Text } from 'react-native'
 import { favoriteContext } from '../context'
 import { Button } from '../components/shared'
@@ -7,6 +7,20 @@ import SimpleList from '../components/SimpleList'
 
 const FavoriteView = ({ navigation }) => {
   const favorites = useContext(favoriteContext)
+
+  const onLongPress = () => {
+    favorites.setSelectable()
+  }
+
+  const onSelect = (item) => {
+    if (favorites.selectedList.includes(item)) {
+      favorites.updateSelectedList(
+        favorites.selectedList.filter((el) => el !== item)
+      )
+    } else {
+      favorites.updateSelectedList([...favorites.selectedList, item])
+    }
+  }
 
   return (
     <View>
@@ -23,6 +37,10 @@ const FavoriteView = ({ navigation }) => {
             hasHeader={false}
             chevron={true}
             onPress={(k) => navigation.navigate('Details', { keyword: k })}
+            onSelect={onSelect}
+            selectedList={favorites.selectedList}
+            selectable={favorites.isSelectable}
+            onLongPress={onLongPress}
             data={favorites.favorites}
           />
         ) : (
