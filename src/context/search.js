@@ -1,6 +1,7 @@
 import React, { createContext, useState, useCallback } from 'react'
+import debounce from 'lodash.debounce'
+
 import { getSuggestions } from '../utils/autoComplete'
-import throttle from 'lodash.throttle'
 
 export const searchContextDefault = {
   data: {},
@@ -14,8 +15,11 @@ const SearchProvider = ({ children }) => {
   const [keyword, setKeyword] = useState('')
   const [suggestions, setSuggestions] = useState([])
 
-  const throttledSearch = useCallback(
-    throttle((k) => getSuggestions(k).slice(0, 12), 500),
+  const debouncedSearch = useCallback(
+    debounce((k) => setSuggestions(getSuggestions(k).slice(0, 12)), 500, {
+      leading: true,
+      maxWait: 600
+    }),
     []
   )
 
@@ -25,7 +29,7 @@ const SearchProvider = ({ children }) => {
     setKeyword: (k) => {
       setKeyword(k)
       if (k.length >= 3) {
-        setSuggestions(throttledSearch(k))
+        debouncedSearch(k)
       } else {
         setSuggestions([])
       }

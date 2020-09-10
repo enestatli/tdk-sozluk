@@ -4,7 +4,7 @@ import Button from './Button'
 
 const Card = ({ children, ...props }) => {
   return (
-    <Button style={styles.button} {...props}>
+    <Button extraStyles={styles.button} {...props}>
       <View style={styles.container}>{children}</View>
     </Button>
   )
@@ -28,10 +28,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     borderRadius: 6,
     paddingVertical: 16,
-    paddingHorizontal: 12,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center'
+    paddingHorizontal: 12
   },
   container: {
     flex: 1,

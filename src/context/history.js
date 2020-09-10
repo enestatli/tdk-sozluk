@@ -3,7 +3,8 @@ import AsyncStorage from '@react-native-community/async-storage'
 
 export const historyDefaultContext = {
   data: {},
-  addToHistory: () => {}
+  addToHistory: () => {},
+  clearHistory: () => {}
 }
 
 const historyContext = createContext(historyDefaultContext)
@@ -30,16 +31,21 @@ const HistoryProvider = ({ children }) => {
 
   const values = {
     history: history,
+    clearHistory: async (k) => {
+      try {
+        setHistory([])
+        await AsyncStorage.setItem('history', JSON.stringify({ data: [] }))
+      } catch {
+        console.log('error in clear history')
+      }
+    },
     addToHistory: async (k) => {
       try {
         const item = { id: Date.now() + '', title: k }
         const newHistory = [
-          ...history
-            .filter((el) => el.title !== item.title)
-            .slice(0, 13)
-            .reverse(),
-          item
-        ].reverse()
+          item,
+          ...history.filter((el) => el.title !== item.title).slice(0, 13)
+        ]
         setHistory(newHistory)
         await AsyncStorage.setItem(
           'history',

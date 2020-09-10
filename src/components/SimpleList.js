@@ -1,10 +1,11 @@
 import React from 'react'
 import { StyleSheet, Text, View, FlatList } from 'react-native'
 
-import { Card } from './shared'
 import { Right, CircleCheck } from './icons'
 import { Circle } from 'react-native-svg'
-import FavoritesModal from './FavoritesModal'
+
+import SimpleCard from './SimpleCard'
+import theme from '../utils/theme'
 
 const SimpleList = ({
   data,
@@ -19,43 +20,38 @@ const SimpleList = ({
 }) => {
   return (
     <FlatList
+      style={styles.flatList}
       data={data}
       keyExtractor={(item) => item.id}
       renderItem={({ item }) => (
-        <View>
-          <Card
+        <View style={styles.card}>
+          <SimpleCard
             onLongPress={onLongPress}
             onPress={() => {
               selectable ? onSelect(item) : onPress(item.title)
             }}
-            style={
-              selectedList.includes(item)
-                ? { borderColor: 'red', borderWidth: 1 }
-                : {}
-            }
+            extraCardStyles={styles.cardContainer}
           >
-            <Card.Title>{item.title}</Card.Title>
+            <SimpleCard.Title style={styles.title}>
+              {item.title}
+            </SimpleCard.Title>
 
             {selectable ? (
               selectedList.includes(item) ? (
-                <CircleCheck color="black" />
+                <CircleCheck style={styles.circleCheckIcon} />
               ) : (
-                <Circle color="blue" />
+                <Circle style={styles.circleIcon} />
               )
             ) : (
-              chevron && <Right color="red" />
+              chevron && <Right style={styles.rightIcon} />
             )}
-          </Card>
+          </SimpleCard>
         </View>
       )}
-      ListFooterComponent={<View style={{ height: 20 }} />}
-      ListHeaderComponent={
-        hasHeader ? (
-          <Text>Son Aramalar</Text>
-        ) : (
-          <Text>Bu neymis gormek istedim</Text>
-        )
+      ListFooterComponent={
+        <View style={[styles.footer, selectable && { height: 180 }]} />
       }
+      ListHeaderComponent={hasHeader ? <Text>Son Aramalar</Text> : () => <></>}
       {...props}
     />
   )
@@ -63,4 +59,43 @@ const SimpleList = ({
 
 export default SimpleList
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+  flatList: {
+    padding: 16,
+    paddingTop: 24
+  },
+  card: {
+    paddingVertical: 6
+  },
+
+  cardContainer: {
+    paddingVertical: 16
+  },
+  title: {
+    //TODO paddinRight !chevron ? 0: 32
+    paddingRight: 32,
+    fontWeight: 'bold',
+    fontSize: 16
+  },
+  circleCheckIcon: {
+    marginLeft: 'auto',
+    height: 18,
+    width: 18,
+    color: theme.colors.red
+  },
+  circleIcon: {
+    marginLeft: 'auto',
+    height: 18,
+    width: 18,
+    color: theme.colors.red
+  },
+  rightIcon: {
+    marginLeft: 'auto',
+    height: 18,
+    width: 18,
+    color: theme.colors.red
+  },
+  footer: {
+    height: 20
+  }
+})

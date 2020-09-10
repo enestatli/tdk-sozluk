@@ -39,7 +39,7 @@ const FavoriteView = ({ navigation }) => {
   }
 
   return (
-    <View>
+    <View style={{ backgroundColor: theme.colors.softRed }}>
       <View>
         <Button>
           <Left color="red" />

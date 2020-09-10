@@ -23,7 +23,7 @@ const FavoriteProvider = ({ children }) => {
   const favoritesModalRef = useRef()
 
   useEffect(() => {
-    AsyncStorage.getItem('favorite')
+    AsyncStorage.getItem('favorites')
       .then((response) => {
         if (response !== null) {
           return JSON.parse(response)
