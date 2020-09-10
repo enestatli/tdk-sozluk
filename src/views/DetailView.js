@@ -1,17 +1,12 @@
-import React, {
-  useCallback,
-  useEffect,
-  useContext,
-  useState,
-  useRef
-} from 'react'
+import React, { useCallback, useEffect, useContext, useState } from 'react'
 import {
   View,
   Text,
   StatusBar,
   Platform,
   StyleSheet,
-  ScrollView
+  ScrollView,
+  SafeAreaView
 } from 'react-native'
 import { useFocusEffect } from '@react-navigation/native'
 import Sound from 'react-native-sound'
@@ -23,19 +18,37 @@ import DetailCard from '../components/DetailCard'
 
 import {
   Sound as SoundIcon,
+  SoundSolid,
   Favorite,
   Hand,
   FavoriteSolid
 } from '../components/icons'
 import { resultsContext, historyContext, favoriteContext } from '../context'
 import throttle from 'lodash.throttle'
-import HeaderNavigation from '../components/HeaderNavigation'
+import DetailFocusBar from '../components/DetailFocusBar'
+
+const tabs = [
+  {
+    id: 'anlamlar',
+    title: 'Açıklama'
+  },
+  {
+    id: 'atasozu',
+    title: ' Atasözleri & Deyimler'
+  },
+  {
+    id: 'birlesikler',
+    title: 'Birleşik Kelimeler'
+  }
+]
 
 const DetailView = ({ route, navigation }) => {
   const keyword = route.params?.keyword
   const resultsData = useContext(resultsContext)
   const history = useContext(historyContext)
   const favorites = useContext(favoriteContext)
+  const [isPlaying, setIsPlaying] = useState(false)
+  const [selectedTab, setSelectedTab] = useState(tabs[0].id)
   const isFavorited = favorites.favorites.find((f) => f.title === keyword)
 
   const playSound = throttle(() => {
@@ -46,8 +59,9 @@ const DetailView = ({ route, navigation }) => {
         if (error) {
           console.log('error loading track', error)
         } else {
-          track.play(() => {
-            track.release()
+          setIsPlaying(true)
+          track.play((s) => {
+            setIsPlaying(false)
           })
         }
       }
@@ -57,6 +71,7 @@ const DetailView = ({ route, navigation }) => {
   useEffect(() => {
     history.addToHistory(keyword)
     resultsData.getResults(keyword)
+    setSelectedTab(tabs[0].id)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [keyword])
 
@@ -82,27 +97,40 @@ const DetailView = ({ route, navigation }) => {
   )
 
   return (
-    <View style={styles.container}>
+    <View as={SafeAreaView} style={styles.container}>
+      {/* Focus Bar */}
+      <DetailFocusBar
+        onPress={(id) => setSelectedTab(id)}
+        tabs={tabs}
+        selected={selectedTab}
+      />
       <View>
-        {/* TODO */}
+        {/* Keyword, lisan*/}
         <Text>{keyword}</Text>
         <Text>
           {resultsData.data?.telaffuz ? resultsData.data?.telaffuz + ' ' : ''}
           {resultsData.data?.lisan ?? ''}
         </Text>
+        {/* Action Buttons */}
         <View>
           <View style={styles.actionButtonsFrame}>
             <ActionButton
               disabled={resultsData?.soundCode.length === 0}
               onPress={playSound}
             >
-              <SoundIcon
-                color={
-                  resultsData?.soundCode.length > 0
-                    ? theme.colors.textLight
-                    : theme.colors.softRed
-                }
-              />
+              {isPlaying ? (
+                <SoundSolid color="blue" />
+              ) : (
+                <SoundIcon
+                  color={
+                    resultsData?.soundCode.length > 0
+                      ? isPlaying
+                        ? theme.colors.red
+                        : theme.colors.textLight
+                      : theme.colors.gray
+                  }
+                />
+              )}
             </ActionButton>
             <ActionButton
               onPress={throttle(() => {
@@ -129,6 +157,7 @@ const DetailView = ({ route, navigation }) => {
               <ActionButton.Title>Sign Language</ActionButton.Title>
             </ActionButton>
           </View>
+          {/* Content  */}
           {/* TODO make it FlatList */}
           <View style={styles.detailCards}>
             <ScrollView>
