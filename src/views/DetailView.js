@@ -29,6 +29,7 @@ import {
 } from '../components/icons'
 import { resultsContext, historyContext, favoriteContext } from '../context'
 import throttle from 'lodash.throttle'
+import HeaderNavigation from '../components/HeaderNavigation'
 
 const DetailView = ({ route, navigation }) => {
   const keyword = route.params?.keyword
