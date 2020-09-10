@@ -1,9 +1,20 @@
 import React from 'react'
 import { StyleSheet } from 'react-native'
-import ShimmerPlaceHolder from 'react-native-shimmer-placeholder'
+import { createShimmerPlaceholder } from 'react-native-shimmer-placeholder'
+import LinearGradient from 'react-native-linear-gradient'
+
+const ShimmerPlaceHolder = createShimmerPlaceholder(LinearGradient)
 
 const Placeholder = ({ children, ...props }) => {
-  return <ShimmerPlaceHolder {...props}>{children}</ShimmerPlaceHolder>
+  console.log({ ...props.extraPlaceholderStlyes })
+  return (
+    <ShimmerPlaceHolder
+      style={{ ...styles.default, ...props.extraPlaceholderStlyes }}
+      {...props}
+    >
+      {children}
+    </ShimmerPlaceHolder>
+  )
 }
 
 export default Placeholder

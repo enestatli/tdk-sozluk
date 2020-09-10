@@ -28,20 +28,40 @@ const SearchStack = ({ route, navigation }) => {
         component={DetailView}
         options={({ route, navigation }) => {
           return {
-            title: route.params?.title,
+            title:
+              (route.params?.keyword ?? '').slice(0, 15) +
+              ((route.params?.keyword ?? '').length > 15 ? '...' : ''),
             headerStyle: {
               backgroundColor: theme.colors.softRed,
               elevation: 0
             },
             headerLeft: () => (
               //TODO navigation, goBack()?
-              <Button onPress={() => navigation.goBack()}>
-                <Left color="red" />
+              <Button
+                onPress={() => navigation.goBack()}
+                extraStyles={{ paddingHorizontal: 20, height: '100%' }}
+              >
+                <Left
+                  style={{
+                    width: 24,
+                    height: 24,
+                    color: theme.colors.textDark
+                  }}
+                />
               </Button>
             ),
             headerRight: () => (
-              <Button onPress={() => navigation.goBack()}>
-                <More color="red" />
+              <Button
+                onPress={() => navigation.goBack()}
+                extraStyles={{ paddingHorizontal: 20, height: '100%' }}
+              >
+                <More
+                  style={{
+                    width: 24,
+                    height: 24,
+                    color: theme.colors.textDark
+                  }}
+                />
               </Button>
             )
           }

@@ -1,8 +1,10 @@
 import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 import Button from './Button'
+import theme from '../../utils/theme'
 
 const Card = ({ children, ...props }) => {
+  console.log(props)
   return (
     <Button extraStyles={styles.button} {...props}>
       <View style={styles.container}>{children}</View>
@@ -33,7 +35,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     borderLeftWidth: 3,
-    borderLeftColor: 'red', //TODO
+    borderLeftColor: theme.colors.red,
     paddingLeft: 12
   },
   title: {

@@ -25,35 +25,16 @@ import bg from '../assets/bg.jpg'
 import FeedCard from '../components/FeedCard'
 
 import { Logo } from '../components/icons'
-import { homeContext, searchContext } from '../context'
+import { homeContext, searchContext, historyContext } from '../context'
 import SearchSuggestionList from '../components/SearchSuggestionList'
+import SimpleList from '../components/SimpleList'
 
 const heroHeight = Dimensions.get('window').height / 3
-
-const Item = ({ title }) => (
-  <View style={styles.item}>
-    <Text style={styles.title}>{title}</Text>
-  </View>
-)
-
-const flatListData = [
-  {
-    id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-    title: 'First Item'
-  },
-  {
-    id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
-    title: 'Second Item'
-  },
-  {
-    id: '58694a0f-3da1-471f-bd96-145571e29d72',
-    title: 'Third Item'
-  }
-]
 
 const SearchView = ({ navigation }) => {
   const homeData = useContext(homeContext)
   const searchData = useContext(searchContext)
+  const historyData = useContext(historyContext)
   const [isSearchFocus, setIsSearchFocus] = useState(false)
   const heroHeightAnim = useRef(new Animated.Value(heroHeight)).current
 
@@ -90,8 +71,6 @@ const SearchView = ({ navigation }) => {
     }
   }, [isSearchFocus, heroHeightAnim])
 
-  const renderItem = ({ item }) => <Item title={item.title} />
-
   return (
     <View style={styles.container}>
       <Animated.View style={[styles.animateBox, { height: heroHeightAnim }]}>
@@ -111,44 +90,54 @@ const SearchView = ({ navigation }) => {
           <SearchBox onChangeFocus={(status) => setIsSearchFocus(status)} />
         </View>
       </Animated.View>
-      {isSearchFocus ? (
-        <View>
-          {searchData.keyword.length >= 3 ? (
-            <SearchSuggestionList
-              onPress={(k) => navigation.navigate('Details', { keyword: k })}
-              keyword={searchData.keyword}
-              data={searchData.suggestions}
+
+      <View
+        style={{
+          flex: 1,
+          paddingTop: 26,
+          backgroundColor: theme.colors.softRed
+        }}
+      >
+        {isSearchFocus ? (
+          <View style={{ flex: 1 }}>
+            {searchData.keyword.length >= 3 ? (
+              <SearchSuggestionList
+                onPress={(k) => navigation.navigate('Details', { keyword: k })}
+                keyword={searchData.keyword}
+                data={searchData.suggestions}
+              />
+            ) : (
+              <SimpleList
+                onPress={(k) => navigation.navigate('Details', { keyword: k })}
+                data={historyData.history}
+              />
+            )}
+          </View>
+        ) : (
+          <View style={styles.feedContainer}>
+            <FeedCard
+              title={'Bir Kelime'}
+              data={homeData.data?.kelime}
+              onPress={() =>
+                navigation.navigate('Details', {
+                  keyword: homeData.data?.kelime.madde
+                })
+              }
             />
-          ) : (
-            <View style={styles.historyList}>
-              <FlatList
-                data={flatListData}
-                renderItem={renderItem}
-                keyExtractor={(item) => item.id}
+            <View style={{ marginTop: 40 }}>
+              <FeedCard
+                title={'Bir Deyim - Atasözü'}
+                data={homeData.data?.atasoz}
+                onPress={() =>
+                  navigation.navigate('Details', {
+                    keyword: homeData.data?.atasoz.madde
+                  })
+                }
               />
             </View>
-          )}
-        </View>
-      ) : (
-        <View style={styles.feedContainer}>
-          <FeedCard
-            data={homeData.data?.kelime}
-            onPress={() =>
-              navigation.navigate('Details', {
-                keyword: homeData.data?.kelime.madde
-              })
-            }
-          />
-          <FeedCard
-            data={homeData.data?.atasoz}
-            onPress={() =>
-              navigation.navigate('Details', {
-                keyword: homeData.data?.atasoz.madde
-              })
-            }
-          />
-        </View>
-      )}
+          </View>
+        )}
+      </View>
     </View>
   )
 }

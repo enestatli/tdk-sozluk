@@ -97,7 +97,7 @@ const DetailView = ({ route, navigation }) => {
   )
 
   return (
-    <View as={SafeAreaView} style={styles.container}>
+    <View style={styles.container}>
       {/* Focus Bar */}
       <DetailFocusBar
         onPress={(id) => setSelectedTab(id)}
@@ -112,64 +112,65 @@ const DetailView = ({ route, navigation }) => {
           {resultsData.data?.lisan ?? ''}
         </Text>
         {/* Action Buttons */}
-        <View>
-          <View style={styles.actionButtonsFrame}>
-            <ActionButton
-              disabled={resultsData?.soundCode.length === 0}
-              onPress={playSound}
-            >
-              {isPlaying ? (
-                <SoundSolid color="blue" />
-              ) : (
-                <SoundIcon
-                  color={
-                    resultsData?.soundCode.length > 0
-                      ? isPlaying
-                        ? theme.colors.red
-                        : theme.colors.textLight
-                      : theme.colors.gray
-                  }
-                />
-              )}
-            </ActionButton>
-            <ActionButton
-              onPress={throttle(() => {
-                isFavorited
-                  ? favorites.removeFromFavorites(keyword)
-                  : favorites.addToFavorites(keyword)
-              }, 500)}
-            >
-              {isFavorited ? (
-                <FavoriteSolid color="red" />
-              ) : (
-                <Favorite color="black" />
-              )}
-            </ActionButton>
-            <ActionButton
-              disabled={keyword ? false : true}
-              onPress={throttle(() => {
-                resultsData.signSheet
-                  ? resultsData.closeSignSheet()
-                  : resultsData.openSignSheet(keyword)
-              }, 500)}
-            >
-              <Hand color="red" />
-              <ActionButton.Title>Sign Language</ActionButton.Title>
-            </ActionButton>
-          </View>
-          {/* Content  */}
-          {/* TODO make it FlatList */}
-          <View style={styles.detailCards}>
-            <ScrollView>
-              {(resultsData.data?.anlamlar ?? [1, 2, 3]).map((item) => (
-                <DetailCard
-                  data={typeof item === 'number' ? undefined : item}
-                  key={item?.id ?? item}
-                />
-              ))}
-            </ScrollView>
-          </View>
+
+        <View style={styles.actionButtonsFrame}>
+          <ActionButton
+            disabled={resultsData?.soundCode.length === 0}
+            onPress={playSound}
+          >
+            {isPlaying ? (
+              <SoundSolid color="blue" />
+            ) : (
+              <SoundIcon
+                color={
+                  resultsData?.soundCode.length > 0
+                    ? isPlaying
+                      ? theme.colors.red
+                      : theme.colors.textLight
+                    : theme.colors.gray
+                }
+              />
+            )}
+          </ActionButton>
+          <ActionButton
+            onPress={throttle(() => {
+              isFavorited
+                ? favorites.removeFromFavorites(keyword)
+                : favorites.addToFavorites(keyword)
+            }, 500)}
+          >
+            {isFavorited ? (
+              <FavoriteSolid color="red" />
+            ) : (
+              <Favorite color="black" />
+            )}
+          </ActionButton>
+          <ActionButton
+            disabled={keyword ? false : true}
+            onPress={throttle(() => {
+              resultsData.signSheet
+                ? resultsData.closeSignSheet()
+                : resultsData.openSignSheet(keyword)
+            }, 500)}
+          >
+            <Hand color="red" />
+            <ActionButton.Title>Sign Language</ActionButton.Title>
+          </ActionButton>
         </View>
+        {/* Content  */}
+        {/* TODO make it FlatList */}
+        {/* Anlamlar  */}
+        {selectedTab === tabs[0].id && (
+          <View style={{ marginTop: 32, flex: 1 }}>
+            {(resultsData.data?.anlamlar ?? [1, 2, 3]).map((item) => (
+              <DetailCard
+                key={item?.id ?? item}
+                data={typeof item === 'number' ? undefined : item}
+                border={item.anlam_sira ?? item !== '1'}
+              />
+            ))}
+          </View>
+        )}
       </View>
     </View>
   )

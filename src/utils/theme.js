@@ -4,9 +4,11 @@ const radii = {
 }
 
 const colors = {
-  red: '#e11e3c',
+  red: '#E11E3C',
   gray: '#758291',
+  //
   softRed: '#F8F8F8',
+  softGray: '#F0F0F0',
   light: '#E8EAED',
   birlesikKelimeDark: '#2E494C',
   birlesikKelimeMedium: '#73A5AA',
