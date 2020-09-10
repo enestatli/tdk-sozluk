@@ -1,6 +1,7 @@
 import React, { createContext, useState, useEffect, useRef } from 'react'
 import AsyncStorage from '@react-native-community/async-storage'
 import BottomSheet from 'reanimated-bottom-sheet'
+
 import FavoritesModal from '../components/FavoritesModal'
 
 export const favoriteDefaultContext = {

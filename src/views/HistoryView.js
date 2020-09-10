@@ -2,7 +2,7 @@ import React, { useContext, useCallback } from 'react'
 import { useFocusEffect } from '@react-navigation/native'
 
 import { View, Text, StyleSheet, StatusBar, Platform } from 'react-native'
-import { Left, RotateCcw, Trash } from '../components/icons'
+import { RotateCcw, Trash } from '../components/icons'
 import { Button } from '../components/shared'
 
 import SimpleList from '../components/SimpleList'
@@ -16,7 +16,6 @@ const HistoryView = ({ navigation }) => {
   useFocusEffect(
     useCallback(() => {
       StatusBar.setBarStyle('dark-content')
-      //TODO setbgcolor to theme.colors.softRed
       Platform.OS === 'android' &&
         StatusBar.setBackgroundColor(theme.colors.softRed)
       // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -35,7 +34,10 @@ const HistoryView = ({ navigation }) => {
             <SimpleList
               ListFooterComponent={() => (
                 <View style={styles.simpleListContainer}>
-                  <Button extraStyles={styles.button}>
+                  <Button
+                    extraStyles={styles.button}
+                    onPress={() => history.clearHistory()}
+                  >
                     <View style={styles.iconFrame}>
                       <Trash style={styles.icon} />
                     </View>
@@ -50,9 +52,9 @@ const HistoryView = ({ navigation }) => {
             />
           </View>
         ) : (
-          <View>
-            <RotateCcw color="blue" />
-            <Text>Henuz gecmis yok.</Text>
+          <View style={styles.rotateIconContainer}>
+            <RotateCcw style={styles.rotateIcon} />
+            <Text style={styles.emptyHistoryText}>Henuz gecmis yok.</Text>
           </View>
         )}
       </View>
@@ -96,5 +98,20 @@ const styles = StyleSheet.create({
     marginLeft: 6,
     color: 'white',
     fontWeight: 'bold'
+  },
+  rotateIconContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  rotateIcon: {
+    color: theme.colors.textLight,
+    height: 48,
+    width: 48
+  },
+  emptyHistoryText: {
+    marginTop: 24,
+    fontWeight: 'bold',
+    color: theme.colors.textMedium
   }
 })
