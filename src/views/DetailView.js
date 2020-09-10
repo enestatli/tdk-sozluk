@@ -71,6 +71,15 @@ const DetailView = ({ route, navigation }) => {
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
   )
+  useFocusEffect(
+    useCallback(() => {
+      resultsData.getResults(keyword)
+      return () => {
+        resultsData.clearResults()
+      }
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [keyword])
+  )
 
   return (
     <View style={styles.container}>
