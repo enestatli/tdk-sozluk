@@ -30,7 +30,11 @@ const SimpleList = ({
             onPress={() => {
               selectable ? onSelect(item) : onPress(item.title)
             }}
-            extraCardStyles={styles.cardContainer}
+            extraCardStyles={{
+              paddingVertical:
+                selectable && selectedList.includes(item) ? 15 : 16,
+              ...(selectedList.includes(item) ? styles.simpleCardBorder : {})
+            }}
           >
             <SimpleCard.Title style={styles.title}>
               {item.title}
@@ -38,7 +42,10 @@ const SimpleList = ({
 
             {selectable ? (
               selectedList.includes(item) ? (
-                <CircleCheck style={styles.circleCheckIcon} />
+                <CircleCheck
+                  style={styles.circleCheckIcon}
+                  fill={theme.colors.red}
+                />
               ) : (
                 <Circle style={styles.circleIcon} />
               )
@@ -48,10 +55,14 @@ const SimpleList = ({
           </SimpleCard>
         </View>
       )}
-      ListFooterComponent={
-        <View style={[styles.footer, selectable && { height: 180 }]} />
+      ListFooterComponent={<View style={{ footer: selectable ? 180 : 20 }} />}
+      ListHeaderComponent={
+        hasHeader ? (
+          <Text style={styles.headerText}>Son Aramalar</Text>
+        ) : (
+          () => <></>
+        )
       }
-      ListHeaderComponent={hasHeader ? <Text>Son Aramalar</Text> : () => <></>}
       {...props}
     />
   )
@@ -81,13 +92,13 @@ const styles = StyleSheet.create({
     marginLeft: 'auto',
     height: 18,
     width: 18,
-    color: theme.colors.red
+    color: 'white'
   },
   circleIcon: {
     marginLeft: 'auto',
     height: 18,
     width: 18,
-    color: theme.colors.red
+    color: 'white'
   },
   rightIcon: {
     marginLeft: 'auto',
@@ -95,7 +106,19 @@ const styles = StyleSheet.create({
     width: 18,
     color: theme.colors.red
   },
-  footer: {
-    height: 20
+  headerText: {
+    color: theme.colors.textLight,
+    marginBottom: 10
+  },
+  simpleCardBorder: {
+    borderWidth: 1,
+    borderColor: '#F3A5B1',
+    shadowColor: theme.colors.red,
+    shadowOpacity: 0.16,
+    shadowRadius: 4,
+    shadowOffset: {
+      width: 0,
+      height: 2
+    }
   }
 })

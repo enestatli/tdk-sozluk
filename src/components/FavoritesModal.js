@@ -6,70 +6,70 @@ import { Button } from './shared'
 import { Trash } from './icons'
 import theme from '../utils/theme'
 
-const FavoritesModal = ({ bool }) => {
+const FavoritesModal = () => {
   const favorites = useContext(favoriteContext)
 
   return (
-    <View style={styles.bottomView}>
-      <View style={styles.container}>
-        <View style={styles.secondContainer}>
-          <View style={styles.thirdContainer}>
-            <Button
-              disabled={favorites.selectedList.length === 0}
-              extraStyles={[
-                styles.trashButton,
+    <View style={styles.container}>
+      <View style={styles.secondContainer}>
+        <View style={styles.thirdContainer}>
+          <Button
+            disabled={favorites.selectedList.length === 0}
+            extraStyles={{
+              ...styles.trashButton,
+              backgroundColor:
                 favorites.selectedList.length === 0
                   ? theme.colors.light
                   : theme.colors.red
-              ]}
-              onPress={() => favorites.removeSelected()}
-            >
-              <View style={styles.buttonFrame}>
-                <Trash
-                  style={[
-                    styles.trash,
+            }}
+            onPress={() => favorites.removeSelected()}
+          >
+            <View style={styles.buttonFrame}>
+              <Trash
+                style={{
+                  ...styles.trash,
+                  color:
                     favorites.selectedList.length === 0
-                      ? theme.colors.textLight
-                      : 'red'
-                  ]}
-                />
-              </View>
-              <Text
-                style={[
-                  styles.buttonText,
-                  favorites.selectedList.length === 0 && {
-                    color: theme.colors.textLight
-                  }
-                ]}
-              >{`Sil (${favorites.selectedList.length})`}</Text>
-            </Button>
-            <Button
-              onPress={() =>
-                favorites.updateSelectedList(
-                  favorites.selectedList.length === favorites.favorites.length
-                    ? []
-                    : favorites.favorites
-                )
-              }
-              extraStyles={styles.selectAllButton}
-            >
-              <Text style={styles.selectAlButtonText}>
-                {favorites.selectedList.length === favorites.favorites.length
-                  ? 'Secimi Temizle'
-                  : 'Tumunu Sec'}
-              </Text>
-            </Button>
-          </View>
-          <View style={styles.cancelButtonContainer}>
-            <Button
-              onPress={() => {
-                favorites.setSelectable(false)
-              }}
-              extraStyles={styles.cancelButton}
-            >
-              <Text style={styles.cancelText}>Vazgec</Text>
-            </Button>
-          </View>
+                      ? theme.colors.textMedium
+                      : 'white'
+                }}
+              />
+            </View>
+            <Text
+              style={[
+                styles.buttonText,
+                favorites.selectedList.length === 0 && {
+                  color: theme.colors.textMedium
+                }
+              ]}
+            >{`Sil (${favorites.selectedList.length})`}</Text>
+          </Button>
+          <Button
+            onPress={() =>
+              favorites.updateSelectedList(
+                favorites.selectedList.length === favorites.favorites.length
+                  ? []
+                  : favorites.favorites
+              )
+            }
+            extraStyles={styles.selectAllButton}
+          >
+            <Text style={styles.selectAlButtonText}>
+              {favorites.selectedList.length === favorites.favorites.length
+                ? 'Seçimi Temizle'
+                : 'Tümünü Seç'}
+            </Text>
+          </Button>
+        </View>
+        <View style={styles.cancelButtonContainer}>
+          <Button
+            onPress={() => {
+              favorites.setSelectable(false)
+            }}
+            extraStyles={styles.cancelButton}
+          >
+            <Text style={styles.cancelText}>Vazgeç</Text>
+          </Button>
         </View>
       </View>
     </View>
@@ -78,7 +78,15 @@ const FavoritesModal = ({ bool }) => {
 
 const styles = StyleSheet.create({
   container: {
-    height: '100%'
+    height: '100%',
+    //TODO eval for android
+    shadowColor: '#000',
+    shadowOpacity: 0.16,
+    shadowRadius: 4,
+    shadowOffset: {
+      width: 0,
+      height: -2
+    }
   },
   secondContainer: {
     flexDirection: 'column',
@@ -120,10 +128,7 @@ const styles = StyleSheet.create({
     color: theme.colors.textMedium
   },
   cancelButtonContainer: {
-    width: '100%',
-    borderRadius: theme.radii.normal,
-    backgroundColor: theme.colors.light,
-    marginTop: 12
+    width: '100%'
   },
   cancelButton: {
     marginTop: 16,
