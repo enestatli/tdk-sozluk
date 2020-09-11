@@ -5,8 +5,7 @@ import {
   StatusBar,
   Platform,
   StyleSheet,
-  ScrollView,
-  SafeAreaView
+  ScrollView
 } from 'react-native'
 import { useFocusEffect } from '@react-navigation/native'
 import Sound from 'react-native-sound'
@@ -70,7 +69,7 @@ const DetailView = ({ route, navigation }) => {
 
   useEffect(() => {
     history.addToHistory(keyword)
-    resultsData.getResults(keyword)
+    // resultsData.getResults(keyword) //TODO!!!!!!
     setSelectedTab(tabs[0].id)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [keyword])
@@ -104,13 +103,16 @@ const DetailView = ({ route, navigation }) => {
         tabs={tabs}
         selected={selectedTab}
       />
-      <View>
+      <ScrollView style={styles.secondContainer}>
         {/* Keyword, lisan*/}
-        <Text>{keyword}</Text>
-        <Text>
-          {resultsData.data?.telaffuz ? resultsData.data?.telaffuz + ' ' : ''}
-          {resultsData.data?.lisan ?? ''}
-        </Text>
+        <View>
+          <Text style={styles.keywordText}>{keyword}</Text>
+          <Text style={styles.telaffuzText}>
+            {resultsData.data?.telaffuz ? resultsData.data?.telaffuz + ' ' : ''}
+            {resultsData.data?.lisan ?? ''}
+          </Text>
+        </View>
+
         {/* Action Buttons */}
 
         <View style={styles.actionButtonsFrame}>
@@ -119,20 +121,22 @@ const DetailView = ({ route, navigation }) => {
             onPress={playSound}
           >
             {isPlaying ? (
-              <SoundSolid color="blue" />
+              <SoundSolid color={theme.colors.red} />
             ) : (
               <SoundIcon
+                style={styles.iconSize}
                 color={
-                  resultsData?.soundCode.length > 0
+                  resultsData.soundCode.length > 0
                     ? isPlaying
                       ? theme.colors.red
                       : theme.colors.textLight
-                    : theme.colors.gray
+                    : theme.colors.softGray
                 }
               />
             )}
           </ActionButton>
           <ActionButton
+            extraStyles={styles.favoriteButton}
             onPress={throttle(() => {
               isFavorited
                 ? favorites.removeFromFavorites(keyword)
@@ -140,12 +144,16 @@ const DetailView = ({ route, navigation }) => {
             }, 500)}
           >
             {isFavorited ? (
-              <FavoriteSolid color="red" />
+              <FavoriteSolid style={styles.iconSize} color={theme.colors.red} />
             ) : (
-              <Favorite color="black" />
+              <Favorite
+                style={styles.iconSize}
+                color={theme.colors.textLight}
+              />
             )}
           </ActionButton>
           <ActionButton
+            extraStyles={styles.handButton}
             disabled={keyword ? false : true}
             onPress={throttle(() => {
               resultsData.signSheet
@@ -153,25 +161,40 @@ const DetailView = ({ route, navigation }) => {
                 : resultsData.openSignSheet(keyword)
             }, 500)}
           >
-            <Hand color="red" />
-            <ActionButton.Title>Sign Language</ActionButton.Title>
+            <Hand
+              style={styles.iconSize}
+              color={
+                resultsData.signSheet
+                  ? theme.colors.red
+                  : theme.colors.textLight
+              }
+            />
+            <ActionButton.Title
+              color={
+                resultsData.signSheet
+                  ? theme.colors.red
+                  : theme.colors.textLight
+              }
+            >
+              Türk İşaret Dili
+            </ActionButton.Title>
           </ActionButton>
         </View>
         {/* Content  */}
         {/* TODO make it FlatList */}
         {/* Anlamlar  */}
         {selectedTab === tabs[0].id && (
-          <View style={{ marginTop: 32, flex: 1 }}>
+          <View style={styles.anlamlarContainer}>
             {(resultsData.data?.anlamlar ?? [1, 2, 3]).map((item) => (
               <DetailCard
                 key={item?.id ?? item}
                 data={typeof item === 'number' ? undefined : item}
-                border={item.anlam_sira ?? item !== '1'}
+                border={(item.anlam_sira ?? item) !== '1'}
               />
             ))}
           </View>
         )}
-      </View>
+      </ScrollView>
     </View>
   )
 }
@@ -184,11 +207,38 @@ const styles = StyleSheet.create({
     padding: 16,
     backgroundColor: theme.colors.softRed
   },
+  secondContainer: {
+    marginTop: 0,
+    padding: 16
+  },
+  keywordText: {
+    fontSize: 32,
+    fontWeight: 'bold',
+    color: theme.colors.textDark
+  },
+  telaffuzText: {
+    color: theme.colors.textLight,
+    marginTop: 6
+  },
   actionButtonsFrame: {
     flexDirection: 'row',
     marginTop: 24
   },
   detailCards: {
     marginTop: 20
+  },
+  iconSize: {
+    width: 24,
+    height: 24
+  },
+  favoriteButton: {
+    marginLeft: 12
+  },
+  handButton: {
+    marginLeft: 'auto'
+  },
+  anlamlarContainer: {
+    marginTop: 32,
+    flex: 1
   }
 })

@@ -2,10 +2,11 @@ import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 
 import { Button } from './shared'
+import theme from '../utils/theme'
 
 const ActionButton = ({ children, ...props }) => {
   return (
-    <Button style={styles.action} {...props}>
+    <Button extraStlyes={styles.action} {...props}>
       {children}
     </Button>
   )
@@ -13,7 +14,7 @@ const ActionButton = ({ children, ...props }) => {
 
 const Title = ({ children, ...props }) => {
   return (
-    <Text style={styles.title} {...props}>
+    <Text style={[styles.title, props]} {...props}>
       {children}
     </Text>
   )
@@ -26,18 +27,14 @@ export default ActionButton
 const styles = StyleSheet.create({
   action: {
     backgroundColor: 'white',
-    borderRadius: 9999,
     minWidth: 48,
     height: 48,
-    paddingHorizontal: 12,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center'
+    paddingHorizontal: 12
   },
   title: {
     marginRight: 8,
     marginLeft: 8,
     fontWeight: 'bold',
-    color: 'red' //TODO
+    color: theme.colors.textLight
   }
 })

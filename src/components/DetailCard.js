@@ -5,7 +5,7 @@ import theme from '../utils/theme'
 
 const DetailCard = ({ data, border, children, ...props }) => {
   return (
-    <View style={styles.container}>
+    <View style={styles.container} {...props}>
       {/* Border  */}
       {border && <View style={styles.borderTop} />}
       {/* Body  */}
@@ -13,31 +13,42 @@ const DetailCard = ({ data, border, children, ...props }) => {
         <Placeholder
           autoRun
           visible={data ? true : false}
-          extraPlaceholderStyle={styles.bodyPlaceholder}
+          width={100}
+          height={16}
         >
           <View style={styles.textContainer}>
-            <Text style={styles.anlamSiraText}>{data?.anlam_sira + ' '}</Text>
+            <Text style={styles.anlamSiraText}>{data?.anlam_sira}</Text>
             <Text style={styles.ozellikText}>{data?.ozellik}</Text>
           </View>
         </Placeholder>
         {/* Summary */}
 
-        <View mt={8}>
-          <Placeholder autoRun visible={data ? true : false} width={240}>
+        <View style={styles.summaryContainer}>
+          <Placeholder
+            autoRun
+            visible={data ? true : false}
+            width={240}
+            height={16}
+          >
             <Text fontWeight="600">{data?.anlam}</Text>
           </Placeholder>
-          <Placeholder autoRun visible={data ? true : false} width={160} mt={4}>
-            {data?.ornek.map((ornek) => (
-              <View key={ornek.id}>
-                <Text ml={10} mt={12} color="textLight" fontWeight="500">
-                  {ornek.ornek}{' '}
-                  <Text fontWeight="700" color="textLight">
-                    {ornek.yazar}
+          <View style={styles.summaryContainerPlaceholder}>
+            <Placeholder
+              autoRun
+              visible={data ? true : false}
+              width={160}
+              height={16}
+            >
+              {data?.ornek.map((ornek) => (
+                <View key={ornek.id}>
+                  <Text style={styles.ornekText}>
+                    {ornek.ornek}{' '}
+                    <Text style={styles.ornekYazarText}>{ornek.yazar}</Text>
                   </Text>
-                </Text>
-              </View>
-            ))}
-          </Placeholder>
+                </View>
+              ))}
+            </Placeholder>
+          </View>
         </View>
       </View>
     </View>
@@ -53,16 +64,12 @@ const styles = StyleSheet.create({
     paddingHorizontal: 28,
     paddingVertical: 20
   },
-  bodyPlaceholder: {
-    width: 100
-  },
   textContainer: {
     flexDirection: 'row'
   },
   anlamSiraText: {
-    marginLeft: -14,
-    marginRight: 8,
-    color: theme.colors.textLight
+    marginRight: 8, //TODO add marginLeft: -10
+    color: theme.colors.textLight //TODO
   },
   ozellikText: {
     color: theme.colors.red
@@ -70,21 +77,17 @@ const styles = StyleSheet.create({
   summaryContainer: {
     marginTop: 8
   },
-  anlamPlaceholder: {
-    width: 240
+  summaryContainerPlaceholder: {
+    marginTop: 8
   },
   anlamText: {
     fontWeight: 'bold',
     color: theme.colors.textDark
   },
-  orneklerPlaceholder: {
-    width: 160,
-    marginTop: 4
-  },
   ornekText: {
     marginLeft: 10,
     marginTop: 12,
-    color: 'blue',
+    color: theme.colors.textLight,
     fontWeight: '500'
   },
   ornekYazarText: {
@@ -97,6 +100,6 @@ const styles = StyleSheet.create({
     left: 12,
     right: 12,
     height: 1,
-    backgroundColor: 'black'
+    backgroundColor: theme.colors.light
   }
 })

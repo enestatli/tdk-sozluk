@@ -30,9 +30,5 @@ export default FeedCard
 const styles = StyleSheet.create({
   container: {
     marginTop: 10
-  },
-  summaryPlaceholder: {
-    marginTop: 16,
-    width: 240
   }
 })

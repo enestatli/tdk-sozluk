@@ -4,7 +4,7 @@ import Button from './Button'
 import theme from '../../utils/theme'
 
 const Card = ({ children, ...props }) => {
-  console.log(props)
+  // console.log(props)
   return (
     <Button extraStyles={styles.button} {...props}>
       <View style={styles.container}>{children}</View>
@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
   },
   summary: {
     fontSize: 14,
-    color: 'blue', //TODO
+    color: theme.colors.textMedium, //TODO
     marginTop: 8
   }
 })
