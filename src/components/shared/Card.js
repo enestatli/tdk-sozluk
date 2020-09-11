@@ -4,7 +4,6 @@ import Button from './Button'
 import theme from '../../utils/theme'
 
 const Card = ({ children, ...props }) => {
-  // console.log(props)
   return (
     <Button extraStyles={styles.button} {...props}>
       <View style={styles.container}>{children}</View>
@@ -30,7 +29,8 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     borderRadius: 6,
     paddingVertical: 16,
-    paddingHorizontal: 12
+    paddingHorizontal: 12,
+    marginTop: 10 //TODO get this style from the parent
   },
   container: {
     flex: 1,
