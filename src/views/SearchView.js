@@ -1,6 +1,12 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, { useState, useEffect, useCallback, useContext } from 'react'
-import { View, StyleSheet, Dimensions, StatusBar, Platform } from 'react-native'
+import {
+  View,
+  StyleSheet,
+  StatusBar,
+  Platform,
+  SafeAreaView
+} from 'react-native'
 import { useFocusEffect } from '@react-navigation/native'
 
 import theme from '../utils/theme'
@@ -19,6 +25,9 @@ const SearchView = ({ navigation }) => {
 
   useEffect(() => {
     homeData.setData()
+    return () => {
+      searchData.setKeyword('')
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
@@ -33,18 +42,24 @@ const SearchView = ({ navigation }) => {
   )
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView
+      style={[
+        styles.container,
+        isSearchFocus
+          ? { backgroundColor: theme.colors.softRed }
+          : { backgroundColor: theme.colors.red }
+      ]}
+    >
       <SearchPageAnimation
         isSearchFocus={isSearchFocus}
         onSearchFocus={setIsSearchFocus}
       />
 
       <View
-        style={{
-          flex: 1,
-          paddingTop: 26,
-          backgroundColor: theme.colors.softRed
-        }}
+        style={[
+          styles.content,
+          isSearchFocus ? { paddingTop: 0 } : { paddingTop: 26 }
+        ]}
       >
         {isSearchFocus ? (
           <View style={{ flex: 1, borderColor: 'red', borderWidth: 1 }}>
@@ -72,7 +87,7 @@ const SearchView = ({ navigation }) => {
                 })
               }
             />
-            <View style={{ marginTop: 40 }}>
+            <View style={{ marginTop: 20 }}>
               <FeedCard
                 title={'Bir Deyim - Atasözü'}
                 data={homeData.data?.atasoz}
@@ -86,19 +101,22 @@ const SearchView = ({ navigation }) => {
           </View>
         )}
       </View>
-    </View>
+    </SafeAreaView>
   )
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: theme.colors.softRed
+    flex: 1
   },
   button: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center'
+  },
+  content: {
+    flex: 1,
+    backgroundColor: theme.colors.softRed
   },
   feedContainer: {
     flex: 1,

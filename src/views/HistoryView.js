@@ -41,7 +41,7 @@ const HistoryView = ({ navigation }) => {
                     <View style={styles.iconFrame}>
                       <Trash style={styles.icon} />
                     </View>
-                    <Text style={styles.buttonText}>Gecmisi Temizle</Text>
+                    <Text style={styles.buttonText}>Geçmişi Temizle</Text>
                   </Button>
                 </View>
               )}
@@ -54,7 +54,7 @@ const HistoryView = ({ navigation }) => {
         ) : (
           <View style={styles.rotateIconContainer}>
             <RotateCcw style={styles.rotateIcon} />
-            <Text style={styles.emptyHistoryText}>Henuz gecmis yok.</Text>
+            <Text style={styles.emptyHistoryText}>Henuz gecmis yok</Text>
           </View>
         )}
       </View>
