@@ -2,7 +2,6 @@ import React from 'react'
 import { StyleSheet, Text, View, FlatList } from 'react-native'
 import { Book, Right } from './icons'
 import theme from '../utils/theme'
-import { Card } from './shared'
 import SimpleCard from './SimpleCard'
 
 const emphasize = (keyword, text) => {

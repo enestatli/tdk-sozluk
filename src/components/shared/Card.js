@@ -1,5 +1,6 @@
 import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
+
 import Button from './Button'
 import theme from '../../utils/theme'
 
@@ -35,7 +36,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     borderLeftWidth: 3,
-    borderLeftColor: theme.colors.red,
+    borderLeftColor: theme.colors.light,
     paddingLeft: 12
   },
   title: {
