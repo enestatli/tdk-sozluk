@@ -20,11 +20,13 @@ import {
   SoundSolid,
   Favorite,
   Hand,
-  FavoriteSolid
+  FavoriteSolid,
+  Right
 } from '../components/icons'
 import { resultsContext, historyContext, favoriteContext } from '../context'
 import throttle from 'lodash.throttle'
 import DetailFocusBar from '../components/DetailFocusBar'
+import SimpleCard from '../components/SimpleCard'
 
 const tabs = [
   {
@@ -194,6 +196,46 @@ const DetailView = ({ route, navigation }) => {
             ))}
           </View>
         )}
+        {/* Atasozleri */}
+        {selectedTab === tabs[1].id && (
+          <View style={styles.atasozleriContainer}>
+            {(resultsData.data?.atasozu ?? [1, 2, 3]).map((item) => (
+              <View key={item.id} style={styles.atasozCardContainer}>
+                <SimpleCard
+                  onPress={() =>
+                    navigation.navigate('Details', { keyword: item.title })
+                  }
+                >
+                  <SimpleCard.Title style={styles.atasozCardTitle}>
+                    {item.title}
+                  </SimpleCard.Title>
+                  <Right style={styles.rightIcon} />
+                </SimpleCard>
+              </View>
+            ))}
+            <View style={{ height: 30 }} />
+          </View>
+        )}
+        {/* Birlesikler */}
+        {selectedTab === tabs[2].id && (
+          <View style={styles.atasozleriContainer}>
+            {(resultsData.data?.birlesikler ?? [1, 2, 3]).map((item) => (
+              <View key={item.id} style={styles.atasozCardContainer}>
+                <SimpleCard
+                  onPress={() =>
+                    navigation.navigate('Details', { keyword: item.title })
+                  }
+                >
+                  <SimpleCard.Title style={styles.atasozCardTitle}>
+                    {item.title}
+                  </SimpleCard.Title>
+                  <Right style={styles.rightIcon} />
+                </SimpleCard>
+              </View>
+            ))}
+            <View style={{ height: 30 }} />
+          </View>
+        )}
       </ScrollView>
     </View>
   )
@@ -240,5 +282,21 @@ const styles = StyleSheet.create({
   anlamlarContainer: {
     marginTop: 32,
     flex: 1
+  },
+  atasozleriContainer: {
+    marginTop: 26,
+    flex: 1
+  },
+  atasozCardContainer: {
+    paddingVertical: 6
+  },
+  atasozCardTitle: {
+    paddingRight: 32
+  },
+  rightIcon: {
+    marginLeft: 'auto',
+    height: 18,
+    width: 18,
+    color: theme.colors.red
   }
 })

@@ -62,7 +62,7 @@ const SearchView = ({ navigation }) => {
         ]}
       >
         {isSearchFocus ? (
-          <View style={{ flex: 1, borderColor: 'red', borderWidth: 1 }}>
+          <View style={{ flex: 1 }}>
             {searchData.keyword.length >= 3 ? (
               <SearchSuggestionList
                 onPress={(k) => navigation.navigate('Details', { keyword: k })}
