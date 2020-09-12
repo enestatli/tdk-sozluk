@@ -12,6 +12,8 @@ target 'tdkSozluk' do
 
   pod 'RNSound', :path => '../node_modules/react-native-sound'
 
+  pod 'react-native-splash-screen', :path => '../node_modules/react-native-splash-screen'
+
   target 'tdkSozlukTests' do
     inherit! :complete
     # Pods for testing
