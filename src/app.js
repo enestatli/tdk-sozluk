@@ -10,6 +10,8 @@ import {
   FavoriteProvider
 } from './context/'
 
+// TODO SafeAreaProvider will be added
+
 const App = () => {
   return (
     <FavoriteProvider>

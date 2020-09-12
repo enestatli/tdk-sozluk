@@ -60,8 +60,8 @@ const styles = StyleSheet.create({
     width: '100%'
   },
   tabsContainer: {
-    paddingHorizontal: 16,
     flex: 1,
+    paddingHorizontal: 16,
     height: 24
   },
   button: {

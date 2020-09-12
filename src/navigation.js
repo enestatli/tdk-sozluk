@@ -33,8 +33,10 @@ const SearchStack = ({ route, navigation }) => {
               ((route.params?.keyword ?? '').length > 15 ? '...' : ''),
             headerStyle: {
               backgroundColor: theme.colors.softRed,
-              elevation: 0
+              elevation: 0,
+              shadowColor: 'transparent'
             },
+            headerTitleAlign: 'center',
             headerLeft: () => (
               //TODO navigation, goBack()?
               <Button

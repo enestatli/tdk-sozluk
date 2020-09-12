@@ -3,6 +3,7 @@ import AsyncStorage from '@react-native-community/async-storage'
 import BottomSheet from 'reanimated-bottom-sheet'
 
 import FavoritesModal from '../components/FavoritesModal'
+import { ToastAndroid } from 'react-native'
 
 export const favoriteDefaultContext = {
   favorites: [],
@@ -78,7 +79,8 @@ const FavoriteProvider = ({ children }) => {
           'favorites',
           JSON.stringify({ data: newFavorites })
         )
-        setSelectedList(false)
+        //TODO false to empty array
+        setSelectedList([])
         favoritesModalRef.current.snapTo(1)
         favoritesModalRef.current.snapTo(1)
       } catch {
@@ -87,6 +89,13 @@ const FavoriteProvider = ({ children }) => {
     },
     addToFavorites: async (k) => {
       try {
+        ToastAndroid.showWithGravityAndOffset(
+          'Favorilerinize eklendi',
+          ToastAndroid.SHORT,
+          ToastAndroid.BOTTOM,
+          0,
+          385
+        )
         const item = { id: Date.now() + '', title: k }
         const newFavorites = [item, ...favorites]
         setFavorites(newFavorites)

@@ -25,7 +25,7 @@ const HistoryView = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <HeaderNavigation
-        children={'Gecmis'}
+        children={'Geçmiş'}
         onPress={() => navigation.navigate('Search')}
       />
       <View style={styles.secondContainer}>
@@ -54,7 +54,7 @@ const HistoryView = ({ navigation }) => {
         ) : (
           <View style={styles.rotateIconContainer}>
             <RotateCcw style={styles.rotateIcon} />
-            <Text style={styles.emptyHistoryText}>Henuz gecmis yok</Text>
+            <Text style={styles.emptyHistoryText}>Henüz gemiş yok</Text>
           </View>
         )}
       </View>

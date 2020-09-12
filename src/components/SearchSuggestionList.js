@@ -26,7 +26,7 @@ const SearchSuggestionList = ({ keyword, data, onPress }) => {
     return (
       <View style={styles.bookIconContainer}>
         <Book style={styles.bookIcon} />
-        <Text style={styles.bookIconText}>Aradiginiz sozcuk bulunamadi</Text>
+        <Text style={styles.bookIconText}>Aradığınız sözcük bulunamadı</Text>
       </View>
     )
   } else {

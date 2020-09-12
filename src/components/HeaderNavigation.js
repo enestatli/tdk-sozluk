@@ -9,8 +9,8 @@ const HeaderNavigation = ({ children, onPress }) => {
     <View style={styles.container}>
       <Button onPress={onPress} extraStyles={styles.button}>
         <Left style={styles.icon} />
-        <Text style={styles.text}>{children}</Text>
       </Button>
+      <Text style={styles.text}>{children}</Text>
     </View>
   )
 }
@@ -36,6 +36,7 @@ const styles = StyleSheet.create({
     color: theme.colors.textDark
   },
   text: {
+    fontSize: 14,
     color: theme.colors.textDark
   }
 })

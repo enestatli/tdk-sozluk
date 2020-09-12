@@ -5,7 +5,8 @@ import {
   StatusBar,
   Platform,
   StyleSheet,
-  ScrollView
+  ScrollView,
+  ToastAndroid
 } from 'react-native'
 import { useFocusEffect } from '@react-navigation/native'
 import Sound from 'react-native-sound'
@@ -52,7 +53,22 @@ const DetailView = ({ route, navigation }) => {
   const [selectedTab, setSelectedTab] = useState(tabs[0].id)
   const isFavorited = favorites.favorites.find((f) => f.title === keyword)
 
+  // ToastAndroid.showWithGravityAndOffset(
+  //   'FAVORILERE EKLENDI',
+  //   ToastAndroid.SHORT,
+  //   ToastAndroid.BOTTOM,
+  //   0,
+  //   385
+  // )
+
   const playSound = throttle(() => {
+    ToastAndroid.showWithGravityAndOffset(
+      'Şu an sesli dinliyorsunuz',
+      ToastAndroid.SHORT,
+      ToastAndroid.BOTTOM,
+      0,
+      385
+    )
     const track = new Sound(
       `https://sozluk.gov.tr/ses/${resultsData?.soundCode}.wav`,
       '',

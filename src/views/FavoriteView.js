@@ -15,7 +15,6 @@ const FavoriteView = ({ navigation }) => {
   useFocusEffect(
     useCallback(() => {
       StatusBar.setBarStyle('dark-content')
-      //TODO setbgcolor to theme.colors.softRed
       Platform.OS === 'android' &&
         StatusBar.setBackgroundColor(theme.colors.softRed)
       return () => {
