@@ -16,17 +16,7 @@ import {
 // TODO Move SplashScreen to Splash.js
 
 const App = () => {
-  const [hideSplash, setHideSplash] = React.useState(false)
-
-  React.useEffect(() => {
-    setTimeout(() => {
-      setHideSplash(true)
-    }, 100) // amount of time the splash is shown from the time component is rendered
-  }, [])
-
-  React.useEffect(() => {
-    hideSplash && SplashScreen.hide()
-  }, [hideSplash])
+  SplashScreen.hide()
   return (
     <FavoriteProvider>
       <HistoryProvider>
