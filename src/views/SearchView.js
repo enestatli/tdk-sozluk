@@ -12,7 +12,12 @@ import { useFocusEffect } from '@react-navigation/native'
 import theme from '../utils/theme'
 import FeedCard from '../components/FeedCard'
 
-import { homeContext, searchContext, historyContext } from '../context'
+import {
+  homeContext,
+  searchContext,
+  historyContext,
+  resultsContext
+} from '../context'
 import SearchSuggestionList from '../components/SearchSuggestionList'
 import SimpleList from '../components/SimpleList'
 import SearchPageAnimation from '../components/SearchPageAnimation'
@@ -75,9 +80,10 @@ const SearchView = ({ navigation }) => {
               />
             ) : (
               <SimpleList
-                onPress={(k) =>
+                onPress={(k, t) =>
                   navigation.navigate('Details', {
-                    keyword: k
+                    keyword: k,
+                    tabs: t
                   })
                 }
                 data={historyData.history}

@@ -52,7 +52,6 @@ const DetailView = ({ route, navigation }) => {
   const [isPlaying, setIsPlaying] = useState(false)
   const [selectedTab, setSelectedTab] = useState(tabs[0].id)
   const isFavorited = favorites.favorites.find((f) => f.title === keyword)
-  // console.log(route?.params)
 
   const playSound = throttle(() => {
     ToastAndroid.showWithGravityAndOffset(

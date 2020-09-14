@@ -26,6 +26,7 @@ const DetailFocusBar = ({ tabs, selected, onPress }) => {
             <Button
               extraStyles={styles.button}
               onPress={() => {
+                console.log(item.id)
                 onPress(item.id)
                 listRef.current.scrollToIndex({
                   index: tabs.findIndex((el) => el === item)

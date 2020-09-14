@@ -20,6 +20,9 @@ import {
 //TODO EDIT DetailCard FeedCard(mb), padding, margin styles
 //TODO EDIT Text fontWeight, color
 //TODO EDIT yOffset ToastAndroid based on dimension of the window
+//TODO BackgroundImage Logo should be replaced with new one
+
+//TODO Great story about people have an on/off switch, whenever they want, have abiliy to off, and no memroy until on
 
 const App = () => {
   React.useEffect(() => {

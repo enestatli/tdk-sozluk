@@ -27,7 +27,7 @@ const SearchStack = ({ route, navigation }) => {
         name="Details"
         component={DetailView}
         options={({ route, navigation }) => {
-          console.log(route, 'from navigation.js')
+          // console.log(route, 'from navigation.js')
           return {
             title:
               // Atasozleri ve Deyimler here

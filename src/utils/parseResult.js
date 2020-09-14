@@ -24,6 +24,13 @@ const parseResult = (result) => {
       }))
     }))
   }
+  // console.log(parsed, 'parsed value')
+  // console.log(parsed.birlesikler.length)
+  // console.log(
+  //   (parsed.telaffuz === undefined || parsed.lisan === '') &&
+  //     parsed.birlesikler.length === 0 &&
+  //     parsed.atasozu.length > 0
+  // )
 
   return parsed
 }

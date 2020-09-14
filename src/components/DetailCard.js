@@ -5,13 +5,15 @@ import theme from '../utils/theme'
 
 const DetailCard = ({ data, border, children, ...props }) => {
   // console.log(props.tabs, 'detailcard')
+
   return (
     <View style={styles.container} {...props}>
       {/* Border  */}
       {border && <View style={styles.borderTop} />}
       {/* Body  */}
       <View>
-        {props.tabs !== 'atasozu' && (
+        {/* TODO props.tabs === "anlamlar" data.ozellik eklenecek birlesikler icin */}
+        {props.tabs !== 'atasozu' && props.tabs !== 'birlesikler' && (
           <Placeholder
             autoRun
             visible={data ? true : false}
@@ -25,7 +27,6 @@ const DetailCard = ({ data, border, children, ...props }) => {
           </Placeholder>
         )}
         {/* Summary */}
-
         <View style={styles.summaryContainer}>
           <Placeholder
             autoRun
@@ -45,7 +46,7 @@ const DetailCard = ({ data, border, children, ...props }) => {
               {data?.ornek.map((ornek) => (
                 <View key={ornek.id}>
                   <Text style={styles.ornekText}>
-                    {ornek.ornek}{' '}
+                    "{ornek.ornek}"{'  '}
                     <Text style={styles.ornekYazarText}>{ornek.yazar}</Text>
                   </Text>
                 </View>
