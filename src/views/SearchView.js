@@ -65,13 +65,21 @@ const SearchView = ({ navigation }) => {
           <View style={{ flex: 1 }}>
             {searchData.keyword.length >= 3 ? (
               <SearchSuggestionList
-                onPress={(k) => navigation.navigate('Details', { keyword: k })}
+                onPress={(k) =>
+                  navigation.navigate('Details', {
+                    keyword: k
+                  })
+                }
                 keyword={searchData.keyword}
                 data={searchData.suggestions}
               />
             ) : (
               <SimpleList
-                onPress={(k) => navigation.navigate('Details', { keyword: k })}
+                onPress={(k) =>
+                  navigation.navigate('Details', {
+                    keyword: k
+                  })
+                }
                 data={historyData.history}
               />
             )}
@@ -93,7 +101,8 @@ const SearchView = ({ navigation }) => {
                 data={homeData.data?.atasoz}
                 onPress={() =>
                   navigation.navigate('Details', {
-                    keyword: homeData.data?.atasoz.madde
+                    keyword: homeData.data?.atasoz.madde,
+                    tabs: 'atasozu'
                   })
                 }
               />

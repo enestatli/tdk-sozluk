@@ -52,6 +52,7 @@ const DetailView = ({ route, navigation }) => {
   const [isPlaying, setIsPlaying] = useState(false)
   const [selectedTab, setSelectedTab] = useState(tabs[0].id)
   const isFavorited = favorites.favorites.find((f) => f.title === keyword)
+  console.log(route?.params)
 
   const playSound = throttle(() => {
     ToastAndroid.showWithGravityAndOffset(
@@ -88,7 +89,11 @@ const DetailView = ({ route, navigation }) => {
     useCallback(() => {
       StatusBar.setBarStyle('dark-content')
       Platform.OS === 'android' &&
-        StatusBar.setBackgroundColor(theme.colors.softRed)
+        StatusBar.setBackgroundColor(
+          route.params?.tabs === 'atasozu'
+            ? theme.colors.atasozleriLight
+            : theme.colors.softRed
+        )
       return () => {
         resultsData.clearResults()
       }
@@ -106,47 +111,69 @@ const DetailView = ({ route, navigation }) => {
   )
 
   return (
-    <View style={styles.container}>
+    <View
+      style={{
+        ...styles.container,
+        backgroundColor:
+          route.params?.tabs === 'atasozu'
+            ? theme.colors.atasozleriLight
+            : theme.colors.softRed
+      }}
+    >
       {/* Focus Bar */}
-      <DetailFocusBar
-        onPress={(id) => setSelectedTab(id)}
-        tabs={tabs}
-        selected={selectedTab}
-      />
+      {route.params?.tabs !== 'atasozu' && (
+        <DetailFocusBar
+          onPress={(id) => setSelectedTab(id)}
+          tabs={tabs}
+          selected={selectedTab}
+        />
+      )}
+
       <ScrollView style={styles.secondContainer}>
         {/* Keyword, lisan*/}
         <View>
           <Text style={styles.keywordText}>{keyword}</Text>
-          <Text style={styles.telaffuzText}>
-            {resultsData.data?.telaffuz ? resultsData.data?.telaffuz + ' ' : ''}
-            {resultsData.data?.lisan ?? ''}
-          </Text>
+          {route.params?.tabs !== 'atasozu' ? (
+            <Text style={styles.telaffuzText}>
+              {resultsData.data?.telaffuz
+                ? resultsData.data?.telaffuz + ' '
+                : ''}
+              {resultsData.data?.lisan ?? ''}
+            </Text>
+          ) : (
+            <Text style={styles.telaffuzText}>Atasözleri ve Deyimler</Text>
+          )}
         </View>
 
         {/* Action Buttons */}
-
         <View style={styles.actionButtonsFrame}>
+          {route.params?.tabs !== 'atasozu' && (
+            <ActionButton
+              disabled={resultsData?.soundCode.length === 0}
+              onPress={playSound}
+            >
+              {isPlaying ? (
+                <SoundSolid color={theme.colors.red} />
+              ) : (
+                <SoundIcon
+                  style={styles.iconSize}
+                  color={
+                    resultsData.soundCode.length > 0
+                      ? isPlaying
+                        ? theme.colors.red
+                        : theme.colors.textLight
+                      : theme.colors.softGray
+                  }
+                />
+              )}
+            </ActionButton>
+          )}
+
           <ActionButton
-            disabled={resultsData?.soundCode.length === 0}
-            onPress={playSound}
-          >
-            {isPlaying ? (
-              <SoundSolid color={theme.colors.red} />
-            ) : (
-              <SoundIcon
-                style={styles.iconSize}
-                color={
-                  resultsData.soundCode.length > 0
-                    ? isPlaying
-                      ? theme.colors.red
-                      : theme.colors.textLight
-                    : theme.colors.softGray
-                }
-              />
-            )}
-          </ActionButton>
-          <ActionButton
-            extraStyles={styles.favoriteButton}
+            extraStyles={{
+              ...styles.favoriteButton,
+              marginLeft: route.params?.tabs !== 'atasozu' ? 12 : 0
+            }}
             onPress={throttle(() => {
               isFavorited
                 ? favorites.removeFromFavorites(keyword)
@@ -163,7 +190,10 @@ const DetailView = ({ route, navigation }) => {
             )}
           </ActionButton>
           <ActionButton
-            extraStyles={styles.handButton}
+            extraStyles={{
+              ...styles.handButton,
+              marginLeft: route.params?.tabs !== 'atasozu' ? 'auto' : 12
+            }}
             disabled={keyword ? false : true}
             onPress={throttle(() => {
               resultsData.signSheet
@@ -197,6 +227,7 @@ const DetailView = ({ route, navigation }) => {
           <View style={styles.anlamlarContainer}>
             {(resultsData.data?.anlamlar ?? [1, 2, 3]).map((item) => (
               <DetailCard
+                tabs={route.params?.tabs}
                 key={item?.id ?? item}
                 data={typeof item === 'number' ? undefined : item}
                 border={(item.anlam_sira ?? item) !== '1'}
@@ -211,7 +242,10 @@ const DetailView = ({ route, navigation }) => {
               <View key={item.id} style={styles.atasozCardContainer}>
                 <SimpleCard
                   onPress={() =>
-                    navigation.navigate('Details', { keyword: item.title })
+                    navigation.navigate('Details', {
+                      keyword: item.title,
+                      tabs: tabs[1].id
+                    })
                   }
                 >
                   <SimpleCard.Title style={styles.atasozCardTitle}>
@@ -231,7 +265,10 @@ const DetailView = ({ route, navigation }) => {
               <View key={item.id} style={styles.atasozCardContainer}>
                 <SimpleCard
                   onPress={() =>
-                    navigation.navigate('Details', { keyword: item.title })
+                    navigation.navigate('Details', {
+                      keyword: item.title,
+                      tabs: tabs[2].id
+                    })
                   }
                 >
                   <SimpleCard.Title style={styles.atasozCardTitle}>

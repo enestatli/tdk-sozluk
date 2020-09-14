@@ -27,12 +27,17 @@ const SearchStack = ({ route, navigation }) => {
         name="Details"
         component={DetailView}
         options={({ route, navigation }) => {
+          console.log(route, 'from navigation.js')
           return {
             title:
+              // Atasozleri ve Deyimler here
               (route.params?.keyword ?? '').slice(0, 15) +
               ((route.params?.keyword ?? '').length > 15 ? '...' : ''),
             headerStyle: {
-              backgroundColor: theme.colors.softRed,
+              backgroundColor:
+                route.params?.tabs === 'atasozu'
+                  ? theme.colors.atasozleriLight
+                  : theme.colors.softRed,
               elevation: 0,
               shadowColor: 'transparent'
             },

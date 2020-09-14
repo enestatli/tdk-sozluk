@@ -14,9 +14,16 @@ import {
 // TODO SafeAreaProvider will be added
 // TODO SearchView backgroundImage should be fixed
 // TODO Move SplashScreen to Splash.js
+// TODO Card text, title should textDark not light
+// TODO EDIT conditional ActionButtons styles, styles.action should be read
+// TODO ADD SuggestionList border!
+//TODO EDIT DetailCard FeedCard(mb), padding, margin styles
+//TODO EDIT Text fontWeight, color
 
 const App = () => {
-  SplashScreen.hide()
+  React.useEffect(() => {
+    SplashScreen.hide()
+  }, [])
   return (
     <FavoriteProvider>
       <HistoryProvider>

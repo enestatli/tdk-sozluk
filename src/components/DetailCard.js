@@ -4,23 +4,26 @@ import { Placeholder } from './shared'
 import theme from '../utils/theme'
 
 const DetailCard = ({ data, border, children, ...props }) => {
+  console.log(props.tabs, 'detailcard')
   return (
     <View style={styles.container} {...props}>
       {/* Border  */}
       {border && <View style={styles.borderTop} />}
       {/* Body  */}
       <View>
-        <Placeholder
-          autoRun
-          visible={data ? true : false}
-          width={100}
-          height={16}
-        >
-          <View style={styles.textContainer}>
-            <Text style={styles.anlamSiraText}>{data?.anlam_sira}</Text>
-            <Text style={styles.ozellikText}>{data?.ozellik}</Text>
-          </View>
-        </Placeholder>
+        {props.tabs !== 'atasozu' && (
+          <Placeholder
+            autoRun
+            visible={data ? true : false}
+            width={100}
+            height={16}
+          >
+            <View style={styles.textContainer}>
+              <Text style={styles.anlamSiraText}>{data?.anlam_sira}</Text>
+              <Text style={styles.ozellikText}>{data?.ozellik}</Text>
+            </View>
+          </Placeholder>
+        )}
         {/* Summary */}
 
         <View style={styles.summaryContainer}>
@@ -61,8 +64,9 @@ const styles = StyleSheet.create({
   container: {
     position: 'relative',
     backgroundColor: 'white',
-    paddingHorizontal: 28,
-    paddingVertical: 20
+    paddingHorizontal: 12,
+    paddingVertical: 8,
+    borderRadius: theme.radii.normal
   },
   textContainer: {
     flexDirection: 'row'
@@ -75,7 +79,8 @@ const styles = StyleSheet.create({
     color: theme.colors.red
   },
   summaryContainer: {
-    marginTop: 8
+    marginTop: 8,
+    marginLeft: 8
   },
   summaryContainerPlaceholder: {
     marginTop: 8
