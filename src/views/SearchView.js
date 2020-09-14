@@ -91,7 +91,8 @@ const SearchView = ({ navigation }) => {
               data={homeData.data?.kelime}
               onPress={() =>
                 navigation.navigate('Details', {
-                  keyword: homeData.data?.kelime.madde
+                  keyword: homeData.data?.kelime.madde,
+                  tabs: 'anlamlar'
                 })
               }
             />

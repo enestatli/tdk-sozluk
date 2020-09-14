@@ -37,6 +37,8 @@ const SearchStack = ({ route, navigation }) => {
               backgroundColor:
                 route.params?.tabs === 'atasozu'
                   ? theme.colors.atasozleriLight
+                  : route.params?.tabs === 'birlesikler'
+                  ? theme.colors.birlesikKelimeLight
                   : theme.colors.softRed,
               elevation: 0,
               shadowColor: 'transparent'

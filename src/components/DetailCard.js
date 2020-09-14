@@ -4,7 +4,7 @@ import { Placeholder } from './shared'
 import theme from '../utils/theme'
 
 const DetailCard = ({ data, border, children, ...props }) => {
-  console.log(props.tabs, 'detailcard')
+  // console.log(props.tabs, 'detailcard')
   return (
     <View style={styles.container} {...props}>
       {/* Border  */}

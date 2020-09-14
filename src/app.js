@@ -19,6 +19,7 @@ import {
 // TODO ADD SuggestionList border!
 //TODO EDIT DetailCard FeedCard(mb), padding, margin styles
 //TODO EDIT Text fontWeight, color
+//TODO EDIT yOffset ToastAndroid based on dimension of the window
 
 const App = () => {
   React.useEffect(() => {

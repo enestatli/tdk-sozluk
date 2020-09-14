@@ -52,7 +52,7 @@ const DetailView = ({ route, navigation }) => {
   const [isPlaying, setIsPlaying] = useState(false)
   const [selectedTab, setSelectedTab] = useState(tabs[0].id)
   const isFavorited = favorites.favorites.find((f) => f.title === keyword)
-  console.log(route?.params)
+  // console.log(route?.params)
 
   const playSound = throttle(() => {
     ToastAndroid.showWithGravityAndOffset(
@@ -92,6 +92,8 @@ const DetailView = ({ route, navigation }) => {
         StatusBar.setBackgroundColor(
           route.params?.tabs === 'atasozu'
             ? theme.colors.atasozleriLight
+            : route.params?.tabs === 'birlesikler'
+            ? theme.colors.birlesikKelimeLight
             : theme.colors.softRed
         )
       return () => {
@@ -117,62 +119,68 @@ const DetailView = ({ route, navigation }) => {
         backgroundColor:
           route.params?.tabs === 'atasozu'
             ? theme.colors.atasozleriLight
+            : route.params?.tabs === 'birlesikler'
+            ? theme.colors.birlesikKelimeLight
             : theme.colors.softRed
       }}
     >
       {/* Focus Bar */}
-      {route.params?.tabs !== 'atasozu' && (
-        <DetailFocusBar
-          onPress={(id) => setSelectedTab(id)}
-          tabs={tabs}
-          selected={selectedTab}
-        />
-      )}
+      {route.params?.tabs !== 'atasozu' &&
+        route.params?.tabs !== 'birlesikler' && (
+          <DetailFocusBar
+            onPress={(id) => setSelectedTab(id)}
+            tabs={tabs}
+            selected={selectedTab}
+          />
+        )}
 
       <ScrollView style={styles.secondContainer}>
         {/* Keyword, lisan*/}
         <View>
           <Text style={styles.keywordText}>{keyword}</Text>
-          {route.params?.tabs !== 'atasozu' ? (
+          {route.params?.tabs === 'anlamlar' ? (
             <Text style={styles.telaffuzText}>
               {resultsData.data?.telaffuz
                 ? resultsData.data?.telaffuz + ' '
                 : ''}
               {resultsData.data?.lisan ?? ''}
             </Text>
-          ) : (
+          ) : route.params?.tabs === 'atasozu' ? (
             <Text style={styles.telaffuzText}>Atasözleri ve Deyimler</Text>
+          ) : (
+            <Text style={styles.telaffuzText}>Birleşik Kelimeler</Text>
           )}
         </View>
 
         {/* Action Buttons */}
         <View style={styles.actionButtonsFrame}>
-          {route.params?.tabs !== 'atasozu' && (
-            <ActionButton
-              disabled={resultsData?.soundCode.length === 0}
-              onPress={playSound}
-            >
-              {isPlaying ? (
-                <SoundSolid color={theme.colors.red} />
-              ) : (
-                <SoundIcon
-                  style={styles.iconSize}
-                  color={
-                    resultsData.soundCode.length > 0
-                      ? isPlaying
-                        ? theme.colors.red
-                        : theme.colors.textLight
-                      : theme.colors.softGray
-                  }
-                />
-              )}
-            </ActionButton>
-          )}
+          {route.params?.tabs !== 'atasozu' &&
+            route.params?.tabs !== 'birlesikler' && (
+              <ActionButton
+                disabled={resultsData?.soundCode.length === 0}
+                onPress={playSound}
+              >
+                {isPlaying ? (
+                  <SoundSolid color={theme.colors.red} />
+                ) : (
+                  <SoundIcon
+                    style={styles.iconSize}
+                    color={
+                      resultsData.soundCode.length > 0
+                        ? isPlaying
+                          ? theme.colors.red
+                          : theme.colors.textLight
+                        : theme.colors.softGray
+                    }
+                  />
+                )}
+              </ActionButton>
+            )}
 
           <ActionButton
             extraStyles={{
               ...styles.favoriteButton,
-              marginLeft: route.params?.tabs !== 'atasozu' ? 12 : 0
+              marginLeft: route.params?.tabs === 'anlamlar' ? 12 : 0
             }}
             onPress={throttle(() => {
               isFavorited
@@ -192,7 +200,7 @@ const DetailView = ({ route, navigation }) => {
           <ActionButton
             extraStyles={{
               ...styles.handButton,
-              marginLeft: route.params?.tabs !== 'atasozu' ? 'auto' : 12
+              marginLeft: route.params?.tabs === 'anlamlar' ? 'auto' : 12
             }}
             disabled={keyword ? false : true}
             onPress={throttle(() => {
