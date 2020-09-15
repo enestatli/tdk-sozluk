@@ -18,6 +18,7 @@ const SimpleList = ({
   onLongPress = () => {},
   ...props
 }) => {
+  console.log(data, 'simpleList')
   return (
     <FlatList
       style={styles.flatList}

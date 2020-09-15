@@ -58,23 +58,10 @@ const ResultsProvider = ({ children }) => {
         .then((res) => {
           // setResults(res[0])
           setResults(parseResult(res[0]))
-          // const parsed = parseResult(res[0])
-          // console.log(parsed?.atasozu.birlesikler)
-          // if (
-          //   (parsed?.telaffuz === undefined || parsed?.lisan === '') &&
-          //   parsed.birlesikler?.length === 0 &&
-          //   parsed.atasozu?.length > 0
-          // ) {
-          //   setDataType('atasozu')
-          // } else if (
-          //   (parsed?.telaffuz === undefined || parsed?.lisan === '') &&
-          //   parsed.atasozu?.length === 0 &&
-          //   parsed.birlesikler?.length > 0
-          // ) {
-          //   setDataType('birlesikler')
-          // } else {
-          //   setDataType('anlamlar')
-          // }
+          console.log(
+            parseResult(res[0])?.atasozuTest,
+            'atasozu FRM CONTXT RESLT'
+          )
         })
         .catch((err) => {
           console.log('Error when fetching results', err)

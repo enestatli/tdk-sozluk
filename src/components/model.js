@@ -1,8 +1,11 @@
 class ResultItemModel {
   type = ''
   text = ''
-  constructor(type, text) {
-    ;(this.type = type), (this.text = text)
+  id = ''
+  constructor(type, text, id) {
+    this.type = type
+    this.text = text
+    this.id = id
   }
 }
 

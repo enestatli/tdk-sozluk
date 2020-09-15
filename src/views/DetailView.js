@@ -52,7 +52,7 @@ const DetailView = ({ route, navigation }) => {
   const [isPlaying, setIsPlaying] = useState(false)
   const [selectedTab, setSelectedTab] = useState(tabs[0].id)
   const isFavorited = favorites.favorites.find((f) => f.title === keyword)
-
+  console.log(resultsData.data, 'detailView')
   const playSound = throttle(() => {
     ToastAndroid.showWithGravityAndOffset(
       'Şu an sesli dinliyorsunuz',
@@ -76,6 +76,8 @@ const DetailView = ({ route, navigation }) => {
       }
     )
   }, 1000)
+
+  console.log(resultsData?.data?.birlesikler)
 
   useEffect(() => {
     history.addToHistory(keyword)
