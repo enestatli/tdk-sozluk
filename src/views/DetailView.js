@@ -28,6 +28,7 @@ import { resultsContext, historyContext, favoriteContext } from '../context'
 import throttle from 'lodash.throttle'
 import DetailFocusBar from '../components/DetailFocusBar'
 import SimpleCard from '../components/SimpleCard'
+import { checkAtasozu } from '../utils/api'
 
 const tabs = [
   {
@@ -52,7 +53,9 @@ const DetailView = ({ route, navigation }) => {
   const [isPlaying, setIsPlaying] = useState(false)
   const [selectedTab, setSelectedTab] = useState(tabs[0].id)
   const isFavorited = favorites.favorites.find((f) => f.title === keyword)
-  console.log(resultsData.data, 'detailView')
+  const [dataType, setDataType] = useState('')
+  const [tempData, setTempData] = useState({})
+
   const playSound = throttle(() => {
     ToastAndroid.showWithGravityAndOffset(
       'Şu an sesli dinliyorsunuz',
@@ -77,14 +80,36 @@ const DetailView = ({ route, navigation }) => {
     )
   }, 1000)
 
-  console.log(resultsData?.data?.birlesikler)
-
   useEffect(() => {
     history.addToHistory(keyword)
+    resultsData.getResults(keyword)
+    setTempData(resultsData.data?.anlamlar)
+    console.log(tempData)
+    ;(async () => {
+      if (keyword) {
+        const data = await checkAtasozu(keyword)
+        if (data[0]?.turu2 === 'Deyim' || data[0]?.turu2 === 'Atasözü') {
+          if (data.length === 1) {
+            if (resultsData.data.anlamlar?.length > 0) {
+              setDataType('anlam')
+            }
+            setDataType('atasozu')
+          } else if (data.length > 1) {
+            setDataType('anlam')
+          }
+        } else {
+          setDataType('birlesikler')
+        }
+      }
+    })()
     // resultsData.getResults(keyword) //TODO!!!!!!
     setSelectedTab(tabs[0].id)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [keyword])
+
+  useEffect(() => {
+    console.log(dataType)
+  }, [dataType])
 
   useFocusEffect(
     useCallback(() => {
@@ -103,6 +128,7 @@ const DetailView = ({ route, navigation }) => {
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
   )
+
   useFocusEffect(
     useCallback(() => {
       resultsData.getResults(keyword)
@@ -251,7 +277,7 @@ const DetailView = ({ route, navigation }) => {
               <View key={item.id} style={styles.atasozCardContainer}>
                 <SimpleCard
                   onPress={() =>
-                    navigation.navigate('Details', {
+                    navigation.navigate('AtasozuDetailView', {
                       keyword: item.title,
                       tabs: tabs[1].id
                     })

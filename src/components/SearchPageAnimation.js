@@ -10,7 +10,7 @@ import {
 import SearchBox from './SearchBox'
 import bg from '../assets/bg.jpg'
 
-import { Logo } from '../components/icons'
+import { Logo, Logo2 } from '../components/icons'
 
 // const heroHeight = Dimensions.get('window').height / 3 //TODO
 const heroHeight = 230
@@ -50,7 +50,7 @@ const SearchPageAnimation = ({ isSearchFocus, onSearchFocus }) => {
       <Animated.View style={[styles.animateBox2, { opacity: bgOpacity }]}>
         <ImageBackground source={bg} style={styles.image}>
           <View style={styles.logoContainer}>
-            <Logo style={styles.logo} />
+            <Logo2 style={styles.logo} />
           </View>
         </ImageBackground>
       </Animated.View>
@@ -86,7 +86,9 @@ const styles = StyleSheet.create({
   },
   logo: {
     width: 120,
-    color: 'white'
+    color: 'white',
+    borderColor: 'yellow',
+    borderWidth: 1
   },
   searchBox: {
     padding: 16,

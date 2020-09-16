@@ -1,5 +1,3 @@
-import ResultItemModel from '../components/model'
-
 const parseResult = (result) => {
   const parsed = {
     id: result.madde_id,
@@ -8,18 +6,10 @@ const parseResult = (result) => {
     birlesikler: result.birlesikler
       ? result.birlesikler.split(', ').map((b) => ({ title: b, id: b }))
       : [],
-    birlesiklerTest: result.birlesikler
-      ? result.birlesikler
-          .split(', ')
-          .map((text) => new ResultItemModel('birlesikler', text, text))
-      : [],
     atasozu: (result.atasozu ?? []).map((a) => ({
       id: a.madde_id,
       title: a.madde
     })),
-    atasozuTest: (result.atasozu ?? []).map(
-      (text) => new ResultItemModel('atasozu', text, text)
-    ),
     anlamlar: (result.anlamlarListe ?? []).map((a) => ({
       id: a.anlam_id,
       anlam_sira: a.anlam_sira,
@@ -34,14 +24,6 @@ const parseResult = (result) => {
       }))
     }))
   }
-  // console.log(parsed.birlesiklerTest)
-  // console.log(parsed, 'parsed value')
-  // console.log(parsed.birlesikler.length)
-  // console.log(
-  //   (parsed.telaffuz === undefined || parsed.lisan === '') &&
-  //     parsed.birlesikler.length === 0 &&
-  //     parsed.atasozu.length > 0
-  // )
 
   return parsed
 }

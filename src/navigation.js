@@ -9,6 +9,7 @@ import theme from './utils/theme'
 import { FavoriteView, HistoryView, SearchView, DetailView } from './views'
 import { Button } from './components/shared'
 import { Left, More } from './components/icons'
+import AtasozuDetailView from './views/AtasozuDetailView'
 
 const HomeStack = createStackNavigator()
 const Tab = createBottomTabNavigator()
@@ -40,6 +41,51 @@ const SearchStack = ({ route, navigation }) => {
                   : route.params?.tabs === 'birlesikler'
                   ? theme.colors.birlesikKelimeLight
                   : theme.colors.softRed,
+              elevation: 0,
+              shadowColor: 'transparent'
+            },
+            headerTitleAlign: 'center',
+            headerLeft: () => (
+              //TODO navigation, goBack()?
+              <Button
+                onPress={() => navigation.goBack()}
+                extraStyles={{ paddingHorizontal: 20, height: '100%' }}
+              >
+                <Left
+                  style={{
+                    width: 24,
+                    height: 24,
+                    color: theme.colors.textDark
+                  }}
+                />
+              </Button>
+            ),
+            headerRight: () => (
+              <Button
+                onPress={() => navigation.goBack()}
+                extraStyles={{ paddingHorizontal: 20, height: '100%' }}
+              >
+                <More
+                  style={{
+                    width: 24,
+                    height: 24,
+                    color: theme.colors.textDark
+                  }}
+                />
+              </Button>
+            )
+          }
+        }}
+      />
+      <HomeStack.Screen
+        name="AtasozuDetailView"
+        component={AtasozuDetailView}
+        options={({ route, navigation }) => {
+          // console.log(route, 'from navigation.js')
+          return {
+            title: 'Atasözleri ve Deyimler',
+            headerStyle: {
+              backgroundColor: theme.colors.atasozleriLight,
               elevation: 0,
               shadowColor: 'transparent'
             },

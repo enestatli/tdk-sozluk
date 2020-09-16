@@ -1,7 +1,12 @@
 import React from 'react'
 import { View, StyleSheet } from 'react-native'
 
-import { Search as SearchIcon, RotateCcw, Bookmark } from './icons'
+import {
+  Search as SearchIcon,
+  RotateCcw,
+  Bookmark,
+  HistoryTestLogo
+} from './icons'
 import { Button } from './shared'
 
 import theme from '../utils/theme'
@@ -53,7 +58,8 @@ const TabBar = ({ state, descriptors, navigation }) => {
             onPress={onPress}
           >
             {label === 'History' && (
-              <RotateCcw color={isFocused ? colors.red : colors.gray} />
+              // <RotateCcw color={isFocused ? colors.red : colors.gray} />
+              <HistoryTestLogo color={isFocused ? colors.red : colors.gray} />
             )}
             {label === 'Favorite' && (
               <Bookmark color={isFocused ? colors.red : colors.gray} />

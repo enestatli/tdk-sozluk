@@ -3,7 +3,7 @@ import BottomSheet from 'reanimated-bottom-sheet'
 
 import SignLanguage from '../components/SignLanguage'
 
-import { getDetailData, getSoundCode } from '../utils/api'
+import { checkAtasozu, getDetailData, getSoundCode } from '../utils/api'
 import parseResult from '../utils/parseResult'
 
 export const resultsContextDefault = {
@@ -58,10 +58,6 @@ const ResultsProvider = ({ children }) => {
         .then((res) => {
           // setResults(res[0])
           setResults(parseResult(res[0]))
-          console.log(
-            parseResult(res[0])?.atasozuTest,
-            'atasozu FRM CONTXT RESLT'
-          )
         })
         .catch((err) => {
           console.log('Error when fetching results', err)
@@ -73,6 +69,13 @@ const ResultsProvider = ({ children }) => {
         .catch((err) => {
           console.log('error when fetching soundCode:', err)
         })
+      // checkAtasozu(keyword)
+      //   .then((res) => {
+      //     console.log(res, 'context results')
+      //   })
+      //   .catch((err) => {
+      //     console.log('error when fetching atasozu')
+      //   })
     }
   }
 

@@ -6,7 +6,7 @@ import theme from '../utils/theme'
 
 const ActionButton = ({ children, ...props }) => {
   return (
-    <Button extraStlyes={{ ...styles.action, ...props.extraStlyes }} {...props}>
+    <Button extraStyles={{ ...props.extraStyles, ...styles.action }} {...props}>
       {children}
     </Button>
   )
