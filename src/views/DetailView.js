@@ -53,8 +53,6 @@ const DetailView = ({ route, navigation }) => {
   const [isPlaying, setIsPlaying] = useState(false)
   const [selectedTab, setSelectedTab] = useState(tabs[0].id)
   const isFavorited = favorites.favorites.find((f) => f.title === keyword)
-  const [dataType, setDataType] = useState('')
-  const [tempData, setTempData] = useState({})
 
   const playSound = throttle(() => {
     ToastAndroid.showWithGravityAndOffset(
@@ -82,34 +80,9 @@ const DetailView = ({ route, navigation }) => {
 
   useEffect(() => {
     history.addToHistory(keyword)
-    resultsData.getResults(keyword)
-    setTempData(resultsData.data?.anlamlar)
-    console.log(tempData)
-    ;(async () => {
-      if (keyword) {
-        const data = await checkAtasozu(keyword)
-        if (data[0]?.turu2 === 'Deyim' || data[0]?.turu2 === 'Atasözü') {
-          if (data.length === 1) {
-            if (resultsData.data.anlamlar?.length > 0) {
-              setDataType('anlam')
-            }
-            setDataType('atasozu')
-          } else if (data.length > 1) {
-            setDataType('anlam')
-          }
-        } else {
-          setDataType('birlesikler')
-        }
-      }
-    })()
-    // resultsData.getResults(keyword) //TODO!!!!!!
     setSelectedTab(tabs[0].id)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [keyword])
-
-  useEffect(() => {
-    console.log(dataType)
-  }, [dataType])
 
   useFocusEffect(
     useCallback(() => {
@@ -140,75 +113,49 @@ const DetailView = ({ route, navigation }) => {
   )
 
   return (
-    <View
-      style={{
-        ...styles.container,
-        backgroundColor:
-          route.params?.tabs === 'atasozu'
-            ? theme.colors.atasozleriLight
-            : route.params?.tabs === 'birlesikler'
-            ? theme.colors.birlesikKelimeLight
-            : theme.colors.softRed
-      }}
-    >
+    <View style={styles.container}>
       {/* Focus Bar */}
-      {route.params?.tabs !== 'atasozu' &&
-        route.params?.tabs !== 'birlesikler' && (
-          <DetailFocusBar
-            onPress={(id) => setSelectedTab(id)}
-            tabs={tabs}
-            selected={selectedTab}
-          />
-        )}
+      <DetailFocusBar
+        onPress={(id) => setSelectedTab(id)}
+        tabs={tabs}
+        selected={selectedTab}
+      />
 
       <ScrollView style={styles.secondContainer}>
         {/* Keyword, lisan*/}
         <View>
           <Text style={styles.keywordText}>{keyword}</Text>
-          {route.params?.tabs === 'anlamlar' ? (
-            <Text style={styles.telaffuzText}>
-              {resultsData.data?.telaffuz
-                ? resultsData.data?.telaffuz + ' '
-                : ''}
-              {resultsData.data?.lisan ?? ''}
-            </Text>
-          ) : route.params?.tabs === 'atasozu' ? (
-            <Text style={styles.telaffuzText}>Atasözleri ve Deyimler</Text>
-          ) : (
-            <Text style={styles.telaffuzText}>Birleşik Kelimeler</Text>
-          )}
+
+          <Text style={styles.telaffuzText}>
+            {resultsData.data?.telaffuz ? resultsData.data?.telaffuz + ' ' : ''}
+            {resultsData.data?.lisan ?? ''}
+          </Text>
         </View>
 
         {/* Action Buttons */}
         <View style={styles.actionButtonsFrame}>
-          {route.params?.tabs !== 'atasozu' &&
-            route.params?.tabs !== 'birlesikler' && (
-              <ActionButton
-                disabled={resultsData?.soundCode.length === 0}
-                onPress={playSound}
-              >
-                {isPlaying ? (
-                  <SoundSolid color={theme.colors.red} />
-                ) : (
-                  <SoundIcon
-                    style={styles.iconSize}
-                    color={
-                      resultsData.soundCode.length > 0
-                        ? isPlaying
-                          ? theme.colors.red
-                          : theme.colors.textLight
-                        : theme.colors.softGray
-                    }
-                  />
-                )}
-              </ActionButton>
+          <ActionButton
+            disabled={resultsData?.soundCode.length === 0}
+            onPress={playSound}
+          >
+            {isPlaying ? (
+              <SoundSolid color={theme.colors.red} />
+            ) : (
+              <SoundIcon
+                style={styles.iconSize}
+                color={
+                  resultsData.soundCode.length > 0
+                    ? isPlaying
+                      ? theme.colors.red
+                      : theme.colors.textLight
+                    : theme.colors.softGray
+                }
+              />
             )}
+          </ActionButton>
 
           <ActionButton
-            extraStyles={{
-              ...styles.favoriteButton,
-              marginLeft: route.params?.tabs === 'anlamlar' ? 12 : 0
-            }}
+            extraStyles={styles.favoriteButton}
             onPress={throttle(() => {
               isFavorited
                 ? favorites.removeFromFavorites(keyword)
@@ -225,10 +172,7 @@ const DetailView = ({ route, navigation }) => {
             )}
           </ActionButton>
           <ActionButton
-            extraStyles={{
-              ...styles.handButton,
-              marginLeft: route.params?.tabs === 'anlamlar' ? 'auto' : 12
-            }}
+            extraStyles={styles.handButton}
             disabled={keyword ? false : true}
             onPress={throttle(() => {
               resultsData.signSheet
@@ -277,7 +221,7 @@ const DetailView = ({ route, navigation }) => {
               <View key={item.id} style={styles.atasozCardContainer}>
                 <SimpleCard
                   onPress={() =>
-                    navigation.navigate('AtasozuDetailView', {
+                    navigation.navigate('DetailsView', {
                       keyword: item.title,
                       tabs: tabs[1].id
                     })
@@ -300,7 +244,7 @@ const DetailView = ({ route, navigation }) => {
               <View key={item.id} style={styles.atasozCardContainer}>
                 <SimpleCard
                   onPress={() =>
-                    navigation.navigate('Details', {
+                    navigation.navigate('DetailsView', {
                       keyword: item.title,
                       tabs: tabs[2].id
                     })

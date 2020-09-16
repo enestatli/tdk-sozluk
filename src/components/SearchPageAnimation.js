@@ -10,10 +10,10 @@ import {
 import SearchBox from './SearchBox'
 import bg from '../assets/bg.jpg'
 
-import { Logo, Logo2 } from '../components/icons'
+import { Logo2 } from '../components/icons'
 
 // const heroHeight = Dimensions.get('window').height / 3 //TODO
-const heroHeight = 230
+const heroHeight = 200
 
 const SearchPageAnimation = ({ isSearchFocus, onSearchFocus }) => {
   const heroHeightAnim = useRef(new Animated.Value(heroHeight)).current

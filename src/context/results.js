@@ -3,7 +3,7 @@ import BottomSheet from 'reanimated-bottom-sheet'
 
 import SignLanguage from '../components/SignLanguage'
 
-import { checkAtasozu, getDetailData, getSoundCode } from '../utils/api'
+import { getDetailData, getSoundCode } from '../utils/api'
 import parseResult from '../utils/parseResult'
 
 export const resultsContextDefault = {
@@ -14,7 +14,8 @@ export const resultsContextDefault = {
   openSignSheet: () => {},
   closeSignSheet: () => {},
   soundCode: '',
-  dataType: ''
+  dataType: '',
+  checkType: () => {}
 }
 
 const resultsContext = createContext(resultsContextDefault)
@@ -24,14 +25,12 @@ const ResultsProvider = ({ children }) => {
   const [signSheetStatus, setSignSheetStatus] = useState(false)
   const [signKeyword, setSignKeyword] = useState('')
   const [soundCode, setSoundCode] = useState('')
-  const [dataType, setDataType] = useState('XXX')
   const signSheetRef = useRef()
 
   const values = {
     data: results,
     soundCode: soundCode,
     signSheet: signSheetStatus,
-    dataType: dataType,
     clearResults: () => {
       setResults({})
       signSheetRef.current.snapTo(1)
@@ -56,7 +55,6 @@ const ResultsProvider = ({ children }) => {
       setSoundCode('')
       getDetailData(keyword)
         .then((res) => {
-          // setResults(res[0])
           setResults(parseResult(res[0]))
         })
         .catch((err) => {
@@ -69,13 +67,6 @@ const ResultsProvider = ({ children }) => {
         .catch((err) => {
           console.log('error when fetching soundCode:', err)
         })
-      // checkAtasozu(keyword)
-      //   .then((res) => {
-      //     console.log(res, 'context results')
-      //   })
-      //   .catch((err) => {
-      //     console.log('error when fetching atasozu')
-      //   })
     }
   }
 

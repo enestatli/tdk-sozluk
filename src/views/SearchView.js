@@ -12,12 +12,7 @@ import { useFocusEffect } from '@react-navigation/native'
 import theme from '../utils/theme'
 import FeedCard from '../components/FeedCard'
 
-import {
-  homeContext,
-  searchContext,
-  historyContext,
-  resultsContext
-} from '../context'
+import { homeContext, searchContext, historyContext } from '../context'
 import SearchSuggestionList from '../components/SearchSuggestionList'
 import SimpleList from '../components/SimpleList'
 import SearchPageAnimation from '../components/SearchPageAnimation'
@@ -82,8 +77,7 @@ const SearchView = ({ navigation }) => {
               <SimpleList
                 onPress={(k, t) =>
                   navigation.navigate('Details', {
-                    keyword: k,
-                    tabs: t
+                    keyword: k
                   })
                 }
                 data={historyData.history}
@@ -102,7 +96,7 @@ const SearchView = ({ navigation }) => {
                 })
               }
             />
-            <View style={{ marginTop: 20 }}>
+            <View style={{ marginTop: 15 }}>
               <FeedCard
                 title={'Bir Deyim - Atasözü'}
                 data={homeData.data?.atasoz}
@@ -136,7 +130,7 @@ const styles = StyleSheet.create({
   },
   feedContainer: {
     flex: 1,
-    paddingVertical: 40,
+    paddingVertical: 10,
     paddingHorizontal: 16
   },
   historyList: {

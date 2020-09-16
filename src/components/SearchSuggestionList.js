@@ -37,6 +37,7 @@ const SearchSuggestionList = ({ keyword, data, onPress }) => {
         keyExtractor={(item) => item.id + ''}
         renderItem={({ item }) => (
           <View>
+            <View style={styles.borderTop} />
             <SimpleCard
               extraStyles={styles.cardContainer}
               onPress={() => onPress(item.madde)}
@@ -100,5 +101,13 @@ const styles = StyleSheet.create({
   },
   emphasizeText: {
     fontWeight: 'bold'
+  },
+  borderTop: {
+    position: 'absolute',
+    top: 0,
+    left: 12,
+    right: 12,
+    height: 1,
+    backgroundColor: theme.colors.light
   }
 })

@@ -1,20 +1,35 @@
 /* eslint-disable react-native/no-inline-styles */
-import React, { useState, useEffect, useContext } from 'react'
-import { StyleSheet, View, Keyboard, Text } from 'react-native'
+import React, { useState, useEffect, useContext, useRef } from 'react'
+import { StyleSheet, View, Keyboard, Text, Animated } from 'react-native'
 
 import theme from '../utils/theme'
 
 import { Input, Button } from './shared'
 import { Close, Search } from './icons'
 import { searchContext } from '../context'
+import SpecialCharacters from './SpecialCharacters'
 
 const SearchBox = ({ onChangeFocus }) => {
   const [isFocus, setIsFocus] = useState(false)
   const searchData = useContext(searchContext)
+  const specialAnim = useRef(new Animated.Value(0)).current
 
   useEffect(() => {
     onChangeFocus(isFocus)
-  }, [isFocus, onChangeFocus])
+    if (isFocus) {
+      Animated.timing(specialAnim, {
+        toValue: 1,
+        duration: 230,
+        useNativeDriver: false
+      }).start()
+    } else {
+      Animated.timing(specialAnim, {
+        toValue: 0,
+        duration: 230,
+        useNativeDriver: false
+      }).start()
+    }
+  }, [specialAnim, isFocus, onChangeFocus])
 
   const onCancel = () => {
     searchData.setKeyword('')
@@ -28,42 +43,72 @@ const SearchBox = ({ onChangeFocus }) => {
 
   return (
     <View style={styles.container}>
-      <View style={styles.inputFrame}>
-        <Input
-          style={[styles.input, isFocus && { borderColor: '#d1d1d1' }]}
-          placeholder="Türkçe Sözlük'te Ara"
-          placeholderTextColor="textMedium" //TODO fix here
-          onFocus={() => setIsFocus(true)}
-          value={searchData.keyword}
-          onChangeText={(text) => searchData.setKeyword(text)}
-        />
-        {searchData.keyword.length > 0 && (
-          <Button
-            style={styles.closeButton}
-            onPress={onClear}
-            pointerEvents="none"
-          >
-            <Close color={theme.colors.textDark} />
+      <View style={styles.secondContainer}>
+        <View style={styles.inputFrame}>
+          <Input
+            style={[
+              styles.input,
+              isFocus && { borderColor: '#d1d1d1' },
+              searchData.keyword !== '' && { borderColor: theme.colors.red }
+            ]}
+            placeholder="Türkçe Sözlük'te Ara"
+            placeholderTextColor="textMedium" //TODO fix here
+            onFocus={() => setIsFocus(true)}
+            value={searchData.keyword}
+            onChangeText={(text) => searchData.setKeyword(text)}
+          />
+          {searchData.keyword.length > 0 && (
+            <Button
+              style={styles.closeButton}
+              onPress={onClear}
+              pointerEvents="none"
+            >
+              <Close color={theme.colors.textDark} />
+            </Button>
+          )}
+          <Button style={styles.searchButton} pointerEvents="none">
+            <Search color={theme.colors.textMedium} />
+          </Button>
+        </View>
+
+        {isFocus && (
+          <Button style={styles.cancelButton} onPress={onCancel}>
+            <Text>Vazgec</Text>
           </Button>
         )}
-        <Button style={styles.searchButton} pointerEvents="none">
-          <Search color={theme.colors.textMedium} />
-        </Button>
       </View>
-
-      {isFocus && (
-        <Button style={styles.cancelButton} onPress={onCancel}>
-          <Text>Vazgec</Text>
-        </Button>
-      )}
+      <SpecialCharacters
+        onCharPress={(char) => {
+          searchData?.setKeyword(searchData?.keyword + char)
+        }}
+      >
+        <Animated.View
+          style={{
+            marginTop: specialAnim.interpolate({
+              inputRange: [0, 1],
+              outputRange: [0, 16]
+            }),
+            height: specialAnim.interpolate({
+              inputRange: [0, 1],
+              outputRange: [0, 48]
+            })
+          }}
+        />
+      </SpecialCharacters>
     </View>
   )
 }
 
 const styles = StyleSheet.create({
   container: {
+    flexDirection: 'column',
+    alignItems: 'center',
+    marginHorizontal: -16
+  },
+  secondContainer: {
     flexDirection: 'row',
-    alignItems: 'center'
+    alignItems: 'center',
+    marginHorizontal: 16
   },
   inputFrame: {
     position: 'relative',
@@ -76,7 +121,14 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: 'transparent',
     color: theme.colors.textDark,
-    backgroundColor: 'white'
+    backgroundColor: 'white',
+    shadowColor: '#000',
+    shadowOpacity: 0.1,
+    shadowRadius: 24,
+    shadowOffset: {
+      width: 0,
+      height: 4
+    }
   },
   closeButton: {
     position: 'absolute',
