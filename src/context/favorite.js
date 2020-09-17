@@ -3,7 +3,9 @@ import AsyncStorage from '@react-native-community/async-storage'
 import BottomSheet from 'reanimated-bottom-sheet'
 
 import FavoritesModal from '../components/FavoritesModal'
-import { ToastAndroid } from 'react-native'
+import { Dimensions, ToastAndroid } from 'react-native'
+
+const y = Dimensions.get('window').height / 2
 
 export const favoriteDefaultContext = {
   favorites: [],
@@ -94,7 +96,7 @@ const FavoriteProvider = ({ children }) => {
           ToastAndroid.SHORT,
           ToastAndroid.BOTTOM,
           0,
-          385
+          y
         )
         const item = { id: Date.now() + '', title: k }
         const newFavorites = [item, ...favorites]

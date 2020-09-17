@@ -114,7 +114,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: theme.colors.softRed
-    // backgroundColor: 'blue'
   },
   button: {
     flex: 1,

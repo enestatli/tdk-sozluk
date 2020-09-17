@@ -11,8 +11,6 @@ import {
   FavoriteProvider
 } from './context/'
 
-//TODO historyjs footer gap
-
 const App = () => {
   React.useEffect(() => {
     SplashScreen.hide()

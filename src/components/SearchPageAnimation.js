@@ -22,13 +22,13 @@ const SearchPageAnimation = ({ isSearchFocus, onSearchFocus }) => {
     if (isSearchFocus) {
       Animated.timing(searchAnim, {
         toValue: 0,
-        duration: 230,
+        duration: 250,
         useNativeDriver: false
       }).start()
     } else {
       Animated.timing(searchAnim, {
         toValue: 1,
-        duration: 230,
+        duration: 250,
         useNativeDriver: false
       }).start()
     }

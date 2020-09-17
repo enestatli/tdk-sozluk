@@ -6,7 +6,8 @@ import {
   Platform,
   StyleSheet,
   ScrollView,
-  ToastAndroid
+  ToastAndroid,
+  Dimensions
 } from 'react-native'
 import { useFocusEffect } from '@react-navigation/native'
 import Sound from 'react-native-sound'
@@ -44,6 +45,8 @@ const tabs = [
   }
 ]
 
+const y = Dimensions.get('window').height / 2
+
 const DetailView = ({ route, navigation }) => {
   const keyword = route.params?.keyword
   const resultsData = useContext(resultsContext)
@@ -59,7 +62,7 @@ const DetailView = ({ route, navigation }) => {
       ToastAndroid.SHORT,
       ToastAndroid.BOTTOM,
       0,
-      385
+      y
     )
     const track = new Sound(
       `https://sozluk.gov.tr/ses/${resultsData?.soundCode}.wav`,
