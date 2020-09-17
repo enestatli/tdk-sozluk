@@ -56,10 +56,10 @@ const SimpleList = ({
           </SimpleCard>
         </View>
       )}
-      ListFooterComponent={<View style={{ footer: selectable ? 180 : 20 }} />}
+      ListFooterComponent={<View style={{ height: selectable ? 180 : 40 }} />}
       ListHeaderComponent={
         hasHeader ? (
-          <View style={{ marginTop: 24 }}>
+          <View>
             <Text style={styles.headerText}>Son Aramalar</Text>
           </View>
         ) : (

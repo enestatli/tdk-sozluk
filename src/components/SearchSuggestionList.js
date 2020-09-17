@@ -49,8 +49,7 @@ const SearchSuggestionList = ({ keyword, data, onPress }) => {
             </SimpleCard>
           </View>
         )}
-        ItemSeparatorComponent={() => <View style={styles.borderTop} />}
-        ListHeaderComponent={<View style={styles.listHeader} />}
+        ItemSeparatorComponent={() => <View style={styles.borderBottom} />}
       />
     )
   }
@@ -101,15 +100,12 @@ const styles = StyleSheet.create({
   emphasizeText: {
     fontWeight: 'bold'
   },
-  borderTop: {
+  borderBottom: {
     position: 'absolute',
-    top: 0,
+    bottom: 0,
     left: 12,
     right: 12,
     height: 1,
     backgroundColor: theme.colors.light
-  },
-  listHeader: {
-    marginTop: 20
   }
 })

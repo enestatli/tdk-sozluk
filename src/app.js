@@ -11,18 +11,7 @@ import {
   FavoriteProvider
 } from './context/'
 
-// TODO SafeAreaProvider will be added
-// TODO SearchView backgroundImage should be fixed
-// TODO Move SplashScreen to Splash.js
-// TODO Card text, title should textDark not light
-// TODO EDIT conditional ActionButtons styles, styles.action should be read
-// TODO ADD SuggestionList border!
-//TODO EDIT DetailCard FeedCard(mb), padding, margin styles
-//TODO EDIT Text fontWeight, color
-//TODO EDIT yOffset ToastAndroid based on dimension of the window
-//TODO BackgroundImage Logo should be replaced with new one
-
-//TODO Great story about people have an on/off switch, whenever they want, have abiliy to off, and no memroy until on
+//TODO historyjs footer gap
 
 const App = () => {
   React.useEffect(() => {

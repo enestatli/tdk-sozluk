@@ -118,9 +118,8 @@ const DetailView = ({ route, navigation }) => {
 
       <ScrollView style={styles.secondContainer}>
         {/* Keyword, lisan*/}
-        <View style={styles.keywordContainer}>
+        <View style={[styles.keywordContainer]}>
           <Text style={styles.keywordText}>{keyword}</Text>
-
           <Text style={styles.telaffuzText}>
             {resultsData.data?.telaffuz ? resultsData.data?.telaffuz + ' ' : ''}
             {resultsData.data?.lisan ?? ''}
@@ -202,7 +201,9 @@ const DetailView = ({ route, navigation }) => {
             {(resultsData.data?.anlamlar ?? [1, 2, 3]).map((item) => (
               <DetailCard
                 tabs={route.params?.tabs}
-                kalr={(item.anlam_sira ?? item) !== '1'}
+                key={item?.id ?? item}
+                data={typeof item === 'number' ? undefined : item}
+                border={(item.anlam_sira ?? item) !== '1'}
               />
             ))}
             <View style={{ height: 40 }} />
@@ -212,7 +213,7 @@ const DetailView = ({ route, navigation }) => {
         {selectedTab === tabs[1].id && (
           <View style={styles.atasozleriContainer}>
             {(resultsData.data?.atasozu ?? [1, 2, 3]).map((item) => (
-              <View key={item.id} style={styles.atasozCardContainer}>
+              <View key={item?.id} style={styles.atasozCardContainer}>
                 <SimpleCard
                   onPress={() =>
                     navigation.navigate('Details', {
@@ -235,7 +236,7 @@ const DetailView = ({ route, navigation }) => {
         {selectedTab === tabs[2].id && (
           <View style={styles.atasozleriContainer}>
             {(resultsData.data?.birlesikler ?? [1, 2, 3]).map((item) => (
-              <View key={item.id} style={styles.atasozCardContainer}>
+              <View key={item?.id} style={styles.atasozCardContainer}>
                 <SimpleCard
                   onPress={() =>
                     navigation.navigate('Details', {
@@ -280,7 +281,8 @@ const styles = StyleSheet.create({
   },
   telaffuzText: {
     color: theme.colors.textLight,
-    marginTop: 6
+    marginTop: 6,
+    fontStyle: 'italic'
   },
   actionButtonsFrame: {
     flexDirection: 'row',
@@ -310,7 +312,8 @@ const styles = StyleSheet.create({
     paddingVertical: 6
   },
   atasozCardTitle: {
-    paddingRight: 32
+    paddingRight: 32,
+    fontWeight: 'bold'
   },
   rightIcon: {
     marginLeft: 'auto',

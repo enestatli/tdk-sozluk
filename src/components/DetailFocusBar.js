@@ -1,7 +1,9 @@
 import React, { useRef, useEffect } from 'react'
 import { StyleSheet, Text, View, FlatList } from 'react-native'
-import { Button } from './shared'
+
 import theme from '../utils/theme'
+
+import { Button } from './shared'
 
 const DetailFocusBar = ({ tabs, selected, onPress }) => {
   const listRef = useRef()
@@ -16,7 +18,7 @@ const DetailFocusBar = ({ tabs, selected, onPress }) => {
     <View style={styles.container}>
       <FlatList
         ref={listRef}
-        style={{ width: '100%', height: '100%' }}
+        style={styles.flatList}
         horizontal={true}
         data={tabs}
         showsHorizontalScrollIndicator={false}
@@ -41,7 +43,6 @@ const DetailFocusBar = ({ tabs, selected, onPress }) => {
                 {item.title}
               </Text>
             </Button>
-
             {selected === item.id && <View style={styles.tabsBottomBorder} />}
           </View>
         )}
@@ -59,10 +60,16 @@ const styles = StyleSheet.create({
     marginBottom: 8,
     width: '100%'
   },
+  flatList: {
+    width: '100%',
+    height: '100%'
+  },
   tabsContainer: {
     flex: 1,
     paddingHorizontal: 16,
-    height: 24
+    height: 24,
+    alignItems: 'center',
+    justifyContent: 'center'
   },
   button: {
     width: '100%'
@@ -75,7 +82,6 @@ const styles = StyleSheet.create({
     height: 2,
     width: 24,
     backgroundColor: theme.colors.red,
-    marginHorizontal: 'auto',
     marginTop: 'auto'
   }
 })

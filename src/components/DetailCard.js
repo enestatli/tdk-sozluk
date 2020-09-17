@@ -3,7 +3,7 @@ import { StyleSheet, Text, View } from 'react-native'
 import { Placeholder } from './shared'
 import theme from '../utils/theme'
 
-const DetailCard = ({ data, border }) => {
+const DetailCard = ({ data, border, yOffset }) => {
   return (
     <View style={styles.container}>
       {/* Border  */}

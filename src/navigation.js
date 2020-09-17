@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { StyleSheet } from 'react-native'
 import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
@@ -8,8 +9,7 @@ import theme from './utils/theme'
 
 import { FavoriteView, HistoryView, SearchView, DetailView } from './views'
 import { Button } from './components/shared'
-import { Left, More } from './components/icons'
-import { StyleSheet } from 'react-native'
+import { Left } from './components/icons'
 
 const HomeStack = createStackNavigator()
 const Tab = createBottomTabNavigator()
@@ -28,7 +28,6 @@ const SearchStack = ({ route, navigation }) => {
         name="Details"
         component={DetailView}
         options={({ route, navigation }) => {
-          // console.log(route, 'from navigation.js')
           return {
             title:
               // Atasozleri ve Deyimler here
@@ -43,14 +42,6 @@ const SearchStack = ({ route, navigation }) => {
                 extraStyles={styles.leftButton}
               >
                 <Left style={styles.leftIcon} />
-              </Button>
-            ),
-            headerRight: () => (
-              <Button
-                onPress={() => navigation.goBack()}
-                extraStyles={styles.leftButton}
-              >
-                <More style={styles.leftIcon} />
               </Button>
             )
           }

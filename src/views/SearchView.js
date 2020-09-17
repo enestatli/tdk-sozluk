@@ -42,14 +42,7 @@ const SearchView = ({ navigation }) => {
   )
 
   return (
-    <SafeAreaView
-      style={[
-        styles.container,
-        isSearchFocus
-          ? { backgroundColor: theme.colors.softRed }
-          : { backgroundColor: theme.colors.red }
-      ]}
-    >
+    <SafeAreaView style={styles.container}>
       <SearchPageAnimation
         isSearchFocus={isSearchFocus}
         onSearchFocus={setIsSearchFocus}
@@ -59,7 +52,7 @@ const SearchView = ({ navigation }) => {
         style={[
           styles.content,
           {
-            paddingTop: isSearchFocus ? 24 : 26
+            paddingTop: isSearchFocus ? 48 : 26
           }
         ]}
       >
@@ -119,7 +112,9 @@ const SearchView = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1
+    flex: 1,
+    backgroundColor: theme.colors.softRed
+    // backgroundColor: 'blue'
   },
   button: {
     flex: 1,
@@ -134,16 +129,6 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingVertical: 10,
     paddingHorizontal: 16
-  },
-  historyList: {
-    flex: 1,
-    marginTop: 0
-  },
-  item: {
-    backgroundColor: 'white',
-    padding: 16,
-    marginVertical: 4,
-    marginHorizontal: 16
   }
 })
 
