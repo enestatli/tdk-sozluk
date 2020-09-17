@@ -33,15 +33,17 @@ const SignLanguage = ({ keyword }) => {
           <View style={styles.secondBox} />
         </View>
         <View>
-          <Text>Turk Isaret Dili</Text>
-          <Text>Parmak Alfabesiyle Gosterilisi</Text>
+          <Text style={styles.headerTitle}>Türk İşaret Dili</Text>
+          <Text style={styles.headerSubTitle}>
+            Parmak Alfabesiyle Gösterilişi
+          </Text>
         </View>
         <View style={styles.flatList}>
           <FlatList
             horizontal={true}
             data={fixed.map((el, i) => ({ letter: el, id: i + '_' + el }))}
             keyExtractor={(item) => item.id}
-            ItemSeparatorComponent={() => <View stlye={{ width: 10 }} />}
+            ItemSeparatorComponent={() => <View style={{ width: 5 }} />}
             renderItem={({ item }) => {
               return (
                 <View>
@@ -58,7 +60,7 @@ const SignLanguage = ({ keyword }) => {
                     )}
                   </View>
                   <View style={styles.letterContainer}>
-                    <Text>{item.letter}</Text>
+                    <Text style={styles.letter}>{item.letter}</Text>
                   </View>
                 </View>
               )
@@ -130,5 +132,18 @@ const styles = StyleSheet.create({
     height: 22,
     alignItems: 'center',
     justifyContent: 'center'
+  },
+  letter: {
+    color: theme.colors.textDark,
+    fontWeight: 'bold'
+  },
+  headerTitle: {
+    color: theme.colors.textDark,
+    fontWeight: '700',
+    fontSize: 18
+  },
+  headerSubTitle: {
+    color: theme.colors.textLight,
+    marginTop: 8
   }
 })

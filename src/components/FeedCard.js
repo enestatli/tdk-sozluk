@@ -8,7 +8,12 @@ const FeedCard = ({ data, onPress, title, ...props }) => {
     <View {...props}>
       <Text style={styles.title}>{title}</Text>
       {/* Card */}
-      <Card onPress={onPress} disabled={data ? false : true}>
+      <Card
+        onPress={onPress}
+        disabled={data ? false : true}
+        width={100}
+        height={16}
+      >
         <>
           <Placeholder autoRun visible={data ? true : false}>
             <Card.Title>{data?.madde}</Card.Title>
@@ -17,6 +22,8 @@ const FeedCard = ({ data, onPress, title, ...props }) => {
             extraPlaceholderStlyes={styles.summaryPlaceholder}
             autoRun
             visible={data ? true : false}
+            width={240}
+            height={16}
           >
             <Card.Summary>{data?.anlam}</Card.Summary>
           </Placeholder>

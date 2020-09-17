@@ -58,7 +58,9 @@ const SearchView = ({ navigation }) => {
       <View
         style={[
           styles.content,
-          isSearchFocus ? { paddingTop: 0 } : { paddingTop: 26 }
+          {
+            paddingTop: isSearchFocus ? 24 : 26
+          }
         ]}
       >
         {isSearchFocus ? (

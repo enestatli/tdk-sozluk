@@ -37,7 +37,7 @@ const SearchSuggestionList = ({ keyword, data, onPress }) => {
         keyExtractor={(item) => item.id + ''}
         renderItem={({ item }) => (
           <View>
-            <View style={styles.borderTop} />
+            {/* <View style={styles.borderTop} /> */}
             <SimpleCard
               extraStyles={styles.cardContainer}
               onPress={() => onPress(item.madde)}
@@ -49,9 +49,8 @@ const SearchSuggestionList = ({ keyword, data, onPress }) => {
             </SimpleCard>
           </View>
         )}
-        ItemSeparatorComponent={() => (
-          <View style={{ backgroundColor: 'blue' }} />
-        )}
+        ItemSeparatorComponent={() => <View style={styles.borderTop} />}
+        ListHeaderComponent={<View style={styles.listHeader} />}
       />
     )
   }
@@ -109,5 +108,8 @@ const styles = StyleSheet.create({
     right: 12,
     height: 1,
     backgroundColor: theme.colors.light
+  },
+  listHeader: {
+    marginTop: 20
   }
 })

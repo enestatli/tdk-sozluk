@@ -12,53 +12,60 @@ import bg from '../assets/bg.jpg'
 
 import { Logo2 } from '../components/icons'
 
-// const heroHeight = Dimensions.get('window').height / 3 //TODO
-const heroHeight = 200
+// const heroHeight = Dimensions.get('window').height / 3
+// const heroHeight = 200
 
 const SearchPageAnimation = ({ isSearchFocus, onSearchFocus }) => {
-  const heroHeightAnim = useRef(new Animated.Value(heroHeight)).current
-  const bgOpacity = useRef(new Animated.Value(1)).current
+  const searchAnim = useRef(new Animated.Value(1)).current
 
   useEffect(() => {
     if (isSearchFocus) {
-      Animated.timing(bgOpacity, {
+      Animated.timing(searchAnim, {
         toValue: 0,
         duration: 230,
         useNativeDriver: false
       }).start()
-      Animated.timing(heroHeightAnim, {
-        toValue: Dimensions.get('window').height / 8, //TODO
-        duration: 230,
-        useNativeDriver: false
-      }).start()
     } else {
-      Animated.timing(bgOpacity, {
+      Animated.timing(searchAnim, {
         toValue: 1,
         duration: 230,
         useNativeDriver: false
       }).start()
-      Animated.timing(heroHeightAnim, {
-        toValue: heroHeight,
-        duration: 230,
-        useNativeDriver: false
-      }).start()
     }
-  }, [isSearchFocus, heroHeightAnim, bgOpacity])
+  }, [searchAnim, isSearchFocus])
 
   return (
-    <Animated.View style={[styles.animateBox, { height: heroHeightAnim }]}>
-      <Animated.View style={[styles.animateBox2, { opacity: bgOpacity }]}>
-        <ImageBackground source={bg} style={styles.image}>
-          <View style={styles.logoContainer}>
-            <Logo2 style={styles.logo} />
-          </View>
-        </ImageBackground>
+    <View style={styles.animateBox}>
+      <Animated.View
+        style={{
+          height: searchAnim.interpolate({
+            inputRange: [0, 1],
+            outputRange: [84, 230]
+          })
+        }}
+      >
+        <View style={styles.animateBox2}>
+          <Animated.View
+            style={{
+              opacity: searchAnim.interpolate({
+                inputRange: [0, 1],
+                outputRange: [0, 1]
+              })
+            }}
+          >
+            <ImageBackground source={bg} style={styles.image}>
+              <View style={styles.logoContainer}>
+                <Logo2 style={styles.logo} />
+              </View>
+            </ImageBackground>
+          </Animated.View>
+        </View>
+        {/* TODO StatusBar.currentHeight / 10 isSearchfocus */}
+        <View style={[styles.searchBox, { bottom: isSearchFocus ? -64 : -42 }]}>
+          <SearchBox onChangeFocus={(status) => onSearchFocus(status)} />
+        </View>
       </Animated.View>
-      {/* TODO StatusBar.currentHeight / 10 isSearchfocus */}
-      <View style={[styles.searchBox, isSearchFocus && { bottom: 0 }]}>
-        <SearchBox onChangeFocus={(status) => onSearchFocus(status)} />
-      </View>
-    </Animated.View>
+    </View>
   )
 }
 
@@ -66,12 +73,12 @@ export default SearchPageAnimation
 
 const styles = StyleSheet.create({
   animateBox: {
-    height: heroHeight,
+    // height: heroHeight,
     zIndex: 1,
     position: 'relative'
   },
   animateBox2: {
-    marginTop: -60 //TODO
+    marginTop: 0 //TODO
   },
   image: {
     width: '100%',
@@ -86,15 +93,13 @@ const styles = StyleSheet.create({
   },
   logo: {
     width: 120,
-    color: 'white',
-    borderColor: 'yellow',
-    borderWidth: 1
+    color: 'white'
   },
   searchBox: {
-    padding: 16,
     position: 'absolute',
+    padding: 16,
     left: 0,
-    width: '100%',
-    bottom: -Dimensions.get('window').height / 18
+    width: '100%'
+    // bottom: -Dimensions.get('window').height / 18
   }
 })

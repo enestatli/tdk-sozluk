@@ -59,7 +59,9 @@ const SimpleList = ({
       ListFooterComponent={<View style={{ footer: selectable ? 180 : 20 }} />}
       ListHeaderComponent={
         hasHeader ? (
-          <Text style={styles.headerText}>Son Aramalar</Text>
+          <View style={{ marginTop: 24 }}>
+            <Text style={styles.headerText}>Son Aramalar</Text>
+          </View>
         ) : (
           () => <></>
         )

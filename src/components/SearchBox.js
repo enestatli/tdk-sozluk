@@ -77,11 +77,7 @@ const SearchBox = ({ onChangeFocus }) => {
           </Button>
         )}
       </View>
-      <SpecialCharacters
-        onCharPress={(char) => {
-          searchData?.setKeyword(searchData?.keyword + char)
-        }}
-      >
+      {isFocus && (
         <Animated.View
           style={{
             marginTop: specialAnim.interpolate({
@@ -93,8 +89,14 @@ const SearchBox = ({ onChangeFocus }) => {
               outputRange: [0, 48]
             })
           }}
-        />
-      </SpecialCharacters>
+        >
+          <SpecialCharacters
+            onCharPress={(char) => {
+              searchData?.setKeyword(searchData?.keyword + char)
+            }}
+          />
+        </Animated.View>
+      )}
     </View>
   )
 }

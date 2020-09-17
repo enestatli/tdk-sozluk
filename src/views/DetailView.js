@@ -6,7 +6,8 @@ import {
   Platform,
   StyleSheet,
   ScrollView,
-  ToastAndroid
+  ToastAndroid,
+  SafeAreaView
 } from 'react-native'
 import { useFocusEffect } from '@react-navigation/native'
 import Sound from 'react-native-sound'
@@ -88,13 +89,7 @@ const DetailView = ({ route, navigation }) => {
     useCallback(() => {
       StatusBar.setBarStyle('dark-content')
       Platform.OS === 'android' &&
-        StatusBar.setBackgroundColor(
-          route.params?.tabs === 'atasozu'
-            ? theme.colors.atasozleriLight
-            : route.params?.tabs === 'birlesikler'
-            ? theme.colors.birlesikKelimeLight
-            : theme.colors.softRed
-        )
+        StatusBar.setBackgroundColor(theme.colors.softRed)
       return () => {
         resultsData.clearResults()
       }
@@ -113,7 +108,7 @@ const DetailView = ({ route, navigation }) => {
   )
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: theme.colors.softRed }}>
       {/* Focus Bar */}
       <DetailFocusBar
         onPress={(id) => setSelectedTab(id)}
@@ -123,7 +118,7 @@ const DetailView = ({ route, navigation }) => {
 
       <ScrollView style={styles.secondContainer}>
         {/* Keyword, lisan*/}
-        <View>
+        <View style={styles.keywordContainer}>
           <Text style={styles.keywordText}>{keyword}</Text>
 
           <Text style={styles.telaffuzText}>
@@ -155,7 +150,7 @@ const DetailView = ({ route, navigation }) => {
           </ActionButton>
 
           <ActionButton
-            extraStyles={styles.favoriteButton}
+            extra={styles.favoriteButton}
             onPress={throttle(() => {
               isFavorited
                 ? favorites.removeFromFavorites(keyword)
@@ -172,7 +167,7 @@ const DetailView = ({ route, navigation }) => {
             )}
           </ActionButton>
           <ActionButton
-            extraStyles={styles.handButton}
+            extra={styles.handButton}
             disabled={keyword ? false : true}
             onPress={throttle(() => {
               resultsData.signSheet
@@ -207,11 +202,10 @@ const DetailView = ({ route, navigation }) => {
             {(resultsData.data?.anlamlar ?? [1, 2, 3]).map((item) => (
               <DetailCard
                 tabs={route.params?.tabs}
-                key={item?.id ?? item}
-                data={typeof item === 'number' ? undefined : item}
-                border={(item.anlam_sira ?? item) !== '1'}
+                kalr={(item.anlam_sira ?? item) !== '1'}
               />
             ))}
+            <View style={{ height: 40 }} />
           </View>
         )}
         {/* Atasozleri */}
@@ -221,7 +215,7 @@ const DetailView = ({ route, navigation }) => {
               <View key={item.id} style={styles.atasozCardContainer}>
                 <SimpleCard
                   onPress={() =>
-                    navigation.navigate('DetailsView', {
+                    navigation.navigate('Details', {
                       keyword: item.title,
                       tabs: tabs[1].id
                     })
@@ -234,7 +228,7 @@ const DetailView = ({ route, navigation }) => {
                 </SimpleCard>
               </View>
             ))}
-            <View style={{ height: 30 }} />
+            <View style={{ height: 40 }} />
           </View>
         )}
         {/* Birlesikler */}
@@ -244,7 +238,7 @@ const DetailView = ({ route, navigation }) => {
               <View key={item.id} style={styles.atasozCardContainer}>
                 <SimpleCard
                   onPress={() =>
-                    navigation.navigate('DetailsView', {
+                    navigation.navigate('Details', {
                       keyword: item.title,
                       tabs: tabs[2].id
                     })
@@ -257,11 +251,11 @@ const DetailView = ({ route, navigation }) => {
                 </SimpleCard>
               </View>
             ))}
-            <View style={{ height: 30 }} />
+            <View style={{ height: 40 }} />
           </View>
         )}
       </ScrollView>
-    </View>
+    </SafeAreaView>
   )
 }
 
@@ -270,12 +264,14 @@ export default DetailView
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 16,
     backgroundColor: theme.colors.softRed
   },
   secondContainer: {
     marginTop: 0,
     padding: 16
+  },
+  keywordContainer: {
+    paddingLeft: 8
   },
   keywordText: {
     fontSize: 32,
@@ -288,20 +284,19 @@ const styles = StyleSheet.create({
   },
   actionButtonsFrame: {
     flexDirection: 'row',
-    marginTop: 24
-  },
-  detailCards: {
-    marginTop: 20
+    marginTop: 24,
+    marginLeft: 1
   },
   iconSize: {
     width: 24,
     height: 24
   },
   favoriteButton: {
-    marginLeft: 12
+    marginLeft: 13
   },
   handButton: {
-    marginLeft: 'auto'
+    marginLeft: 'auto',
+    marginRight: 1
   },
   anlamlarContainer: {
     marginTop: 32,

@@ -48,7 +48,7 @@ const TabBar = ({ state, descriptors, navigation }) => {
         return label === 'Search' ? (
           <View style={styles.searchButtonContainer} key={label}>
             <Button extraStyles={styles.searchButton} onPress={onPress}>
-              <SearchIcon color={'white'} />
+              <SearchIcon stroke="white" />
             </Button>
           </View>
         ) : (
@@ -82,6 +82,10 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     paddingBottom: 15,
     backgroundColor: 'white'
+    // shadowColor: '#000',
+    // shadowOpacity: 0.1,
+    // shadowRadius: 1.41,
+    // elevation: 2
   },
   searchButtonContainer: {
     padding: 15,
@@ -97,7 +101,7 @@ const styles = StyleSheet.create({
   otherButtons: {
     flex: 1,
     flexDirection: 'column',
-    paddingTop: 6,
+    paddingTop: 16,
     height: 56
   },
   focused: {

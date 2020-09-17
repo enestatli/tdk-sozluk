@@ -9,7 +9,7 @@ import theme from './utils/theme'
 import { FavoriteView, HistoryView, SearchView, DetailView } from './views'
 import { Button } from './components/shared'
 import { Left, More } from './components/icons'
-import AtasozuDetailView from './views/AtasozuDetailView'
+import { StyleSheet } from 'react-native'
 
 const HomeStack = createStackNavigator()
 const Tab = createBottomTabNavigator()
@@ -34,39 +34,23 @@ const SearchStack = ({ route, navigation }) => {
               // Atasozleri ve Deyimler here
               (route.params?.keyword ?? '').slice(0, 15) +
               ((route.params?.keyword ?? '').length > 15 ? '...' : ''),
-            headerStyle: {
-              backgroundColor: theme.colors.softRed,
-              elevation: 0,
-              shadowColor: 'transparent'
-            },
+            headerStyle: styles.header,
             headerTitleAlign: 'center',
             headerLeft: () => (
               //TODO navigation, goBack()?
               <Button
                 onPress={() => navigation.goBack()}
-                extraStyles={{ paddingHorizontal: 20, height: '100%' }}
+                extraStyles={styles.leftButton}
               >
-                <Left
-                  style={{
-                    width: 24,
-                    height: 24,
-                    color: theme.colors.textDark
-                  }}
-                />
+                <Left style={styles.leftIcon} />
               </Button>
             ),
             headerRight: () => (
               <Button
                 onPress={() => navigation.goBack()}
-                extraStyles={{ paddingHorizontal: 20, height: '100%' }}
+                extraStyles={styles.leftButton}
               >
-                <More
-                  style={{
-                    width: 24,
-                    height: 24,
-                    color: theme.colors.textDark
-                  }}
-                />
+                <More style={styles.leftIcon} />
               </Button>
             )
           }
@@ -90,3 +74,20 @@ export default function TabNavigator() {
     </NavigationContainer>
   )
 }
+
+const styles = StyleSheet.create({
+  header: {
+    backgroundColor: theme.colors.softRed,
+    shadowColor: 'transparent',
+    elevation: 0
+  },
+  leftButton: {
+    paddingHorizontal: 20,
+    height: '100%'
+  },
+  leftIcon: {
+    width: 24,
+    height: 24,
+    color: theme.colors.textDark
+  }
+})

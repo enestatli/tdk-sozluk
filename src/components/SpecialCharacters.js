@@ -6,7 +6,7 @@ import { Button } from './shared'
 
 const CHARACTERS = ['ç', 'ğ', 'ı', 'ö', 'ş', 'ü', 'â', 'î', 'û']
 
-const SpecialCharacters = ({ onCharPress, ...props }) => {
+const SpecialCharacters = ({ children, onCharPress, ...props }) => {
   return (
     <View style={styles.container} {...props}>
       {CHARACTERS.map((char, index) => (
@@ -18,6 +18,7 @@ const SpecialCharacters = ({ onCharPress, ...props }) => {
           <Text style={styles.charText}>{char}</Text>
         </Button>
       ))}
+      {children}
     </View>
   )
 }

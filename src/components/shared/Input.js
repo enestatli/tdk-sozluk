@@ -8,7 +8,7 @@ const Input = ({ children, placeholderTextColor, ...props }) => {
       placeholderTextColor={
         placeholderTextColor !== null
           ? theme.colors[placeholderTextColor]
-          : 'blue'
+          : '#999'
       }
       {...props}
     >

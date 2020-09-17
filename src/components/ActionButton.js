@@ -1,12 +1,12 @@
 import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text } from 'react-native'
 
 import { Button } from './shared'
 import theme from '../utils/theme'
 
 const ActionButton = ({ children, ...props }) => {
   return (
-    <Button extraStyles={{ ...props.extraStyles, ...styles.action }} {...props}>
+    <Button extraStyles={{ ...styles.action, ...props.extra }} {...props}>
       {children}
     </Button>
   )
@@ -29,7 +29,16 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     minWidth: 48,
     height: 48,
-    paddingHorizontal: 12
+    paddingHorizontal: 8,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 1
+    },
+    shadowOpacity: 0.2,
+    shadowRadius: 1.41,
+
+    elevation: 2
   },
   title: {
     marginRight: 8,

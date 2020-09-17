@@ -20,7 +20,6 @@ import throttle from 'lodash.throttle'
 
 const AtasozuDetailView = ({ route, navigation }) => {
   const keyword = route.params?.keyword
-  console.log(keyword)
   const resultsData = useContext(resultsContext)
   const history = useContext(historyContext)
   const favorites = useContext(favoriteContext)

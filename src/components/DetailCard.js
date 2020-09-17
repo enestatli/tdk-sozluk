@@ -3,29 +3,25 @@ import { StyleSheet, Text, View } from 'react-native'
 import { Placeholder } from './shared'
 import theme from '../utils/theme'
 
-const DetailCard = ({ data, border, children, ...props }) => {
-  // console.log(props.tabs, 'detailcard')
-
+const DetailCard = ({ data, border }) => {
   return (
-    <View style={styles.container} {...props}>
+    <View style={styles.container}>
       {/* Border  */}
       {border && <View style={styles.borderTop} />}
       {/* Body  */}
       <View>
-        {/* TODO props.tabs === "anlamlar" data.ozellik eklenecek birlesikler icin */}
-        {props.tabs !== 'atasozu' && props.tabs !== 'birlesikler' && (
+        <View style={styles.textContainer}>
+          <Text style={styles.anlamSiraText}>{data?.anlam_sira}</Text>
           <Placeholder
             autoRun
             visible={data ? true : false}
             width={100}
-            height={16}
-          >
-            <View style={styles.textContainer}>
-              <Text style={styles.anlamSiraText}>{data?.anlam_sira}</Text>
-              <Text style={styles.ozellikText}>{data?.ozellik}</Text>
-            </View>
-          </Placeholder>
-        )}
+            height={12}
+            shimmerStyle={{ marginLeft: 6 }}
+          />
+          <Text style={styles.ozellikText}>{data?.ozellik?.toUpperCase()}</Text>
+        </View>
+
         {/* Summary */}
         <View style={styles.summaryContainer}>
           <Placeholder
@@ -34,25 +30,25 @@ const DetailCard = ({ data, border, children, ...props }) => {
             width={240}
             height={16}
           >
-            <Text fontWeight="600">{data?.anlam}</Text>
+            <Text style={styles.summaryText}>{data?.anlam}</Text>
           </Placeholder>
-          <View style={styles.summaryContainerPlaceholder}>
-            <Placeholder
-              autoRun
-              visible={data ? true : false}
-              width={160}
-              height={16}
-            >
-              {data?.ornek.map((ornek) => (
-                <View key={ornek.id}>
-                  <Text style={styles.ornekText}>
-                    "{ornek.ornek}"{'  '}
-                    <Text style={styles.ornekYazarText}>{ornek.yazar}</Text>
-                  </Text>
-                </View>
-              ))}
-            </Placeholder>
-          </View>
+
+          <Placeholder
+            autoRun
+            visible={data ? true : false}
+            width={160}
+            height={16}
+            shimmerStyle={{ marginTop: 4 }}
+          >
+            {data?.ornek.map((ornek) => (
+              <View key={ornek.id}>
+                <Text style={styles.ornekText}>
+                  "{ornek.ornek}"{'  '}
+                  <Text style={styles.ornekYazarText}>{ornek.yazar}</Text>
+                </Text>
+              </View>
+            ))}
+          </Placeholder>
         </View>
       </View>
     </View>
@@ -65,29 +61,30 @@ const styles = StyleSheet.create({
   container: {
     position: 'relative',
     backgroundColor: 'white',
-    paddingHorizontal: 12,
-    paddingVertical: 8,
+    paddingHorizontal: 28,
+    paddingVertical: 20,
     borderRadius: theme.radii.normal
   },
   textContainer: {
     flexDirection: 'row'
   },
   anlamSiraText: {
-    marginRight: 8, //TODO add marginLeft: -10
-    color: theme.colors.textLight //TODO
+    marginRight: 8,
+    marginLeft: -14,
+    color: theme.colors.textLight
   },
   ozellikText: {
-    color: theme.colors.red
+    color: theme.colors.red,
+    fontStyle: 'italic',
+    fontWeight: 'normal'
+    // fontSize: 12,
+    // marginTop: 1 //TODO!!!
   },
   summaryContainer: {
-    marginTop: 8,
-    marginLeft: 8
-  },
-  summaryContainerPlaceholder: {
     marginTop: 8
   },
-  anlamText: {
-    fontWeight: 'bold',
+  summaryText: {
+    fontWeight: 'bold', //TODO should be 600, check splashscreen settings maybe, styles.xml etc.
     color: theme.colors.textDark
   },
   ornekText: {
