@@ -74,8 +74,8 @@ const styles = StyleSheet.create({
   },
   thirdContainer: {
     flex: 1,
-    paddingTop: 20,
-    paddingBottom: 40
+
+    paddingBottom: 20
   },
   simpleListContainer: {
     paddingVertical: 30,

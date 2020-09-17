@@ -6,8 +6,7 @@ import {
   Platform,
   StyleSheet,
   ScrollView,
-  ToastAndroid,
-  SafeAreaView
+  ToastAndroid
 } from 'react-native'
 import { useFocusEffect } from '@react-navigation/native'
 import Sound from 'react-native-sound'
@@ -29,7 +28,6 @@ import { resultsContext, historyContext, favoriteContext } from '../context'
 import throttle from 'lodash.throttle'
 import DetailFocusBar from '../components/DetailFocusBar'
 import SimpleCard from '../components/SimpleCard'
-import { checkAtasozu } from '../utils/api'
 
 const tabs = [
   {
@@ -108,7 +106,7 @@ const DetailView = ({ route, navigation }) => {
   )
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: theme.colors.softRed }}>
+    <View style={{ flex: 1, backgroundColor: theme.colors.softRed }}>
       {/* Focus Bar */}
       <DetailFocusBar
         onPress={(id) => setSelectedTab(id)}
@@ -256,7 +254,7 @@ const DetailView = ({ route, navigation }) => {
           </View>
         )}
       </ScrollView>
-    </SafeAreaView>
+    </View>
   )
 }
 

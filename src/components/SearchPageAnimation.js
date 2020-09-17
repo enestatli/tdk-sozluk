@@ -12,8 +12,8 @@ import bg from '../assets/bg.jpg'
 
 import { Logo2 } from '../components/icons'
 
-// const heroHeight = Dimensions.get('window').height / 3
-// const heroHeight = 200
+const heroHeight = Dimensions.get('window').height / 3
+// const heroHeight = 230
 
 const SearchPageAnimation = ({ isSearchFocus, onSearchFocus }) => {
   const searchAnim = useRef(new Animated.Value(1)).current
@@ -40,7 +40,7 @@ const SearchPageAnimation = ({ isSearchFocus, onSearchFocus }) => {
         style={{
           height: searchAnim.interpolate({
             inputRange: [0, 1],
-            outputRange: [84, 230]
+            outputRange: [84, heroHeight]
           })
         }}
       >

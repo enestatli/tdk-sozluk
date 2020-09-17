@@ -127,7 +127,7 @@ const styles = StyleSheet.create({
   },
   feedContainer: {
     flex: 1,
-    paddingVertical: 10,
+    paddingVertical: 15,
     paddingHorizontal: 16
   }
 })
