@@ -1,14 +1,12 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 
-import { favoriteContext } from '../context'
-import { Button } from './shared'
-import { Trash } from './icons'
 import theme from '../utils/theme'
 
-const FavoritesModal = () => {
-  const favorites = useContext(favoriteContext)
+import { Button } from './shared'
+import { Trash } from './icons'
 
+const FavoritesModal = ({ favorites }) => {
   return (
     <View style={styles.container}>
       <View style={styles.secondContainer}>

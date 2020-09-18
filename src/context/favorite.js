@@ -1,9 +1,9 @@
 import React, { createContext, useState, useEffect, useRef } from 'react'
+import { Dimensions, ToastAndroid } from 'react-native'
 import AsyncStorage from '@react-native-community/async-storage'
 import BottomSheet from 'reanimated-bottom-sheet'
 
 import FavoritesModal from '../components/FavoritesModal'
-import { Dimensions, ToastAndroid } from 'react-native'
 
 const y = Dimensions.get('window').height / 2
 
@@ -132,7 +132,7 @@ const FavoriteProvider = ({ children }) => {
         enabledGestureInteraction={true}
         snapPoints={[220, 0]}
         initialSnap={1}
-        renderContent={() => <FavoritesModal />}
+        renderContent={() => <FavoritesModal favorites={values} />}
       />
     </favoriteContext.Provider>
   )

@@ -214,7 +214,7 @@ const DetailView = ({ route, navigation }) => {
         {selectedTab === tabs[1].id && (
           <View style={styles.atasozleriContainer}>
             {(resultsData.data?.atasozu ?? [1, 2, 3]).map((item) => (
-              <View key={item?.id} style={styles.atasozCardContainer}>
+              <View key={item?.id ?? item} style={styles.atasozCardContainer}>
                 <SimpleCard
                   onPress={() =>
                     navigation.navigate('Details', {
@@ -237,7 +237,7 @@ const DetailView = ({ route, navigation }) => {
         {selectedTab === tabs[2].id && (
           <View style={styles.atasozleriContainer}>
             {(resultsData.data?.birlesikler ?? [1, 2, 3]).map((item) => (
-              <View key={item?.id} style={styles.atasozCardContainer}>
+              <View key={item?.id ?? item} style={styles.atasozCardContainer}>
                 <SimpleCard
                   onPress={() =>
                     navigation.navigate('Details', {

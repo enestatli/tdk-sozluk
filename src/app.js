@@ -12,9 +12,8 @@ import {
 } from './context/'
 
 const App = () => {
-  React.useEffect(() => {
-    SplashScreen.hide()
-  }, [])
+  SplashScreen.hide()
+
   return (
     <FavoriteProvider>
       <HistoryProvider>
