@@ -1,11 +1,11 @@
 import React from 'react'
 import { StyleSheet, Text, View, FlatList } from 'react-native'
 
-import { Right, CircleCheck } from './icons'
-import { Circle } from 'react-native-svg'
-
 import SimpleCard from './SimpleCard'
 import theme from '../utils/theme'
+
+import { Right, CircleCheck } from './icons'
+import { Circle } from 'react-native-svg'
 
 const SimpleList = ({
   data,
@@ -85,7 +85,6 @@ const styles = StyleSheet.create({
     paddingVertical: 16
   },
   title: {
-    //TODO paddinRight !chevron ? 0: 32
     paddingRight: 32,
     fontWeight: 'bold',
     fontSize: 16

@@ -77,7 +77,6 @@ const FavoritesModal = ({ favorites }) => {
 const styles = StyleSheet.create({
   container: {
     height: '100%',
-    //TODO eval for android
     shadowColor: '#000',
     shadowOpacity: 0.16,
     shadowRadius: 4,

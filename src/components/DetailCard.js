@@ -1,9 +1,11 @@
 import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
-import { Placeholder } from './shared'
+
 import theme from '../utils/theme'
 
-const DetailCard = ({ data, border, yOffset }) => {
+import { Placeholder } from './shared'
+
+const DetailCard = ({ data, border }) => {
   return (
     <View style={styles.container}>
       {/* Border  */}
@@ -77,14 +79,12 @@ const styles = StyleSheet.create({
     color: theme.colors.red,
     fontStyle: 'italic',
     fontWeight: 'normal'
-    // fontSize: 12,
-    // marginTop: 1 //TODO!!!
   },
   summaryContainer: {
     marginTop: 8
   },
   summaryText: {
-    fontWeight: 'bold', //TODO should be 600, check splashscreen settings maybe, styles.xml etc.
+    fontWeight: 'bold',
     color: theme.colors.textDark
   },
   ornekText: {

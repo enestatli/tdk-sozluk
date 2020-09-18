@@ -1,5 +1,6 @@
 import React from 'react'
 import { StyleSheet, Text } from 'react-native'
+
 import { Button } from './shared'
 
 const SimpleCard = ({ children, ...props }) => {
@@ -27,6 +28,5 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     borderRadius: 6,
     padding: 16
-  },
-  title: {}
+  }
 })

@@ -75,11 +75,6 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     backgroundColor: 'white'
-    // paddingBottom: 15,
-    // shadowColor: '#000',
-    // shadowOpacity: 0.1,
-    // shadowRadius: 1.41,
-    // elevation: 2
   },
   searchButtonContainer: {
     padding: 15,

@@ -18,10 +18,4 @@ const getSoundCode = async (k) => {
   return await data
 }
 
-const checkAtasozu = async (k) => {
-  const response = await fetch(`${BASE_URL}/atasozu?ara=${k}`)
-  const data = await response.json()
-  return data
-}
-
-export { getDetailData, getHomeData, getSoundCode, checkAtasozu }
+export { getDetailData, getHomeData, getSoundCode }

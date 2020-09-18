@@ -1,8 +1,10 @@
 import React from 'react'
 import { StyleSheet, Text, View, FlatList } from 'react-native'
-import { Book, Right } from './icons'
+
 import theme from '../utils/theme'
 import SimpleCard from './SimpleCard'
+
+import { Book, Right } from './icons'
 
 const emphasize = (keyword, text) => {
   let key = 0
@@ -37,7 +39,6 @@ const SearchSuggestionList = ({ keyword, data, onPress }) => {
         keyExtractor={(item) => item.id + ''}
         renderItem={({ item }) => (
           <View>
-            {/* <View style={styles.borderTop} /> */}
             <SimpleCard
               extraStyles={styles.cardContainer}
               onPress={() => onPress(item.madde)}

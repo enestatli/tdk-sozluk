@@ -3,11 +3,11 @@ import React, { useState, useEffect, useContext, useRef } from 'react'
 import { StyleSheet, View, Keyboard, Text, Animated } from 'react-native'
 
 import theme from '../utils/theme'
+import SpecialCharacters from './SpecialCharacters'
 
 import { Input, Button } from './shared'
 import { Close, Search } from './icons'
 import { searchContext } from '../context'
-import SpecialCharacters from './SpecialCharacters'
 
 const SearchBox = ({ onChangeFocus }) => {
   const [isFocus, setIsFocus] = useState(false)

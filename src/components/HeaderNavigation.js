@@ -1,8 +1,10 @@
 import React from 'react'
 import { StyleSheet, View, Text } from 'react-native'
+
+import theme from '../utils/theme'
+
 import { Left } from './icons'
 import { Button } from './shared'
-import theme from '../utils/theme'
 
 const HeaderNavigation = ({ children, onPress }) => {
   return (

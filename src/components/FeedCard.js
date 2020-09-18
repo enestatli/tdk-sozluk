@@ -1,7 +1,9 @@
 import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
-import { Card, Placeholder } from './shared'
+
 import theme from '../utils/theme'
+
+import { Card, Placeholder } from './shared'
 
 const FeedCard = ({ data, onPress, title, ...props }) => {
   return (

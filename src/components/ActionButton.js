@@ -1,8 +1,9 @@
 import React from 'react'
 import { StyleSheet, Text } from 'react-native'
 
-import { Button } from './shared'
 import theme from '../utils/theme'
+
+import { Button } from './shared'
 
 const ActionButton = ({ children, ...props }) => {
   return (

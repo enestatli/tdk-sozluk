@@ -2,9 +2,9 @@ import React, { createContext, useState, useRef } from 'react'
 import BottomSheet from 'reanimated-bottom-sheet'
 
 import SignLanguage from '../components/SignLanguage'
+import parseResult from '../utils/parseResult'
 
 import { getDetailData, getSoundCode } from '../utils/api'
-import parseResult from '../utils/parseResult'
 
 export const resultsContextDefault = {
   data: {},

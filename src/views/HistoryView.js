@@ -1,14 +1,14 @@
 import React, { useContext, useCallback } from 'react'
 import { useFocusEffect } from '@react-navigation/native'
-
 import { View, Text, StyleSheet, StatusBar, Platform } from 'react-native'
+
+import theme from '../utils/theme'
+import SimpleList from '../components/SimpleList'
+import HeaderNavigation from '../components/HeaderNavigation'
+
 import { RotateCcw, Trash } from '../components/icons'
 import { Button } from '../components/shared'
-
-import SimpleList from '../components/SimpleList'
 import { historyContext } from '../context'
-import HeaderNavigation from '../components/HeaderNavigation'
-import theme from '../utils/theme'
 
 const HistoryView = ({ navigation }) => {
   const history = useContext(historyContext)

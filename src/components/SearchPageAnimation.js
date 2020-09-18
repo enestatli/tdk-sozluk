@@ -13,7 +13,6 @@ import bg from '../assets/bg.jpg'
 import { Logo2 } from '../components/icons'
 
 const heroHeight = Dimensions.get('window').height / 3
-// const heroHeight = 230
 
 const SearchPageAnimation = ({ isSearchFocus, onSearchFocus }) => {
   const searchAnim = useRef(new Animated.Value(1)).current
@@ -60,7 +59,7 @@ const SearchPageAnimation = ({ isSearchFocus, onSearchFocus }) => {
             </ImageBackground>
           </Animated.View>
         </View>
-        {/* TODO StatusBar.currentHeight / 10 isSearchfocus */}
+
         <View style={[styles.searchBox, { bottom: isSearchFocus ? -64 : -42 }]}>
           <SearchBox onChangeFocus={(status) => onSearchFocus(status)} />
         </View>
@@ -73,12 +72,11 @@ export default SearchPageAnimation
 
 const styles = StyleSheet.create({
   animateBox: {
-    // height: heroHeight,
     zIndex: 1,
     position: 'relative'
   },
   animateBox2: {
-    marginTop: 0 //TODO
+    marginTop: 0
   },
   image: {
     width: '100%',
@@ -98,6 +96,5 @@ const styles = StyleSheet.create({
     padding: 16,
     left: 0,
     width: '100%'
-    // bottom: -Dimensions.get('window').height / 18
   }
 })

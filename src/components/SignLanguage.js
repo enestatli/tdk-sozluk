@@ -1,5 +1,6 @@
 import React from 'react'
 import { StyleSheet, Text, View, FlatList, Image } from 'react-native'
+
 import theme from '../utils/theme'
 
 const letters = 'abcçdefgğhıijklmnoöprsştuüvyz'

@@ -12,11 +12,11 @@ import { useFocusEffect } from '@react-navigation/native'
 
 import theme from '../utils/theme'
 import FeedCard from '../components/FeedCard'
-
-import { homeContext, searchContext, historyContext } from '../context'
 import SearchSuggestionList from '../components/SearchSuggestionList'
 import SimpleList from '../components/SimpleList'
 import SearchPageAnimation from '../components/SearchPageAnimation'
+
+import { homeContext, searchContext, historyContext } from '../context'
 
 const SearchView = ({ navigation }) => {
   const homeData = useContext(homeContext)
