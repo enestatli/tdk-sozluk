@@ -81,10 +81,9 @@ const FavoriteProvider = ({ children }) => {
           'favorites',
           JSON.stringify({ data: newFavorites })
         )
-        //TODO false to empty array
         setSelectedList([])
         favoritesModalRef.current.snapTo(1)
-        favoritesModalRef.current.snapTo(1)
+        setSelectable(false)
       } catch {
         console.log('error in multiple favorite remove asyncStorage')
       }

@@ -5,7 +5,8 @@ import {
   StyleSheet,
   StatusBar,
   Platform,
-  SafeAreaView
+  SafeAreaView,
+  ScrollView
 } from 'react-native'
 import { useFocusEffect } from '@react-navigation/native'
 
@@ -80,30 +81,32 @@ const SearchView = ({ navigation }) => {
             )}
           </View>
         ) : (
-          <View style={styles.feedContainer}>
-            <FeedCard
-              title={'Bir Kelime'}
-              data={homeData.data?.kelime}
-              onPress={() =>
-                navigation.navigate('Details', {
-                  keyword: homeData.data?.kelime.madde,
-                  tabs: 'anlamlar'
-                })
-              }
-            />
-            <View style={{ marginTop: 15 }}>
+          <ScrollView style={{ flex: 1 }}>
+            <View style={styles.feedContainer}>
               <FeedCard
-                title={'Bir Deyim - Atasözü'}
-                data={homeData.data?.atasoz}
+                title={'Bir Kelime'}
+                data={homeData.data?.kelime}
                 onPress={() =>
                   navigation.navigate('Details', {
-                    keyword: homeData.data?.atasoz.madde,
-                    tabs: 'atasozu'
+                    keyword: homeData.data?.kelime.madde,
+                    tabs: 'anlamlar'
                   })
                 }
               />
+              <View style={{ marginTop: 15 }}>
+                <FeedCard
+                  title={'Bir Deyim - Atasözü'}
+                  data={homeData.data?.atasoz}
+                  onPress={() =>
+                    navigation.navigate('Details', {
+                      keyword: homeData.data?.atasoz.madde,
+                      tabs: 'atasozu'
+                    })
+                  }
+                />
+              </View>
             </View>
-          </View>
+          </ScrollView>
         )}
       </View>
     </SafeAreaView>

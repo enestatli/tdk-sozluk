@@ -1,15 +1,10 @@
 import React from 'react'
 import { View, StyleSheet } from 'react-native'
 
-import {
-  Search as SearchIcon,
-  RotateCcw,
-  Bookmark,
-  HistoryTestLogo
-} from './icons'
-import { Button } from './shared'
-
 import theme from '../utils/theme'
+
+import { Search as SearchIcon, Bookmark, HistoryTestLogo } from './icons'
+import { Button } from './shared'
 
 const colors = theme.colors
 
@@ -58,7 +53,6 @@ const TabBar = ({ state, descriptors, navigation }) => {
             onPress={onPress}
           >
             {label === 'History' && (
-              // <RotateCcw color={isFocused ? colors.red : colors.gray} />
               <HistoryTestLogo color={isFocused ? colors.red : colors.gray} />
             )}
             {label === 'Favorite' && (
@@ -80,8 +74,8 @@ const TabBar = ({ state, descriptors, navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
-    paddingBottom: 15,
     backgroundColor: 'white'
+    // paddingBottom: 15,
     // shadowColor: '#000',
     // shadowOpacity: 0.1,
     // shadowRadius: 1.41,

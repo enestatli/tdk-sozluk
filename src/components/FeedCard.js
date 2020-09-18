@@ -15,7 +15,12 @@ const FeedCard = ({ data, onPress, title, ...props }) => {
         height={16}
       >
         <>
-          <Placeholder autoRun visible={data ? true : false}>
+          <Placeholder
+            autoRun
+            visible={data ? true : false}
+            width={100}
+            height={16}
+          >
             <Card.Title>{data?.madde}</Card.Title>
           </Placeholder>
           <Placeholder
@@ -24,6 +29,7 @@ const FeedCard = ({ data, onPress, title, ...props }) => {
             visible={data ? true : false}
             width={240}
             height={16}
+            shimmerStyle={{ marginTop: 10 }}
           >
             <Card.Summary>{data?.anlam}</Card.Summary>
           </Placeholder>
