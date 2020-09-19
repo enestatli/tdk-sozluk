@@ -10,11 +10,14 @@ import theme from './utils/theme'
 import { FavoriteView, HistoryView, SearchView, DetailView } from './views'
 import { Button } from './components/shared'
 import { Left } from './components/icons'
+import { searchContext } from './context'
 
 const HomeStack = createStackNavigator()
 const Tab = createBottomTabNavigator()
 
 const SearchStack = ({ route, navigation }) => {
+  const search = React.useContext(searchContext)
+
   return (
     <HomeStack.Navigator>
       <HomeStack.Screen
@@ -31,9 +34,23 @@ const SearchStack = ({ route, navigation }) => {
           return {
             title:
               // Atasozleri ve Deyimler here
-              (route.params?.keyword ?? '').slice(0, 15) +
-              ((route.params?.keyword ?? '').length > 15 ? '...' : ''),
-            headerStyle: styles.header,
+              search?.lastDataType === 'atasozu'
+                ? 'Atasözleri ve Deyimler'
+                : (route.params?.keyword ?? '').slice(0, 15) +
+                  ((route.params?.keyword ?? '').length > 15 ? '...' : ''),
+            headerStyle: {
+              backgroundColor:
+                search?.lastDataType === 'atasozu'
+                  ? theme.colors.atasozleriLight
+                  : theme.colors.softRed,
+              shadowColor: 'transparent',
+              elevation: 0
+            },
+            headerTitleStyle: {
+              fontWeight: '500',
+              fontSize: 14,
+              lineHeight: 22
+            },
             headerTitleAlign: 'center',
             headerLeft: () => (
               //TODO navigation, goBack()?
@@ -59,7 +76,12 @@ export default function TabNavigator() {
         tabBar={(props) => <TabBar {...props} />}
       >
         <Tab.Screen name="History" component={HistoryView} />
-        <Tab.Screen name="Search" component={SearchStack} />
+        <Tab.Screen
+          name="Search"
+          children={({ dataType, ...props }) => (
+            <SearchStack dataType={dataType} {...props} />
+          )}
+        />
         <Tab.Screen name="Favorite" component={FavoriteView} />
       </Tab.Navigator>
     </NavigationContainer>
@@ -67,11 +89,6 @@ export default function TabNavigator() {
 }
 
 const styles = StyleSheet.create({
-  header: {
-    backgroundColor: theme.colors.softRed,
-    shadowColor: 'transparent',
-    elevation: 0
-  },
   leftButton: {
     paddingHorizontal: 20,
     height: '100%'

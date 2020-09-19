@@ -9,7 +9,7 @@ const getHomeData = async () => {
 const getDetailData = async (keyword) => {
   const response = await fetch(`${BASE_URL}/gts?ara=${keyword}`)
   const pureDetailData = await response.json()
-  return await pureDetailData
+  return pureDetailData
 }
 
 const getSoundCode = async (k) => {
@@ -18,4 +18,10 @@ const getSoundCode = async (k) => {
   return await data
 }
 
-export { getDetailData, getHomeData, getSoundCode }
+const getAtasozuDeyim = async (k) => {
+  const response = await fetch(`${BASE_URL}/atasozu?ara=${k}`)
+  const data = await response.json()
+  return data
+}
+
+export { getDetailData, getHomeData, getSoundCode, getAtasozuDeyim }

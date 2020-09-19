@@ -5,27 +5,32 @@ import theme from '../utils/theme'
 
 import { Placeholder } from './shared'
 
-const DetailCard = ({ data, border }) => {
+const DetailCard = ({ data, border, dType }) => {
+  console.log(dType)
   return (
     <View style={styles.container}>
       {/* Border  */}
       {border && <View style={styles.borderTop} />}
       {/* Body  */}
       <View>
-        <View style={styles.textContainer}>
-          <Text style={styles.anlamSiraText}>{data?.anlam_sira}</Text>
-          <Placeholder
-            autoRun
-            visible={data ? true : false}
-            width={100}
-            height={12}
-            shimmerStyle={{ marginLeft: 6 }}
-          />
-          <Text style={styles.ozellikText}>{data?.ozellik?.toUpperCase()}</Text>
-        </View>
+        {dType !== 'atasozu' && (
+          <View style={styles.textContainer}>
+            <Text style={styles.anlamSiraText}>{data?.anlam_sira}</Text>
+            <Placeholder
+              autoRun
+              visible={data ? true : false}
+              width={100}
+              height={12}
+              shimmerStyle={{ marginLeft: 6 }}
+            />
+            <Text style={styles.ozellikText}>
+              {data?.ozellik?.toUpperCase()}
+            </Text>
+          </View>
+        )}
 
         {/* Summary */}
-        <View style={styles.summaryContainer}>
+        <View style={{ marginTop: dType !== 'atasozu' ? 8 : 0 }}>
           <Placeholder
             autoRun
             visible={data ? true : false}

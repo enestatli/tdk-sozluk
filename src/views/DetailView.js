@@ -11,11 +11,14 @@ import {
 } from 'react-native'
 import { useFocusEffect } from '@react-navigation/native'
 import Sound from 'react-native-sound'
+import throttle from 'lodash.throttle'
 
 import theme from '../utils/theme'
 
 import ActionButton from '../components/ActionButton'
 import DetailCard from '../components/DetailCard'
+import DetailFocusBar from '../components/DetailFocusBar'
+import SimpleCard from '../components/SimpleCard'
 
 import {
   Sound as SoundIcon,
@@ -25,10 +28,13 @@ import {
   FavoriteSolid,
   Right
 } from '../components/icons'
-import { resultsContext, historyContext, favoriteContext } from '../context'
-import throttle from 'lodash.throttle'
-import DetailFocusBar from '../components/DetailFocusBar'
-import SimpleCard from '../components/SimpleCard'
+import {
+  resultsContext,
+  historyContext,
+  favoriteContext,
+  searchContext
+} from '../context'
+import { getAtasozuDeyim } from '../utils/api'
 
 const tabs = [
   {
@@ -52,9 +58,64 @@ const DetailView = ({ route, navigation }) => {
   const resultsData = useContext(resultsContext)
   const history = useContext(historyContext)
   const favorites = useContext(favoriteContext)
+  const search = useContext(searchContext)
   const [isPlaying, setIsPlaying] = useState(false)
   const [selectedTab, setSelectedTab] = useState(tabs[0].id)
   const isFavorited = favorites.favorites.find((f) => f.title === keyword)
+
+  useEffect(() => {
+    // eslint-disable-next-line no-extra-semi
+    ;(async () => {
+      if (keyword) {
+        const data = await getAtasozuDeyim(keyword)
+        if (keyword.includes('(')) {
+          search?.setLastDataType('atasozu')
+        } else {
+          if (data?.length === 1 || data?.length === 2) {
+            if (data[0]?.sozum === keyword || data[1]?.sozum === keyword) {
+              if (data[0]?.turu2 === 'Deyim' || data[0]?.turu2 === 'Atasözü') {
+                search?.setLastDataType('atasozu')
+              } else {
+                search?.setLastDataType('')
+              }
+            } else {
+              search?.setLastDataType('')
+            }
+          } else {
+            search?.setLastDataType('')
+          }
+        }
+      }
+    })()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [keyword])
+
+  useEffect(() => {
+    history.addToHistory(keyword)
+    setSelectedTab(tabs[0].id)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [keyword])
+
+  useEffect(() => {
+    StatusBar.setBarStyle('dark-content')
+    Platform.OS === 'android' &&
+      StatusBar.setBackgroundColor(
+        search?.lastDataType !== 'atasozu'
+          ? theme.colors.softRed
+          : theme.colors.atasozleriLight
+      )
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [search?.lastDataType])
+
+  useFocusEffect(
+    useCallback(() => {
+      resultsData.getResults(keyword)
+      return () => {
+        resultsData.clearResults()
+      }
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [keyword])
+  )
 
   const playSound = throttle(() => {
     ToastAndroid.showWithGravityAndOffset(
@@ -80,51 +141,38 @@ const DetailView = ({ route, navigation }) => {
     )
   }, 1000)
 
-  useEffect(() => {
-    history.addToHistory(keyword)
-    setSelectedTab(tabs[0].id)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [keyword])
-
-  useFocusEffect(
-    useCallback(() => {
-      StatusBar.setBarStyle('dark-content')
-      Platform.OS === 'android' &&
-        StatusBar.setBackgroundColor(theme.colors.softRed)
-      return () => {
-        resultsData.clearResults()
-      }
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
-  )
-
-  useFocusEffect(
-    useCallback(() => {
-      resultsData.getResults(keyword)
-      return () => {
-        resultsData.clearResults()
-      }
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [keyword])
-  )
-
   return (
-    <View style={{ flex: 1, backgroundColor: theme.colors.softRed }}>
+    <View
+      style={[
+        styles.container,
+        search?.lastDataType === 'atasozu' && {
+          backgroundColor: theme.colors.atasozleriLight
+        }
+      ]}
+    >
       {/* Focus Bar */}
-      <DetailFocusBar
-        onPress={(id) => setSelectedTab(id)}
-        tabs={tabs}
-        selected={selectedTab}
-      />
+      {search?.lastDataType !== 'atasozu' && (
+        <DetailFocusBar
+          onPress={(id) => setSelectedTab(id)}
+          tabs={tabs}
+          selected={selectedTab}
+        />
+      )}
 
       <ScrollView style={styles.secondContainer}>
         {/* Keyword, lisan*/}
         <View style={[styles.keywordContainer]}>
           <Text style={styles.keywordText}>{keyword}</Text>
-          <Text style={styles.telaffuzText}>
-            {resultsData.data?.telaffuz ? resultsData.data?.telaffuz + ' ' : ''}
-            {resultsData.data?.lisan ?? ''}
-          </Text>
+          {search?.lastDataType !== 'atasozu' ? (
+            <Text style={styles.telaffuzText}>
+              {resultsData.data?.telaffuz
+                ? resultsData.data?.telaffuz + ' '
+                : ''}
+              {resultsData.data?.lisan ?? ''}
+            </Text>
+          ) : (
+            <Text style={styles.telaffuzText}>Atasözleri ve Deyimler</Text>
+          )}
         </View>
 
         {/* Action Buttons */}
@@ -201,13 +249,13 @@ const DetailView = ({ route, navigation }) => {
           <View style={styles.anlamlarContainer}>
             {(resultsData.data?.anlamlar ?? [1, 2, 3]).map((item) => (
               <DetailCard
-                tabs={route.params?.tabs}
+                dType={search?.lastDataType}
                 key={item?.id ?? item}
                 data={typeof item === 'number' ? undefined : item}
                 border={(item.anlam_sira ?? item) !== '1'}
               />
             ))}
-            <View style={{ height: 40 }} />
+            <View style={styles.footer} />
           </View>
         )}
         {/* Atasozleri */}
@@ -218,8 +266,7 @@ const DetailView = ({ route, navigation }) => {
                 <SimpleCard
                   onPress={() =>
                     navigation.navigate('Details', {
-                      keyword: item.title,
-                      tabs: tabs[1].id
+                      keyword: item.title
                     })
                   }
                 >
@@ -230,7 +277,7 @@ const DetailView = ({ route, navigation }) => {
                 </SimpleCard>
               </View>
             ))}
-            <View style={{ height: 40 }} />
+            <View style={styles.footer} />
           </View>
         )}
         {/* Birlesikler */}
@@ -241,8 +288,7 @@ const DetailView = ({ route, navigation }) => {
                 <SimpleCard
                   onPress={() =>
                     navigation.navigate('Details', {
-                      keyword: item.title,
-                      tabs: tabs[2].id
+                      keyword: item.title
                     })
                   }
                 >
@@ -253,7 +299,7 @@ const DetailView = ({ route, navigation }) => {
                 </SimpleCard>
               </View>
             ))}
-            <View style={{ height: 40 }} />
+            <View style={styles.footer} />
           </View>
         )}
       </ScrollView>
@@ -321,5 +367,8 @@ const styles = StyleSheet.create({
     height: 18,
     width: 18,
     color: theme.colors.red
+  },
+  footer: {
+    height: 40
   }
 })

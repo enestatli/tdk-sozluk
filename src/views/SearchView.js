@@ -18,7 +18,7 @@ import SearchPageAnimation from '../components/SearchPageAnimation'
 
 import { homeContext, searchContext, historyContext } from '../context'
 
-const SearchView = ({ navigation }) => {
+const SearchView = ({ route, navigation }) => {
   const homeData = useContext(homeContext)
   const searchData = useContext(searchContext)
   const historyData = useContext(historyContext)

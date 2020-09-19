@@ -14,6 +14,7 @@ const searchContext = createContext(searchContextDefault)
 const SearchProvider = ({ children }) => {
   const [keyword, setKeyword] = useState('')
   const [suggestions, setSuggestions] = useState([])
+  const [lastDataType, setLastDataType] = useState('')
 
   const debouncedSearch = useCallback(
     debounce((k) => setSuggestions(getSuggestions(k).slice(0, 12)), 500, {
@@ -26,6 +27,8 @@ const SearchProvider = ({ children }) => {
   const values = {
     keyword: keyword,
     suggestions: suggestions,
+    lastDataType: lastDataType,
+    setLastDataType: setLastDataType,
     setKeyword: (k) => {
       setKeyword(k)
       if (k.length >= 3) {
