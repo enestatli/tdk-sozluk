@@ -6,7 +6,7 @@ import theme from '../utils/theme'
 import { Placeholder } from './shared'
 
 const DetailCard = ({ data, border, dType }) => {
-  console.log(dType)
+  // console.log(dType)
   return (
     <View style={styles.container}>
       {/* Border  */}

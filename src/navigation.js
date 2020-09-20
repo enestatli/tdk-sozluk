@@ -72,6 +72,7 @@ export default function TabNavigator() {
   return (
     <NavigationContainer>
       <Tab.Navigator
+        tabBarOptions={{ keyboardHidesTabBar: true }}
         initialRouteName="Search"
         tabBar={(props) => <TabBar {...props} />}
       >
