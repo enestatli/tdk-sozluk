@@ -6,7 +6,7 @@ import theme from '../utils/theme'
 import SimpleList from '../components/SimpleList'
 import HeaderNavigation from '../components/HeaderNavigation'
 
-import { RotateCcw, Trash } from '../components/icons'
+import { HistoryTestLogo, Trash } from '../components/icons'
 import { Button } from '../components/shared'
 import { historyContext } from '../context'
 
@@ -53,7 +53,7 @@ const HistoryView = ({ navigation }) => {
           </View>
         ) : (
           <View style={styles.rotateIconContainer}>
-            <RotateCcw style={styles.rotateIcon} />
+            <HistoryTestLogo style={styles.rotateIcon} />
             <Text style={styles.emptyHistoryText}>Henüz gemiş yok</Text>
           </View>
         )}

@@ -71,7 +71,7 @@ const SearchView = ({ route, navigation }) => {
               />
             ) : (
               <SimpleList
-                onPress={(k, t) =>
+                onPress={(k) =>
                   navigation.navigate('Details', {
                     keyword: k
                   })
