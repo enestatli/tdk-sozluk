@@ -34,37 +34,39 @@ const SearchPageAnimation = ({ isSearchFocus, onSearchFocus }) => {
   }, [searchAnim, isSearchFocus])
 
   return (
-    <View style={styles.animateBox}>
-      <Animated.View
-        style={{
+    <Animated.View
+      style={[
+        styles.animateBox,
+        {
           height: searchAnim.interpolate({
             inputRange: [0, 1],
             outputRange: [84, heroHeight]
           })
-        }}
+        }
+      ]}
+    >
+      <Animated.View
+        style={[
+          styles.animateBox2,
+          {
+            opacity: searchAnim.interpolate({
+              inputRange: [0, 1],
+              outputRange: [0, 1]
+            })
+          }
+        ]}
       >
-        <View style={styles.animateBox2}>
-          <Animated.View
-            style={{
-              opacity: searchAnim.interpolate({
-                inputRange: [0, 1],
-                outputRange: [0, 1]
-              })
-            }}
-          >
-            <ImageBackground source={bg} style={styles.image}>
-              <View style={styles.logoContainer}>
-                <Logo2 style={styles.logo} />
-              </View>
-            </ImageBackground>
-          </Animated.View>
-        </View>
-
-        <View style={[styles.searchBox, { bottom: isSearchFocus ? -64 : -42 }]}>
-          <SearchBox onChangeFocus={(status) => onSearchFocus(status)} />
-        </View>
+        <ImageBackground source={bg} style={styles.image}>
+          <View style={styles.logoContainer}>
+            <Logo2 style={styles.logo} />
+          </View>
+        </ImageBackground>
       </Animated.View>
-    </View>
+
+      <View style={[styles.searchBox, { bottom: isSearchFocus ? -64 : -42 }]}>
+        <SearchBox onChangeFocus={(status) => onSearchFocus(status)} />
+      </View>
+    </Animated.View>
   )
 }
 
@@ -76,7 +78,7 @@ const styles = StyleSheet.create({
     position: 'relative'
   },
   animateBox2: {
-    marginTop: 0
+    marginTop: -60
   },
   image: {
     width: '100%',

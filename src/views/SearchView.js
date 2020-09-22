@@ -118,11 +118,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: theme.colors.softRed
   },
-  button: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
   content: {
     flex: 1,
     backgroundColor: theme.colors.softRed

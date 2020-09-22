@@ -37,8 +37,7 @@ const styles = StyleSheet.create({
   },
   charButton: {
     flex: 1,
-    height: '100%',
-    backgroundColor: 'blue'
+    height: '100%'
   },
   charText: {
     color: theme.colors.textMedium,
