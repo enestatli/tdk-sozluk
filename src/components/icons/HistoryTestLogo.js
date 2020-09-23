@@ -4,8 +4,8 @@ import Svg, { Path } from 'react-native-svg'
 function HistoryTestLogo({ title, titleId, ...props }) {
   return (
     <Svg
-      width={28}
-      height={24}
+      width={props.style.height}
+      height={props.style.height}
       viewBox="0 0 28 24"
       fill="currentColor"
       aria-labelledby={titleId}

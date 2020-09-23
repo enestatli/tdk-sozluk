@@ -1,11 +1,11 @@
 import * as React from 'react'
 import Svg, { Path } from 'react-native-svg'
 
-function SvgSound(props) {
+function SvgSound({ ...props }) {
   return (
     <Svg
-      width={32}
-      height={32}
+      width={props.style.height}
+      height={props.style.height}
       viewBox="0 0 32 32"
       fill="none"
       className=""

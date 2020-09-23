@@ -182,7 +182,7 @@ const DetailView = ({ route, navigation }) => {
             onPress={playSound}
           >
             {isPlaying ? (
-              <SoundSolid color={theme.colors.red} />
+              <SoundSolid style={styles.iconSize} color={theme.colors.red} />
             ) : (
               <SoundIcon
                 style={styles.iconSize}

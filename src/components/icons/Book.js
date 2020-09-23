@@ -4,8 +4,8 @@ import Svg, { Path } from 'react-native-svg'
 function SvgBook(props) {
   return (
     <Svg
-      width={48}
-      height={48}
+      width={props.style.height}
+      height={props.style.height}
       viewBox="0 0 48 48"
       fill="none"
       className=""

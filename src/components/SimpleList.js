@@ -4,8 +4,7 @@ import { StyleSheet, Text, View, FlatList } from 'react-native'
 import SimpleCard from './SimpleCard'
 import theme from '../utils/theme'
 
-import { Right, CircleCheck } from './icons'
-import { Circle } from 'react-native-svg'
+import { Right, Check, Circle } from './icons'
 
 const SimpleList = ({
   data,
@@ -42,12 +41,12 @@ const SimpleList = ({
 
             {selectable ? (
               selectedList.includes(item) ? (
-                <CircleCheck
+                <Check
                   style={styles.circleCheckIcon}
-                  fill={theme.colors.red}
+                  color={theme.colors.red}
                 />
               ) : (
-                <Circle style={styles.circleIcon} />
+                <Circle style={styles.circleIcon} color={theme.colors.red} />
               )
             ) : (
               chevron && <Right style={styles.rightIcon} />
@@ -91,14 +90,10 @@ const styles = StyleSheet.create({
   },
   circleCheckIcon: {
     marginLeft: 'auto',
-    height: 18,
-    width: 18,
     color: 'white'
   },
   circleIcon: {
     marginLeft: 'auto',
-    height: 18,
-    width: 18,
     color: 'white'
   },
   rightIcon: {

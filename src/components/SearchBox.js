@@ -59,11 +59,11 @@ const SearchBox = ({ onChangeFocus }) => {
           />
           {searchData.keyword.length > 0 && (
             <Button
-              style={styles.closeButton}
+              extraStyles={styles.closeButton}
               onPress={onClear}
               pointerEvents="none"
             >
-              <Close color={theme.colors.textDark} />
+              <Close width={20} height={20} color={theme.colors.textDark} />
             </Button>
           )}
           <Button style={styles.searchButton} pointerEvents="none">
@@ -135,7 +135,7 @@ const styles = StyleSheet.create({
   closeButton: {
     position: 'absolute',
     right: 12,
-    top: 14
+    top: 16
   },
   searchButton: {
     position: 'absolute',

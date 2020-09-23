@@ -4,8 +4,8 @@ import Svg, { Path } from 'react-native-svg'
 function SvgRight(props) {
   return (
     <Svg
-      width={24}
-      height={24}
+      width={props.style.width}
+      height={props.style.height}
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"

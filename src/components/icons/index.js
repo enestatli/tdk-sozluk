@@ -18,3 +18,4 @@ export { default as Trash } from './Trash'
 
 export { default as Logo2 } from './Logo2'
 export { default as HistoryTestLogo } from './HistoryTestLogo'
+export { default as Check } from './Check'

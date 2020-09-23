@@ -53,7 +53,10 @@ const TabBar = ({ state, descriptors, navigation }) => {
             onPress={onPress}
           >
             {label === 'History' && (
-              <HistoryTestLogo color={isFocused ? colors.red : colors.gray} />
+              <HistoryTestLogo
+                style={styles.iconSize}
+                color={isFocused ? colors.red : colors.gray}
+              />
             )}
             {label === 'Favorite' && (
               <Bookmark color={isFocused ? colors.red : colors.gray} />
@@ -98,6 +101,10 @@ const styles = StyleSheet.create({
     height: 4,
     marginTop: 6,
     backgroundColor: 'white'
+  },
+  iconSize: {
+    width: 24,
+    height: 24
   }
 })
 
