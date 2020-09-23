@@ -1,4 +1,4 @@
-package com.tdksozluk;
+package com.tdksozlukreactnative;
 
 import android.os.Bundle;
 import org.devio.rn.splashscreen.SplashScreen;
