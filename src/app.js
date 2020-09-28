@@ -1,6 +1,7 @@
 import 'react-native-gesture-handler'
 import * as React from 'react'
 import SplashScreen from 'react-native-splash-screen'
+import codePush from 'react-native-code-push'
 
 import Navigation from './navigation'
 
@@ -32,4 +33,4 @@ const App = () => {
   )
 }
 
-export default App
+export default codePush(App)
