@@ -18,6 +18,12 @@ const App = () => {
     SplashScreen.hide()
   }, [])
 
+  React.useEffect(() => {
+    codePush.sync({
+      installMode: codePush.InstallMode.IMMEDIATE
+    })
+  })
+
   return (
     <FavoriteProvider>
       <HistoryProvider>
@@ -33,4 +39,9 @@ const App = () => {
   )
 }
 
-export default codePush(App)
+let codePushOptions = {
+  checkFrequency: codePush.CheckFrequency.ON_APP_START,
+  installMode: codePush.InstallMode.IMMEDIATE
+}
+
+export default codePush(codePushOptions)(App)

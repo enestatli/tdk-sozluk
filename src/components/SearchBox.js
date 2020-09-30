@@ -73,7 +73,7 @@ const SearchBox = ({ onChangeFocus }) => {
 
         {isFocus && (
           <Button style={styles.cancelButton} onPress={onCancel}>
-            <Text>Vazgec</Text>
+            <Text>Vazgeç</Text>
           </Button>
         )}
       </View>
