@@ -5,6 +5,11 @@ import LinearGradient from 'react-native-linear-gradient'
 import bg from '../assets/bg.jpg'
 
 const Splash = ({ navigation }) => {
+  React.useEffect(() => {
+    setTimeout(() => {
+      navigation.navigate('Search')
+    }, 3000)
+  }, [])
   return (
     <LinearGradient style={styles.home} colors={['black', 'red']}>
       <Image source={bg} resizeMode="contain" style={{ width: 200 }} />

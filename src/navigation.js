@@ -77,12 +77,7 @@ export default function TabNavigator() {
         tabBar={(props) => <TabBar {...props} />}
       >
         <Tab.Screen name="History" component={HistoryView} />
-        <Tab.Screen
-          name="Search"
-          children={({ dataType, ...props }) => (
-            <SearchStack dataType={dataType} {...props} />
-          )}
-        />
+        <Tab.Screen name="Search" component={SearchStack} />
         <Tab.Screen name="Favorite" component={FavoriteView} />
       </Tab.Navigator>
     </NavigationContainer>
