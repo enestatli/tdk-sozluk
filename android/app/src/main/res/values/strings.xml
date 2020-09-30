@@ -2,7 +2,7 @@
     <string name="app_name">Sözlük</string>
     <string name="appCenterCrashes_whenToSendCrashes" moduleConfig="true" translatable="false">DO_NOT_ASK_JAVASCRIPT</string>
     <string name="appCenterAnalytics_whenToEnableAnalytics" moduleConfig="true" translatable="false">ALWAYS_SEND</string>
-    <!-- <string moduleConfig="true" name="CodePushDeploymentKey">zY0Dvb_XhiOfCHhpZdvY-NiVsDtI_fzrMFVa9</string> -->
+    <string moduleConfig="true" name="CodePushDeploymentKey">zY0Dvb_XhiOfCHhpZdvY-NiVsDtI_fzrMFVa9</string>
     <string name="CodePushPublicKey">-----BEGIN PUBLIC KEY-----
 MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA0n31xNveFjtlimwjMIWE
 GMJ8PH5lgid2M62srnxqCmuEpoaXEgX8190s81zSQDmuLPtZKwQ6dPafowpofNRi
