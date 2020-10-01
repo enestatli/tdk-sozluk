@@ -12,9 +12,6 @@ import {
 } from './context/'
 
 const App = () => {
-  const isHermes = () => !!global.HermesInternal
-  console.log('Hermes Engine in use: ', isHermes())
-
   React.useEffect(() => {
     codePush.sync({
       installMode: codePush.InstallMode.IMMEDIATE
