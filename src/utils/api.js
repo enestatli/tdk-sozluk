@@ -1,4 +1,5 @@
 const BASE_URL = 'https://sozluk.gov.tr'
+const autoCompleteUrl = 'https://sozluk.gov.tr/autocomplete.json'
 
 const getHomeData = async () => {
   const response = await fetch(`${BASE_URL}/icerik`)
@@ -24,4 +25,20 @@ const getAtasozuDeyim = async (k) => {
   return data
 }
 
-export { getDetailData, getHomeData, getSoundCode, getAtasozuDeyim }
+const getWordsList = async (keyword) => {
+  const response = await fetch(autoCompleteUrl)
+  const d = await response.json()
+  const data = d.map((item, index) => ({ ...item, id: index }))
+  const f = data.filter((item) => {
+    return item.madde.startsWith(keyword.toLocaleLowerCase('tr'))
+  })
+  return f
+}
+
+export {
+  getDetailData,
+  getHomeData,
+  getSoundCode,
+  getAtasozuDeyim,
+  getWordsList
+}
