@@ -3,40 +3,4 @@
     <string name="appCenterCrashes_whenToSendCrashes" moduleConfig="true" translatable="false">DO_NOT_ASK_JAVASCRIPT</string>
     <string name="appCenterAnalytics_whenToEnableAnalytics" moduleConfig="true" translatable="false">ALWAYS_SEND</string>
     <string moduleConfig="true" name="CodePushDeploymentKey">zY0Dvb_XhiOfCHhpZdvY-NiVsDtI_fzrMFVa9</string>
-    <string name="CodePushPublicKey">-----BEGIN PUBLIC KEY-----
-MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA0n31xNveFjtlimwjMIWE
-GMJ8PH5lgid2M62srnxqCmuEpoaXEgX8190s81zSQDmuLPtZKwQ6dPafowpofNRi
-o3RtjvgrNjBLRbOGeAxVn6Ffi29G/8Z0pElC+x6i0w9d0NeULCyIbuncX5M/+e6U
-FxFQD2VljXugW+FfnHyTO+5bO1LyltmiPRiOCbn6VFp0/F5sNNOkyOBHUnAYWGch
-ss0U5VPDOgO1WOWIToccuvNlwtSU8jdtjTnfb+WqRdKR/mV05/0nm34lO1hzOu83
-W4eXDE2UMVb6tEiIlkDkfepMW8Ii7Mw35rEAwYalsf5baYx5COHxyDBSd8GjF0yr
-EwIDAQAB
------END PUBLIC KEY-----</string>
-<string name="CodePushPrivateKey">-----BEGIN RSA PRIVATE KEY-----
-MIIEowIBAAKCAQEA0n31xNveFjtlimwjMIWEGMJ8PH5lgid2M62srnxqCmuEpoaX
-EgX8190s81zSQDmuLPtZKwQ6dPafowpofNRio3RtjvgrNjBLRbOGeAxVn6Ffi29G
-/8Z0pElC+x6i0w9d0NeULCyIbuncX5M/+e6UFxFQD2VljXugW+FfnHyTO+5bO1Ly
-ltmiPRiOCbn6VFp0/F5sNNOkyOBHUnAYWGchss0U5VPDOgO1WOWIToccuvNlwtSU
-8jdtjTnfb+WqRdKR/mV05/0nm34lO1hzOu83W4eXDE2UMVb6tEiIlkDkfepMW8Ii
-7Mw35rEAwYalsf5baYx5COHxyDBSd8GjF0yrEwIDAQABAoIBAEsM3D9HgaT9opO7
-QMTBJjtJxNAw5PKGLW/5oZNJCuoSMebKID0t41v4IVnYI6MAreid6cobpNglQv/3
-6w9vDohnL9UFCSs2BvCgNPbCtxjGifGGSJNT6CzXbklpP/bvCK044Dzr1+1r9sYh
-E3OCrEyZQKlspsvOY3u/HL8H79sy2L94Fvi07rB9JQwSzPSJvemAGIi12NCIqYsm
-xLYhve7pp09SjP00AmnA5OkCaUdGtUvTjT8qz9Xc1R+ao7eorS0vzJdTw5a+Q7S4
-oaImetVsRoM7o3UlYBys/Pc3BYxQ9Eu0yYakNd87i3O0npDe1UTTr+IiYa6c1kb+
-VPmNztECgYEA7i5oT7MnyV1RNi/V+ndbsAEjS+S0jHv7tbRWQ6Vunb1JYxhnKPQR
-HhDG6/ptoW6pQfsCXGrT/zbtNn4l9xqONi8SvFRaXqzFJ18G4eMYCwxyJdjcHJgM
-N1t+0MPUwra6wLnmwKxuTviGDqTvBpsH1sy4pZjwS1IHH8k+8fzGrWsCgYEA4j1B
-KLFSYvF2fuqfHDZzfyXIUmd5hFGQz+9o/Jm+9wH/VlUPcCbNAaQ4WV5qjNHItCt2
-1tRn4QNeeVOQLoxGVRtEi/80ihXj/M8dCBq9YjvKKrT4Slq8vhZq7xdBtuFgBz+N
-IBBXHJ02TJo1aYtReFXH3ZWKbartsDDuNet7evkCgYAwPtA8TKLjg/Z+TmQ+jszQ
-svpOVi5IQpjy7muG2ky0wPHLk9bZkc6h024nwJtSVtMMHWcWB0GX8a1NG3JfQk7K
-JPDbmw6PHNn2pqYDPXfSTRwWFH5JgHcBA5SFfxVqt47OmRlnr8XMU0T8VGZiZSbK
-WL+SM4+BAkWVJ7OLWtN3rwKBgQCfnTHEYN5MOiksv6EDyZLQqLpdEO3Voao2WaVL
-Wbk2Ea2wnhBnQqiuOMscmhU4RqWAH44XYQHs6XCUzpTRklvonXVOA/5wUaNo8EJ+
-PkdQ7/fhC46E/uFchvpotpLBUN5sHrUVYxHieTQe9UkrroQLDxIUTfW9C7Pn842M
-cxfKGQKBgHBTDoL8Wj/n2lySDA1+tAyYfm3bxz/gC+uoxyBbHf8ovVf9R5fvIrfS
-J7oKwsf6DufRlafc3vQRpSolGa3yJmxsTF/LH65qK31aXLBQvjB9jJJS0oAXjUGD
-cLCPbgAbxuo46zNX3uOKZ35q2yF3LmgqdUOslquCGyYOwGdXx/hq
------END RSA PRIVATE KEY-----</string>
 </resources>
