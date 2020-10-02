@@ -27,17 +27,6 @@ const SearchProvider = ({ children }) => {
     )
   )
 
-  // const debouncedSearch = useCallback(
-  //   debounce(
-  //     (k) =>
-  //       getWordsList(k).then((wordsList) => {
-  //         setSuggestions(wordsList.slice(0, 12))
-  //       }),
-  //     500,
-  //     { leading: true, maxWait: 600 }
-  //   )
-  // )
-
   const values = {
     keyword: keyword,
     suggestions: suggestions,

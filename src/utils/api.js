@@ -26,13 +26,15 @@ const getAtasozuDeyim = async (k) => {
 }
 
 const getWordsList = async (keyword) => {
+  console.log(keyword)
   const response = await fetch(autoCompleteUrl)
   const d = await response.json()
+  //TODO id ekle only to filtered keyword
   const data = d.map((item, index) => ({ ...item, id: index }))
-  const f = data.filter((item) => {
+  const filtered = data.filter((item) => {
     return item.madde.startsWith(keyword.toLocaleLowerCase('tr'))
   })
-  return f
+  return filtered
 }
 
 export {
