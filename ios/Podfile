@@ -8,10 +8,6 @@ target 'tdkSozluk' do
 
   use_react_native!(:path => config["reactNativePath"])
 
-  pod 'RNCAsyncStorage', :path => '../node_modules/@react-native-community/async-storage'
-
-  pod 'RNSound', :path => '../node_modules/react-native-sound'
-
   pod 'react-native-splash-screen', :path => '../node_modules/react-native-splash-screen'
 
   pod 'CodePush', :path => '../node_modules/react-native-code-push'
