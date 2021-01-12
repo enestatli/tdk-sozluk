@@ -33,7 +33,6 @@ const SearchStack = ({ route, navigation }) => {
         options={({ route, navigation }) => {
           return {
             title:
-              // Atasozleri ve Deyimler here
               search?.lastDataType === 'atasozu'
                 ? 'Atasözleri ve Deyimler'
                 : (route.params?.keyword ?? '').slice(0, 15) +
@@ -53,7 +52,6 @@ const SearchStack = ({ route, navigation }) => {
             },
             headerTitleAlign: 'center',
             headerLeft: () => (
-              //TODO navigation, goBack()?
               <Button
                 onPress={() => navigation.goBack()}
                 extraStyles={styles.leftButton}

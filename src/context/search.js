@@ -1,7 +1,7 @@
 import React, { createContext, useState, useCallback } from 'react'
 import debounce from 'lodash.debounce'
 
-import { getWordsList } from '../utils/api'
+import { getSuggestions } from '../utils/autoComplete'
 
 export const searchContextDefault = {
   data: {},
@@ -17,14 +17,11 @@ const SearchProvider = ({ children }) => {
   const [lastDataType, setLastDataType] = useState('')
 
   const debouncedSearch = useCallback(
-    debounce(
-      async (k) => {
-        const wordList = await getWordsList(k)
-        setSuggestions(wordList.slice(0, 12))
-      },
-      500,
-      { leading: true, maxWait: 600 }
-    )
+    debounce((k) => setSuggestions(getSuggestions(k).slice(0, 12)), 500, {
+      leading: true,
+      maxWait: 600
+    }),
+    []
   )
 
   const values = {

@@ -25,22 +25,4 @@ const getAtasozuDeyim = async (k) => {
   return data
 }
 
-const getWordsList = async (keyword) => {
-  console.log(keyword)
-  const response = await fetch(autoCompleteUrl)
-  const d = await response.json()
-  //TODO id ekle only to filtered keyword
-  const data = d.map((item, index) => ({ ...item, id: index }))
-  const filtered = data.filter((item) => {
-    return item.madde.startsWith(keyword.toLocaleLowerCase('tr'))
-  })
-  return filtered
-}
-
-export {
-  getDetailData,
-  getHomeData,
-  getSoundCode,
-  getAtasozuDeyim,
-  getWordsList
-}
+export { getDetailData, getHomeData, getSoundCode, getAtasozuDeyim }
