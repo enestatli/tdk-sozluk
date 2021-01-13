@@ -41,63 +41,6 @@ const SearchBox = ({ onChangeFocus }) => {
     searchData.setKeyword('')
   }
 
-  //   <View style={styles.container}>
-  //   <View style={styles.secondContainer}>
-  //     <View style={styles.inputFrame}>
-  //       <Input
-  //         style={[
-  //           styles.input,
-  //           isFocus && { borderColor: '#d1d1d1' },
-  //           searchData.keyword !== '' && { borderColor: theme.colors.red }
-  //         ]}
-  //         placeholder="Türkçe Sözlük'te Ara"
-  //         placeholderTextColor="textMedium" //TODO fix here
-  //         onFocus={() => setIsFocus(true)}
-  //         value={searchData.keyword}
-  //         onChangeText={(text) => searchData.setKeyword(text)}
-  //       />
-  //       {searchData.keyword.length > 0 && (
-  //         <Button
-  //           extraStyles={styles.closeButton}
-  //           onPress={onClear}
-  //           pointerEvents="none"
-  //         >
-  //           <Close width={20} height={20} color={theme.colors.textDark} />
-  //         </Button>
-  //       )}
-  //       <Button style={styles.searchButton} pointerEvents="none">
-  //         <Search color={theme.colors.textMedium} />
-  //       </Button>
-  //     </View>
-
-  //     {isFocus && (
-  //       <Button style={styles.cancelButton} onPress={onCancel}>
-  //         <Text>Vazgeç</Text>
-  //       </Button>
-  //     )}
-  //   </View>
-  //   {isFocus && (
-  //     <Animated.View
-  //       style={{
-  //         marginTop: specialAnim.interpolate({
-  //           inputRange: [0, 1],
-  //           outputRange: [0, 16]
-  //         }),
-  //         height: specialAnim.interpolate({
-  //           inputRange: [0, 1],
-  //           outputRange: [0, 48]
-  //         })
-  //       }}
-  //     >
-  //       <SpecialCharacters
-  //         onCharPress={(char) => {
-  //           searchData?.setKeyword(searchData?.keyword + char)
-  //         }}
-  //       />
-  //     </Animated.View>
-  //   )}
-  // </View>
-
   return (
     <>
       <View
@@ -112,6 +55,7 @@ const SearchBox = ({ onChangeFocus }) => {
           placeholder="Türkçe Sözlük'te Ara"
           placeholderTextColor="textMedium"
           onFocus={() => setIsFocus(true)}
+          // autoFocus={true}
           value={searchData.keyword}
           onChangeText={(text) => searchData.setKeyword(text)}
         />
