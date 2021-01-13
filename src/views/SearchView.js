@@ -9,7 +9,9 @@ import {
   ScrollView,
   Text,
   ImageBackground,
-  Dimensions
+  Dimensions,
+  Touchable,
+  TouchableOpacity
 } from 'react-native'
 import { useFocusEffect } from '@react-navigation/native'
 
@@ -22,6 +24,8 @@ import SearchPageAnimation from '../components/SearchPageAnimation'
 import { homeContext, searchContext, historyContext } from '../context'
 
 import bg from '../assets/bg.jpg'
+import { Button, Input } from '../components/shared'
+import { Close, Search } from '../components/icons'
 
 const SearchView = ({ route, navigation }) => {
   const homeData = useContext(homeContext)
@@ -128,17 +132,64 @@ const SearchView = ({ route, navigation }) => {
           style={{ width: '100%', height: '100%' }}
         />
       </View>
+
+      <View
+        style={{
+          height: 52,
+          width: '100%',
+          paddingHorizontal: 16
+          // marginTop: -30
+        }}
+      >
+        <Input
+          style={styles.input}
+          placeholder="Türkçe Sözlük'te Ara"
+          placeholderTextColor="textMedium"
+          // onFocus={() => setIsFocus(true)}
+          value={searchData.keyword}
+          onChangeText={(text) => searchData.setKeyword(text)}
+        />
+        <Button
+          extraStyles={styles.closeButton}
+          // onPress={onClear}
+          pointerEvents="none"
+        >
+          <Close width={20} height={20} color={theme.colors.textDark} />
+        </Button>
+        <Button style={styles.searchButton} pointerEvents="none">
+          <Search color={theme.colors.textMedium} />
+        </Button>
+      </View>
     </SafeAreaView>
   )
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flex: 1
     // backgroundColor: theme.colors.softRed
-    backgroundColor: 'yellow'
+    // backgroundColor: 'yellow'
 
     // paddingTop: 64
+  },
+  input: {
+    height: '100%',
+    paddingLeft: 52,
+    borderRadius: 6,
+    borderWidth: 1,
+    borderColor: 'transparent',
+    color: theme.colors.textDark,
+    backgroundColor: 'white'
+  },
+  closeButton: {
+    position: 'absolute',
+    right: 32,
+    top: 16
+  },
+  searchButton: {
+    position: 'absolute',
+    left: 32,
+    top: 14
   },
   content: {
     flex: 1,

@@ -82,14 +82,14 @@ export default function TabNavigator() {
   )
 }
 
-// const styles = StyleSheet.create({
-//   leftButton: {
-//     paddingHorizontal: 20,
-//     height: '100%'
-//   },
-//   leftIcon: {
-//     width: 24,
-//     height: 24,
-//     color: theme.colors.textDark
-//   }
-// })
+const styles = StyleSheet.create({
+  leftButton: {
+    paddingHorizontal: 20,
+    height: '100%'
+  },
+  leftIcon: {
+    width: 24,
+    height: 24,
+    color: theme.colors.textDark
+  }
+})
