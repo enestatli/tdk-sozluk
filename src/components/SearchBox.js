@@ -101,24 +101,23 @@ const SearchBox = ({ onChangeFocus }) => {
   return (
     <>
       <View
-        style={[
-          styles.searchBoxContainer,
-          { marginTop: isFocus ? 10 : -30 },
-          isFocus && { borderColor: 'red' }
-        ]}
+        style={[styles.searchBoxContainer, { marginTop: isFocus ? 10 : -30 }]}
       >
         <Input
-          style={[styles.input, !isFocus && { width: '100%' }]}
+          style={[
+            styles.input,
+            isFocus && { width: '80%', borderColor: '#d1d1d1' },
+            searchData.keyword !== '' && { borderColor: theme.colors.red }
+          ]}
           placeholder="Türkçe Sözlük'te Ara"
           placeholderTextColor="textMedium"
           onFocus={() => setIsFocus(true)}
-          // onBlur={() => setIsSearchFocus(false)}
           value={searchData.keyword}
           onChangeText={(text) => searchData.setKeyword(text)}
         />
         {searchData.keyword.length > 0 && (
           <Button
-            extraStyles={[styles.closeButton, !isFocus && { right: 32 }]}
+            extraStyles={styles.closeButton}
             onPress={onClear}
             pointerEvents="none"
           >
@@ -173,7 +172,7 @@ const styles = StyleSheet.create({
   },
   input: {
     height: '100%',
-    width: '80%',
+    width: '100%',
     paddingLeft: 52,
     borderRadius: 6,
     borderWidth: 1,
