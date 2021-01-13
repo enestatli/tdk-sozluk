@@ -12,92 +12,108 @@ import bg from '../assets/bg.jpg'
 
 import { Logo2 } from '../components/icons'
 
-const heroHeight = Dimensions.get('window').height / 3
+const HERO_HEIGHT = Dimensions.get('screen').height / 3
 
 const SearchPageAnimation = ({ isSearchFocus, onSearchFocus }) => {
-  const searchAnim = useRef(new Animated.Value(1)).current
+  const opaictyAnim = React.useRef(new Animated.Value(1)).current
+  const heroAnim = React.useRef(new Animated.Value(HERO_HEIGHT)).current
 
   useEffect(() => {
     if (isSearchFocus) {
-      Animated.timing(searchAnim, {
+      Animated.timing(opaictyAnim, {
         toValue: 0,
         duration: 250,
         useNativeDriver: false
       }).start()
     } else {
-      Animated.timing(searchAnim, {
+      Animated.timing(opaictyAnim, {
         toValue: 1,
         duration: 250,
         useNativeDriver: false
       }).start()
     }
-  }, [searchAnim, isSearchFocus])
+  }, [opaictyAnim, isSearchFocus])
+
+  useEffect(() => {
+    if (isSearchFocus) {
+      Animated.timing(heroAnim, {
+        toValue: 0,
+        duration: 355,
+        useNativeDriver: false
+      }).start()
+    } else {
+      Animated.timing(heroAnim, {
+        toValue: HERO_HEIGHT,
+        duration: 355,
+        useNativeDriver: false
+      }).start()
+    }
+  }, [heroAnim, isSearchFocus])
+
+  //   <Animated.View
+  //   style={[
+  //     styles.animateBox,
+  //     {
+  //       height: searchAnim.interpolate({
+  //         inputRange: [0, 1],
+  //         outputRange: [84, heroHeight]
+  //       })
+  //     }
+  //   ]}
+  // >
+  //   <Animated.View
+  //     style={[
+  //       styles.animateBox2,
+  //       {
+  //         opacity: searchAnim.interpolate({
+  //           inputRange: [0, 1],
+  //           outputRange: [0, 1]
+  //         })
+  //       }
+  //     ]}
+  //   >
+  //     <ImageBackground source={bg} style={styles.image}>
+  //       <View style={styles.logoContainer}>
+  //         <Logo2 style={styles.logo} />
+  //       </View>
+  //     </ImageBackground>
+  //   </Animated.View>
+
+  //   <View style={[styles.searchBox, { bottom: isSearchFocus ? -64 : -42 }]}>
+  //     <SearchBox onChangeFocus={(status) => onSearchFocus(status)} />
+  //   </View>
+  // </Animated.View>
 
   return (
-    <Animated.View
-      style={[
-        styles.animateBox,
-        {
-          height: searchAnim.interpolate({
-            inputRange: [0, 1],
-            outputRange: [84, heroHeight]
-          })
-        }
-      ]}
-    >
+    <>
       <Animated.View
-        style={[
-          styles.animateBox2,
-          {
-            opacity: searchAnim.interpolate({
-              inputRange: [0, 1],
-              outputRange: [0, 1]
-            })
-          }
-        ]}
+        style={{
+          width: Dimensions.get('screen').width,
+          height: heroAnim,
+          opacity: opaictyAnim.interpolate({
+            inputRange: [0, 1],
+            outputRange: [0, 1]
+          })
+        }}
       >
-        <ImageBackground source={bg} style={styles.image}>
+        <ImageBackground source={bg} style={{ width: '100%', height: '100%' }}>
           <View style={styles.logoContainer}>
-            <Logo2 style={styles.logo} />
+            <Logo2 />
           </View>
         </ImageBackground>
       </Animated.View>
 
-      <View style={[styles.searchBox, { bottom: isSearchFocus ? -64 : -42 }]}>
-        <SearchBox onChangeFocus={(status) => onSearchFocus(status)} />
-      </View>
-    </Animated.View>
+      <SearchBox onChangeFocus={(status) => onSearchFocus(status)} />
+    </>
   )
 }
 
 export default SearchPageAnimation
 
 const styles = StyleSheet.create({
-  animateBox: {
-    zIndex: 1,
-    backgroundColor: 'blue'
-  },
-  animateBox2: {
-    marginTop: -60
-  },
-  image: {
-    width: '100%',
-    height: '100%'
-  },
   logoContainer: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center'
-  },
-  logo: {
-    width: 120,
-    color: 'white'
-  },
-  searchBox: {
-    backgroundColor: 'green',
-    position: 'absolute',
-    padding: 16,
-    left: 0,
-    width: '100%'
   }
 })

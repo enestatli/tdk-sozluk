@@ -41,35 +41,98 @@ const SearchBox = ({ onChangeFocus }) => {
     searchData.setKeyword('')
   }
 
+  //   <View style={styles.container}>
+  //   <View style={styles.secondContainer}>
+  //     <View style={styles.inputFrame}>
+  //       <Input
+  //         style={[
+  //           styles.input,
+  //           isFocus && { borderColor: '#d1d1d1' },
+  //           searchData.keyword !== '' && { borderColor: theme.colors.red }
+  //         ]}
+  //         placeholder="Türkçe Sözlük'te Ara"
+  //         placeholderTextColor="textMedium" //TODO fix here
+  //         onFocus={() => setIsFocus(true)}
+  //         value={searchData.keyword}
+  //         onChangeText={(text) => searchData.setKeyword(text)}
+  //       />
+  //       {searchData.keyword.length > 0 && (
+  //         <Button
+  //           extraStyles={styles.closeButton}
+  //           onPress={onClear}
+  //           pointerEvents="none"
+  //         >
+  //           <Close width={20} height={20} color={theme.colors.textDark} />
+  //         </Button>
+  //       )}
+  //       <Button style={styles.searchButton} pointerEvents="none">
+  //         <Search color={theme.colors.textMedium} />
+  //       </Button>
+  //     </View>
+
+  //     {isFocus && (
+  //       <Button style={styles.cancelButton} onPress={onCancel}>
+  //         <Text>Vazgeç</Text>
+  //       </Button>
+  //     )}
+  //   </View>
+  //   {isFocus && (
+  //     <Animated.View
+  //       style={{
+  //         marginTop: specialAnim.interpolate({
+  //           inputRange: [0, 1],
+  //           outputRange: [0, 16]
+  //         }),
+  //         height: specialAnim.interpolate({
+  //           inputRange: [0, 1],
+  //           outputRange: [0, 48]
+  //         })
+  //       }}
+  //     >
+  //       <SpecialCharacters
+  //         onCharPress={(char) => {
+  //           searchData?.setKeyword(searchData?.keyword + char)
+  //         }}
+  //       />
+  //     </Animated.View>
+  //   )}
+  // </View>
+
   return (
-    <View style={styles.container}>
-      <View style={styles.secondContainer}>
-        <View style={styles.inputFrame}>
-          <Input
-            style={[
-              styles.input,
-              isFocus && { borderColor: '#d1d1d1' },
-              searchData.keyword !== '' && { borderColor: theme.colors.red }
-            ]}
-            placeholder="Türkçe Sözlük'te Ara"
-            placeholderTextColor="textMedium" //TODO fix here
-            onFocus={() => setIsFocus(true)}
-            value={searchData.keyword}
-            onChangeText={(text) => searchData.setKeyword(text)}
-          />
-          {searchData.keyword.length > 0 && (
-            <Button
-              extraStyles={styles.closeButton}
-              onPress={onClear}
-              pointerEvents="none"
-            >
-              <Close width={20} height={20} color={theme.colors.textDark} />
-            </Button>
-          )}
-          <Button style={styles.searchButton} pointerEvents="none">
-            <Search color={theme.colors.textMedium} />
+    <>
+      <View
+        style={[
+          styles.searchBoxContainer,
+          { marginTop: isFocus ? 10 : -30 },
+          isFocus && { borderColor: 'red' }
+        ]}
+      >
+        <Input
+          style={[styles.input, !isFocus && { width: '100%' }]}
+          placeholder="Türkçe Sözlük'te Ara"
+          placeholderTextColor="textMedium"
+          onFocus={() => setIsFocus(true)}
+          // onBlur={() => setIsSearchFocus(false)}
+          value={searchData.keyword}
+          onChangeText={(text) => searchData.setKeyword(text)}
+        />
+        {searchData.keyword.length > 0 && (
+          <Button
+            extraStyles={[styles.closeButton, !isFocus && { right: 32 }]}
+            onPress={onClear}
+            pointerEvents="none"
+          >
+            <Close width={20} height={20} color={theme.colors.textDark} />
           </Button>
-        </View>
+        )}
+
+        <Button
+          style={styles.searchButton}
+          pointerEvents="none"
+          onPress={() => setIsFocus(true)}
+        >
+          <Search color={theme.colors.textMedium} />
+        </Button>
 
         {isFocus && (
           <Button style={styles.cancelButton} onPress={onCancel}>
@@ -82,11 +145,11 @@ const SearchBox = ({ onChangeFocus }) => {
           style={{
             marginTop: specialAnim.interpolate({
               inputRange: [0, 1],
-              outputRange: [0, 16]
+              outputRange: [0, 6]
             }),
             height: specialAnim.interpolate({
               inputRange: [0, 1],
-              outputRange: [0, 48]
+              outputRange: [0, 84 * 0.6]
             })
           }}
         >
@@ -97,58 +160,40 @@ const SearchBox = ({ onChangeFocus }) => {
           />
         </Animated.View>
       )}
-    </View>
+    </>
   )
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flexDirection: 'column',
-    alignItems: 'center',
-    marginHorizontal: -16,
-    // marginBottom: 64
-    // height: 64
-    paddingBottom: 64
-  },
-  secondContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginHorizontal: 16
-  },
-  inputFrame: {
-    position: 'relative',
-    flex: 1
+  searchBoxContainer: {
+    height: 52,
+    width: '100%',
+    paddingHorizontal: 16,
+    flexDirection: 'row'
   },
   input: {
-    height: 52,
+    height: '100%',
+    width: '80%',
     paddingLeft: 52,
     borderRadius: 6,
     borderWidth: 1,
     borderColor: 'transparent',
     color: theme.colors.textDark,
-    backgroundColor: 'white',
-    shadowColor: '#000',
-    shadowOpacity: 0.1,
-    shadowRadius: 24,
-    shadowOffset: {
-      width: 0,
-      height: 4
-    }
+    backgroundColor: 'white'
   },
   closeButton: {
     position: 'absolute',
-    right: 12,
+    right: 106,
     top: 16
   },
   searchButton: {
     position: 'absolute',
-    left: 16,
+    left: 32,
     top: 14
   },
   cancelButton: {
-    height: 52,
-    paddingHorizontal: 15,
-    flexDirection: 'row',
+    height: '100%',
+    width: '20%',
     alignItems: 'center',
     justifyContent: 'center'
   }
