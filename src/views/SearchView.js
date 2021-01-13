@@ -106,10 +106,6 @@ const SearchView = ({ route, navigation }) => {
     }
   }, [specialAnim, isSearchFocus])
 
-  useEffect(() => {
-    console.log(isSearchFocus)
-  }, [isSearchFocus])
-
   //  <SafeAreaView style={styles.container}>
   //     <SearchPageAnimation
   //       isSearchFocus={isSearchFocus}
@@ -198,14 +194,16 @@ const SearchView = ({ route, navigation }) => {
 
       <View
         style={{
-          height: 84,
+          height: 52,
           width: '100%',
           paddingHorizontal: 16,
-          marginTop: isSearchFocus ? 0 : -30
+          marginTop: isSearchFocus ? 10 : -30,
+          flexDirection: 'row'
+          // alignItems: 'center'
         }}
       >
         <Input
-          style={styles.input}
+          style={[styles.input, !isSearchFocus && { width: '100%' }]}
           placeholder="Türkçe Sözlük'te Ara"
           placeholderTextColor="textMedium"
           onFocus={() => setIsSearchFocus(true)}
@@ -213,7 +211,7 @@ const SearchView = ({ route, navigation }) => {
           onChangeText={(text) => searchData.setKeyword(text)}
         />
         <Button
-          extraStyles={styles.closeButton}
+          extraStyles={[styles.closeButton, !isSearchFocus && { right: 32 }]}
           // onPress={onClear}
           pointerEvents="none"
           onPress={() => setIsSearchFocus(false)}
@@ -229,26 +227,31 @@ const SearchView = ({ route, navigation }) => {
         </Button>
 
         {isSearchFocus && (
-          <Animated.View
-            style={{
-              marginTop: specialAnim.interpolate({
-                inputRange: [0, 1],
-                outputRange: [0, 16]
-              }),
-              height: specialAnim.interpolate({
-                inputRange: [0, 1],
-                outputRange: [0, 48]
-              })
-            }}
-          >
-            <SpecialCharacters
-              onCharPress={(char) => {
-                searchData?.setKeyword(searchData?.keyword + char)
-              }}
-            />
-          </Animated.View>
+          <Button style={styles.cancelButton}>
+            <Text>Vazgeç</Text>
+          </Button>
         )}
       </View>
+      {isSearchFocus && (
+        <Animated.View
+          style={{
+            marginTop: specialAnim.interpolate({
+              inputRange: [0, 1],
+              outputRange: [0, 6]
+            }),
+            height: specialAnim.interpolate({
+              inputRange: [0, 1],
+              outputRange: [0, 84 * 0.6]
+            })
+          }}
+        >
+          <SpecialCharacters
+            onCharPress={(char) => {
+              searchData?.setKeyword(searchData?.keyword + char)
+            }}
+          />
+        </Animated.View>
+      )}
     </SafeAreaView>
   )
 }
@@ -262,7 +265,8 @@ const styles = StyleSheet.create({
     // paddingTop: 64
   },
   input: {
-    height: '60%',
+    height: '100%',
+    width: '80%',
     paddingLeft: 52,
     borderRadius: 6,
     borderWidth: 1,
@@ -271,14 +275,23 @@ const styles = StyleSheet.create({
     backgroundColor: 'white'
   },
   closeButton: {
+    // justifyContent: 'center',
+    // alignItems: 'center'
     position: 'absolute',
-    right: 32,
+    right: 100,
     top: 16
   },
   searchButton: {
     position: 'absolute',
     left: 32,
     top: 14
+  },
+  cancelButton: {
+    height: '100%',
+    width: '20%',
+    backgroundColor: 'red',
+    alignItems: 'center',
+    justifyContent: 'center'
   },
   content: {
     flex: 1,
