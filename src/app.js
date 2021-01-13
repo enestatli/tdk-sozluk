@@ -1,5 +1,6 @@
 import * as React from 'react'
 import codePush from 'react-native-code-push'
+import RNBootSplash from 'react-native-bootsplash'
 
 import Navigation from './navigation'
 
@@ -12,9 +13,7 @@ import {
 } from './context/'
 
 //TODO new splash screen from CodePushDemo!!!
-//TODO fix css searchbox turkce characters box
-//TODO react-native-sound link
-//TODO enable proguard
+//TODO enable proguard, hermes
 
 const App = () => {
   React.useEffect(() => {
@@ -22,6 +21,13 @@ const App = () => {
       installMode: codePush.InstallMode.IMMEDIATE
     })
   }, [])
+
+  React.useEffect(() => {
+    ;(async () => {
+      await RNBootSplash.hide({ fade: true })
+    })()
+  }, [])
+
   return (
     <FavoriteProvider>
       <HistoryProvider>
