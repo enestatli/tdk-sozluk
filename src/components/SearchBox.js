@@ -105,7 +105,10 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'column',
     alignItems: 'center',
-    marginHorizontal: -16
+    marginHorizontal: -16,
+    // marginBottom: 64
+    // height: 64
+    paddingBottom: 64
   },
   secondContainer: {
     flexDirection: 'row',

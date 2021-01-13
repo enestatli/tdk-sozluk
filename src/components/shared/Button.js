@@ -4,10 +4,7 @@ import { TouchableOpacity, StyleSheet } from 'react-native'
 const Button = ({ children, ...props }) => {
   // const com = StyleSheet.compose(styles, props.extraStyles)
   return (
-    <TouchableOpacity
-      style={{ ...styles.default, ...props.extraStyles }}
-      {...props}
-    >
+    <TouchableOpacity style={[styles.default, props.extraStyles]} {...props}>
       {children}
     </TouchableOpacity>
   )
@@ -23,5 +20,3 @@ const styles = StyleSheet.create({
 })
 
 export default Button
-
-//{{...styles.default, props.extraStyles}}

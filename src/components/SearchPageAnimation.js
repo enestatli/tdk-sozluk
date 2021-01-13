@@ -75,7 +75,7 @@ export default SearchPageAnimation
 const styles = StyleSheet.create({
   animateBox: {
     zIndex: 1,
-    position: 'relative'
+    backgroundColor: 'blue'
   },
   animateBox2: {
     marginTop: -60
@@ -94,6 +94,7 @@ const styles = StyleSheet.create({
     color: 'white'
   },
   searchBox: {
+    backgroundColor: 'green',
     position: 'absolute',
     padding: 16,
     left: 0,

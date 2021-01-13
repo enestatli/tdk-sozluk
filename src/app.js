@@ -11,6 +11,11 @@ import {
   FavoriteProvider
 } from './context/'
 
+//TODO new splash screen from CodePushDemo!!!
+//TODO fix css searchbox turkce characters box
+//TODO react-native-sound link
+//TODO enable proguard
+
 const App = () => {
   React.useEffect(() => {
     codePush.sync({
