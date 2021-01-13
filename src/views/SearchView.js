@@ -29,12 +29,15 @@ import { Button, Input } from '../components/shared'
 import { Close, Search } from '../components/icons'
 import SpecialCharacters from '../components/SpecialCharacters'
 
+const HERO_HEIGHT = Dimensions.get('screen').height / 3
+
 const SearchView = ({ route, navigation }) => {
   const homeData = useContext(homeContext)
   const searchData = useContext(searchContext)
   const historyData = useContext(historyContext)
   const [isSearchFocus, setIsSearchFocus] = useState(false)
-  const searchAnim = React.useRef(new Animated.Value(1)).current
+  const opaictyAnim = React.useRef(new Animated.Value(1)).current
+  const heroAnim = React.useRef(new Animated.Value(HERO_HEIGHT)).current
   const specialAnim = React.useRef(new Animated.Value(0)).current
 
   // useEffect(() => {
@@ -57,19 +60,35 @@ const SearchView = ({ route, navigation }) => {
 
   useEffect(() => {
     if (isSearchFocus) {
-      Animated.timing(searchAnim, {
+      Animated.timing(opaictyAnim, {
         toValue: 0,
         duration: 250,
         useNativeDriver: false
       }).start()
     } else {
-      Animated.timing(searchAnim, {
+      Animated.timing(opaictyAnim, {
         toValue: 1,
         duration: 250,
         useNativeDriver: false
       }).start()
     }
-  }, [searchAnim, isSearchFocus])
+  }, [opaictyAnim, isSearchFocus])
+
+  useEffect(() => {
+    if (isSearchFocus) {
+      Animated.timing(heroAnim, {
+        toValue: 0,
+        duration: 355,
+        useNativeDriver: false
+      }).start()
+    } else {
+      Animated.timing(heroAnim, {
+        toValue: HERO_HEIGHT,
+        duration: 355,
+        useNativeDriver: false
+      }).start()
+    }
+  }, [heroAnim, isSearchFocus])
 
   useEffect(() => {
     if (isSearchFocus) {
@@ -164,11 +183,8 @@ const SearchView = ({ route, navigation }) => {
       <Animated.View
         style={{
           width: Dimensions.get('screen').width,
-          height: searchAnim.interpolate({
-            inputRange: [0, 1],
-            outputRange: [0, Dimensions.get('screen').height / 3]
-          }),
-          opacity: searchAnim.interpolate({
+          height: heroAnim,
+          opacity: opaictyAnim.interpolate({
             inputRange: [0, 1],
             outputRange: [0, 1]
           })
@@ -184,8 +200,8 @@ const SearchView = ({ route, navigation }) => {
         style={{
           height: 84,
           width: '100%',
-          paddingHorizontal: 16
-          // marginTop: -30
+          paddingHorizontal: 16,
+          marginTop: isSearchFocus ? 0 : -30
         }}
       >
         <Input
@@ -212,11 +228,26 @@ const SearchView = ({ route, navigation }) => {
           <Search color={theme.colors.textMedium} />
         </Button>
 
-        <SpecialCharacters
-          onCharPress={(char) => {
-            searchData?.setKeyword(searchData?.keyword + char)
-          }}
-        />
+        {isSearchFocus && (
+          <Animated.View
+            style={{
+              marginTop: specialAnim.interpolate({
+                inputRange: [0, 1],
+                outputRange: [0, 16]
+              }),
+              height: specialAnim.interpolate({
+                inputRange: [0, 1],
+                outputRange: [0, 48]
+              })
+            }}
+          >
+            <SpecialCharacters
+              onCharPress={(char) => {
+                searchData?.setKeyword(searchData?.keyword + char)
+              }}
+            />
+          </Animated.View>
+        )}
       </View>
     </SafeAreaView>
   )
@@ -224,8 +255,8 @@ const SearchView = ({ route, navigation }) => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1
-    // backgroundColor: theme.colors.softRed
+    flex: 1,
+    backgroundColor: theme.colors.softRed
     // backgroundColor: 'yellow'
 
     // paddingTop: 64
