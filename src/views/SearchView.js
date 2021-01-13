@@ -27,6 +27,7 @@ import { homeContext, searchContext, historyContext } from '../context'
 import bg from '../assets/bg.jpg'
 import { Button, Input } from '../components/shared'
 import { Close, Search } from '../components/icons'
+import SpecialCharacters from '../components/SpecialCharacters'
 
 const SearchView = ({ route, navigation }) => {
   const homeData = useContext(homeContext)
@@ -74,17 +75,21 @@ const SearchView = ({ route, navigation }) => {
     if (isSearchFocus) {
       Animated.timing(specialAnim, {
         toValue: 1,
-        duration: 230,
+        duration: 250,
         useNativeDriver: false
       }).start()
     } else {
       Animated.timing(specialAnim, {
         toValue: 0,
-        duration: 230,
+        duration: 250,
         useNativeDriver: false
       }).start()
     }
   }, [specialAnim, isSearchFocus])
+
+  useEffect(() => {
+    console.log(isSearchFocus)
+  }, [isSearchFocus])
 
   //  <SafeAreaView style={styles.container}>
   //     <SearchPageAnimation
@@ -157,18 +162,17 @@ const SearchView = ({ route, navigation }) => {
   return (
     <SafeAreaView style={styles.container}>
       <Animated.View
-        style={[
-          {
-            width: Dimensions.get('screen').width,
-            height: Dimensions.get('screen').height / 3
-          },
-          {
-            height: searchAnim.interpolate({
-              inputRange: [0, 1],
-              outputRange: [0, Dimensions.get('screen').height / 3]
-            })
-          }
-        ]}
+        style={{
+          width: Dimensions.get('screen').width,
+          height: searchAnim.interpolate({
+            inputRange: [0, 1],
+            outputRange: [0, Dimensions.get('screen').height / 3]
+          }),
+          opacity: searchAnim.interpolate({
+            inputRange: [0, 1],
+            outputRange: [0, 1]
+          })
+        }}
       >
         <ImageBackground
           source={bg}
@@ -178,7 +182,7 @@ const SearchView = ({ route, navigation }) => {
 
       <View
         style={{
-          height: 52,
+          height: 84,
           width: '100%',
           paddingHorizontal: 16
           // marginTop: -30
@@ -207,6 +211,12 @@ const SearchView = ({ route, navigation }) => {
         >
           <Search color={theme.colors.textMedium} />
         </Button>
+
+        <SpecialCharacters
+          onCharPress={(char) => {
+            searchData?.setKeyword(searchData?.keyword + char)
+          }}
+        />
       </View>
     </SafeAreaView>
   )
@@ -221,7 +231,7 @@ const styles = StyleSheet.create({
     // paddingTop: 64
   },
   input: {
-    height: '100%',
+    height: '60%',
     paddingLeft: 52,
     borderRadius: 6,
     borderWidth: 1,
