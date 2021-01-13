@@ -11,7 +11,8 @@ import {
   ImageBackground,
   Dimensions,
   Touchable,
-  TouchableOpacity
+  TouchableOpacity,
+  Animated
 } from 'react-native'
 import { useFocusEffect } from '@react-navigation/native'
 
@@ -32,6 +33,8 @@ const SearchView = ({ route, navigation }) => {
   const searchData = useContext(searchContext)
   const historyData = useContext(historyContext)
   const [isSearchFocus, setIsSearchFocus] = useState(false)
+  const searchAnim = React.useRef(new Animated.Value(1)).current
+  const specialAnim = React.useRef(new Animated.Value(0)).current
 
   // useEffect(() => {
   //   homeData.setData()
@@ -50,6 +53,38 @@ const SearchView = ({ route, navigation }) => {
         )
     }, [isSearchFocus])
   )
+
+  useEffect(() => {
+    if (isSearchFocus) {
+      Animated.timing(searchAnim, {
+        toValue: 0,
+        duration: 250,
+        useNativeDriver: false
+      }).start()
+    } else {
+      Animated.timing(searchAnim, {
+        toValue: 1,
+        duration: 250,
+        useNativeDriver: false
+      }).start()
+    }
+  }, [searchAnim, isSearchFocus])
+
+  useEffect(() => {
+    if (isSearchFocus) {
+      Animated.timing(specialAnim, {
+        toValue: 1,
+        duration: 230,
+        useNativeDriver: false
+      }).start()
+    } else {
+      Animated.timing(specialAnim, {
+        toValue: 0,
+        duration: 230,
+        useNativeDriver: false
+      }).start()
+    }
+  }, [specialAnim, isSearchFocus])
 
   //  <SafeAreaView style={styles.container}>
   //     <SearchPageAnimation
@@ -121,17 +156,25 @@ const SearchView = ({ route, navigation }) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <View
-        style={{
-          width: Dimensions.get('screen').width,
-          height: Dimensions.get('screen').height / 3
-        }}
+      <Animated.View
+        style={[
+          {
+            width: Dimensions.get('screen').width,
+            height: Dimensions.get('screen').height / 3
+          },
+          {
+            height: searchAnim.interpolate({
+              inputRange: [0, 1],
+              outputRange: [0, Dimensions.get('screen').height / 3]
+            })
+          }
+        ]}
       >
         <ImageBackground
           source={bg}
           style={{ width: '100%', height: '100%' }}
         />
-      </View>
+      </Animated.View>
 
       <View
         style={{
@@ -145,7 +188,7 @@ const SearchView = ({ route, navigation }) => {
           style={styles.input}
           placeholder="Türkçe Sözlük'te Ara"
           placeholderTextColor="textMedium"
-          // onFocus={() => setIsFocus(true)}
+          onFocus={() => setIsSearchFocus(true)}
           value={searchData.keyword}
           onChangeText={(text) => searchData.setKeyword(text)}
         />
@@ -153,10 +196,15 @@ const SearchView = ({ route, navigation }) => {
           extraStyles={styles.closeButton}
           // onPress={onClear}
           pointerEvents="none"
+          onPress={() => setIsSearchFocus(false)}
         >
           <Close width={20} height={20} color={theme.colors.textDark} />
         </Button>
-        <Button style={styles.searchButton} pointerEvents="none">
+        <Button
+          style={styles.searchButton}
+          pointerEvents="none"
+          onPress={() => setIsSearchFocus(true)}
+        >
           <Search color={theme.colors.textMedium} />
         </Button>
       </View>
