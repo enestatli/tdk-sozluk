@@ -12,8 +12,8 @@ import {
   FavoriteProvider
 } from './context/'
 
-//TODO new splash screen from CodePushDemo!!!
 //TODO enable proguard, hermes
+//TODO add your own bottom sheet modal
 
 const App = () => {
   React.useEffect(() => {
