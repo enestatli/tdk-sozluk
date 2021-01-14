@@ -1,7 +1,5 @@
-import React, { createContext, useState, useCallback } from 'react'
+import React, { createContext, useState } from 'react'
 import AsyncStorage from '@react-native-async-storage/async-storage'
-
-import debounce from 'lodash.debounce'
 
 export const searchContextDefault = {
   data: {},
@@ -17,6 +15,16 @@ const SearchProvider = ({ children }) => {
   const [keyword, setKeyword] = useState('')
   const [suggestions, setSuggestions] = useState([])
   const [lastDataType, setLastDataType] = useState('')
+
+  React.useEffect(() => {
+    ;(async () => {
+      if (await checkStore()) {
+        return
+      }
+
+      await storeWordsList()
+    })()
+  }, [])
 
   const fetchWordsList = async () => {
     try {
@@ -63,34 +71,16 @@ const SearchProvider = ({ children }) => {
     )
   }
 
-  React.useEffect(() => {
-    ;(async () => {
+  const debouncedSearch = async (k) => {
+    try {
       if (await checkStore()) {
-        return
+        const getSuggestionsList = await getSuggestions(k)
+        setSuggestions(getSuggestionsList.slice(0, 12))
       }
-
-      await storeWordsList()
-    })()
-  }, [])
-
-  const debouncedSearch = useCallback(
-    debounce(async (k) => {
-      try {
-        if (await checkStore()) {
-          const getSuggestionsList = await getSuggestions(k)
-          setSuggestions(getSuggestionsList.slice(0, 12)),
-            500,
-            {
-              leading: true,
-              maxWait: 600
-            }
-        }
-      } catch (error) {
-        console.log('debounchedSearch', error.message)
-      }
-    }),
-    []
-  )
+    } catch (error) {
+      console.log('debounchedSearch', error.message)
+    }
+  }
 
   const values = {
     keyword: keyword,

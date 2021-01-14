@@ -81,10 +81,10 @@ const SearchView = ({ navigation }) => {
             )}
           </View>
         ) : (
-          <ScrollView style={{ flex: 1 }}>
+          <ScrollView style={{ flex: 1 }} showsVerticalScrollIndicator={false}>
             <View style={styles.feedContainer}>
               <FeedCard
-                title={'Bir Kelime'}
+                title={'Bir KelimeEeEeEe'}
                 data={homeData.data?.kelime}
                 onPress={() =>
                   navigation.navigate('Details', {

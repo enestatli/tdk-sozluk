@@ -13,15 +13,9 @@ import {
 } from './context/'
 
 //TODO add your own bottom sheet modal
-//TODO gradle prop same with newsApp apk crashes!!
+//TODO fix codepush
 
 const App = () => {
-  React.useEffect(() => {
-    codePush.sync({
-      installMode: codePush.InstallMode.IMMEDIATE
-    })
-  }, [])
-
   React.useEffect(() => {
     ;(async () => {
       await RNBootSplash.hide({ fade: true })
