@@ -12,8 +12,8 @@ import {
   FavoriteProvider
 } from './context/'
 
-//TODO enable proguard, hermes
 //TODO add your own bottom sheet modal
+//TODO gradle prop same with newsApp apk crashes!!
 
 const App = () => {
   React.useEffect(() => {

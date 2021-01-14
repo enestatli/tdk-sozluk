@@ -36,15 +36,15 @@ const SearchSuggestionList = ({ keyword, data, onPress }) => {
       <FlatList
         style={styles.flatList}
         data={data}
-        keyExtractor={(item) => item.id + ''}
+        keyExtractor={(item, index) => index.toString()}
         renderItem={({ item }) => (
           <View>
             <SimpleCard
               extraStyles={styles.cardContainer}
-              onPress={() => onPress(item.madde)}
+              onPress={() => onPress(item)}
             >
               <SimpleCard.Title style={styles.cardTitle}>
-                {emphasize(keyword, item.madde)}
+                {emphasize(keyword, item)}
               </SimpleCard.Title>
               <Right style={styles.rightIcon} />
             </SimpleCard>

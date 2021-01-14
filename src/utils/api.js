@@ -1,5 +1,4 @@
 const BASE_URL = 'https://sozluk.gov.tr'
-const autoCompleteUrl = 'https://sozluk.gov.tr/autocomplete.json'
 
 const getHomeData = async () => {
   const response = await fetch(`${BASE_URL}/icerik`)
