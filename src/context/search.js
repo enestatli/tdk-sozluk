@@ -66,8 +66,6 @@ const SearchProvider = ({ children }) => {
   React.useEffect(() => {
     ;(async () => {
       if (await checkStore()) {
-        console.log('HELLO')
-        console.log('HOW MANY TIMES AM I RENDERED??')
         return
       }
 
