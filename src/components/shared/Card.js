@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
     borderRadius: 6,
     paddingVertical: 16,
     paddingHorizontal: 12,
-    marginTop: 10 //TODO get this style from the parent
+    marginTop: 10
   },
   container: {
     flex: 1,
@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
   },
   summary: {
     fontSize: 14,
-    color: theme.colors.textMedium, //TODO
+    color: theme.colors.textMedium,
     marginTop: 8
   }
 })

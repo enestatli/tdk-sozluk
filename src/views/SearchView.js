@@ -84,7 +84,7 @@ const SearchView = ({ navigation }) => {
           <ScrollView style={{ flex: 1 }} showsVerticalScrollIndicator={false}>
             <View style={styles.feedContainer}>
               <FeedCard
-                title={'Bir KelimeEeEeEe'}
+                title={'Bir Kelime'}
                 data={homeData.data?.kelime}
                 onPress={() =>
                   navigation.navigate('Details', {

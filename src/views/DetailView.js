@@ -159,7 +159,10 @@ const DetailView = ({ route, navigation }) => {
         />
       )}
 
-      <ScrollView style={styles.secondContainer}>
+      <ScrollView
+        style={styles.secondContainer}
+        showsVerticalScrollIndicator={false}
+      >
         {/* Keyword, lisan*/}
         <View style={[styles.keywordContainer]}>
           <Text style={styles.keywordText}>{keyword}</Text>
