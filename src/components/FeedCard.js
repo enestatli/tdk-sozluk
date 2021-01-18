@@ -1,5 +1,6 @@
 import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
+import { moderateScale, scale, verticalScale } from '../utils/dimensions'
 
 import theme from '../utils/theme'
 
@@ -13,15 +14,15 @@ const FeedCard = ({ data, onPress, title, ...props }) => {
       <Card
         onPress={onPress}
         disabled={data ? false : true}
-        width={100}
-        height={16}
+        width={moderateScale(100)}
+        height={verticalScale(16)}
       >
         <>
           <Placeholder
             autoRun
             visible={data ? true : false}
-            width={100}
-            height={16}
+            width={moderateScale(100)}
+            height={verticalScale(16)}
           >
             <Card.Title>{data?.madde}</Card.Title>
           </Placeholder>
@@ -29,9 +30,9 @@ const FeedCard = ({ data, onPress, title, ...props }) => {
             extraPlaceholderStlyes={styles.summaryPlaceholder}
             autoRun
             visible={data ? true : false}
-            width={240}
-            height={16}
-            shimmerStyle={{ marginTop: 10 }}
+            width={moderateScale(240)}
+            height={verticalScale(16)}
+            shimmerStyle={{ marginTop: scale(10) }}
           >
             <Card.Summary>{data?.anlam}</Card.Summary>
           </Placeholder>
@@ -44,9 +45,6 @@ const FeedCard = ({ data, onPress, title, ...props }) => {
 export default FeedCard
 
 const styles = StyleSheet.create({
-  container: {
-    marginTop: 10
-  },
   title: {
     color: theme.colors.textLight
   }
