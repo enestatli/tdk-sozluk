@@ -17,6 +17,7 @@ import SimpleList from '../components/SimpleList'
 import SearchPageAnimation from '../components/SearchPageAnimation'
 
 import { homeContext, searchContext, historyContext } from '../context'
+import { scale } from '../utils/dimensions'
 
 const SearchView = ({ navigation }) => {
   const homeData = useContext(homeContext)
@@ -124,8 +125,8 @@ const styles = StyleSheet.create({
   },
   feedContainer: {
     flex: 1,
-    paddingVertical: 15,
-    paddingHorizontal: 16
+    paddingVertical: scale(15),
+    paddingHorizontal: scale(16)
   }
 })
 

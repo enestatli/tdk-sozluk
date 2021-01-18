@@ -13,7 +13,6 @@ import {
 } from './context/'
 
 //TODO add your own bottom sheet modal
-//TODO fix codepush
 
 const App = () => {
   React.useEffect(() => {
