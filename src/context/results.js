@@ -3,6 +3,7 @@ import BottomSheet from 'reanimated-bottom-sheet'
 
 import SignLanguage from '../components/SignLanguage'
 import parseResult from '../utils/parseResult'
+import BottomSheetModal from '../components/BottomSheetModal'
 
 import { getDetailData, getSoundCode } from '../utils/api'
 
@@ -33,20 +34,14 @@ const ResultsProvider = ({ children }) => {
     signSheet: signSheetStatus,
     clearResults: () => {
       setResults({})
-      signSheetRef.current.snapTo(1)
-      signSheetRef.current.snapTo(1)
       setSignKeyword('')
       setSignSheetStatus(false)
     },
     openSignSheet: (k) => {
-      signSheetRef.current.snapTo(0)
-      signSheetRef.current.snapTo(0)
       setSignKeyword(k)
       setSignSheetStatus(true)
     },
     closeSignSheet: (k) => {
-      signSheetRef.current.snapTo(1)
-      signSheetRef.current.snapTo(1)
       setSignKeyword('')
       setSignSheetStatus(false)
     },
@@ -73,16 +68,12 @@ const ResultsProvider = ({ children }) => {
   return (
     <resultsContext.Provider value={values}>
       {children}
-      <BottomSheet
-        ref={signSheetRef}
-        onCloseEnd={() => {
-          setSignKeyword('')
-          setSignSheetStatus(false)
-        }}
-        snapPoints={[302, 0]}
-        initialSnap={1}
-        renderContent={() => <SignLanguage keyword={signKeyword} />}
-      />
+      <BottomSheetModal
+        visible={signSheetStatus}
+        closeBottomSheet={() => setSignSheetStatus((f) => !f)}
+      >
+        <SignLanguage keyword={signKeyword} />
+      </BottomSheetModal>
     </resultsContext.Provider>
   )
 }
