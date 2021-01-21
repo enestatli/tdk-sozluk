@@ -55,7 +55,6 @@ const SearchBox = ({ onChangeFocus }) => {
           placeholder="Türkçe Sözlük'te Ara"
           placeholderTextColor="textMedium"
           onFocus={() => setIsFocus(true)}
-          // autoFocus={true}
           value={searchData.keyword}
           onChangeText={(text) => searchData.setKeyword(text)}
         />

@@ -12,8 +12,6 @@ import {
   FavoriteProvider
 } from './context/'
 
-//TODO give transition navigation
-
 const App = () => {
   React.useEffect(() => {
     ;(async () => {

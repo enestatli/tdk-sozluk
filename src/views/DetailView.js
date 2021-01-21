@@ -64,7 +64,6 @@ const DetailView = ({ route, navigation }) => {
   const isFavorited = favorites.favorites.find((f) => f.title === keyword)
 
   useEffect(() => {
-    // eslint-disable-next-line no-extra-semi
     ;(async () => {
       if (keyword) {
         const data = await getAtasozuDeyim(keyword)

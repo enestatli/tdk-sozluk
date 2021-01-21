@@ -27,18 +27,6 @@ const hasGif = (letter) => letters.includes(letter)
 const SignLanguage = ({ keyword }) => {
   const fixed = fixKeyword(keyword)
 
-  // return (
-  //   <View>
-  //     <View style={styles.secondBox} />
-  //     <View>
-  //       <Text style={styles.headerTitle}>Türk İşaret Dili</Text>
-  //       <Text style={styles.headerSubTitle}>
-  //         Parmak Alfabesiyle Gösterilişi
-  //       </Text>
-  //     </View>
-  //   </View>
-  // )
-
   return (
     <View style={styles.secondContainer}>
       <View style={styles.box}>
@@ -86,15 +74,9 @@ const SignLanguage = ({ keyword }) => {
 export default SignLanguage
 
 const styles = StyleSheet.create({
-  container: {
-    height: '100%',
-    backgroundColor: 'red'
-  },
   secondContainer: {
-    // flexDirection: 'column',
     backgroundColor: 'white',
     flex: 1,
-    // marginTop: 20,
     paddingHorizontal: 24,
     paddingTop: 16,
     paddingBottom: 48
