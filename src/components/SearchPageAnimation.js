@@ -68,11 +68,6 @@ const SearchPageAnimation = ({ isSearchFocus, onSearchFocus }) => {
             <Logo2 />
           </View>
         </ImageBackground>
-        <TouchableOpacity
-          style={{ position: 'absolute', right: 0, top: 10, zIndex: 99 }}
-        >
-          <Right size={64} color="blue" />
-        </TouchableOpacity>
       </Animated.View>
 
       <SearchBox onChangeFocus={(status) => onSearchFocus(status)} />
@@ -87,5 +82,6 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center'
+    // backgroundColor: 'yellow'
   }
 })
