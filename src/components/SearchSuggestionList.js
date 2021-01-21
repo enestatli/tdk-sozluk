@@ -46,7 +46,7 @@ const SearchSuggestionList = ({ keyword, data, onPress }) => {
               <SimpleCard.Title style={styles.cardTitle}>
                 {emphasize(keyword, item)}
               </SimpleCard.Title>
-              <Right style={styles.rightIcon} />
+              <Right size={18} style={styles.rightIcon} />
             </SimpleCard>
           </View>
         )}
@@ -88,8 +88,6 @@ const styles = StyleSheet.create({
   },
   rightIcon: {
     marginLeft: 'auto',
-    height: 18,
-    width: 18,
     color: theme.colors.red
   },
   footer: {
