@@ -13,7 +13,6 @@ import {
 } from './context/'
 
 //TODO give transition navigation
-//TODO fix codepush
 
 const App = () => {
   React.useEffect(() => {

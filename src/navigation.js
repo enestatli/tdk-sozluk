@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { StyleSheet } from 'react-native'
+import { StyleSheet, Easing } from 'react-native'
 import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
@@ -15,7 +15,14 @@ import { searchContext } from './context'
 const HomeStack = createStackNavigator()
 const Tab = createBottomTabNavigator()
 
-const SearchStack = ({ route, navigation }) => {
+const SearchStack = () => {
+  const config2 = {
+    animation: 'timing',
+    config: {
+      duration: 255,
+      easing: Easing.ease
+    }
+  }
   const search = React.useContext(searchContext)
 
   return (
@@ -58,7 +65,11 @@ const SearchStack = ({ route, navigation }) => {
               >
                 <Left style={styles.leftIcon} />
               </Button>
-            )
+            ),
+            transitionSpec: {
+              open: config2,
+              close: config2
+            }
           }
         }}
       />
