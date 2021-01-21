@@ -1,17 +1,16 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect } from 'react'
 import {
   View,
   StyleSheet,
   ImageBackground,
   Dimensions,
-  Animated,
-  TouchableOpacity
+  Animated
 } from 'react-native'
 
 import SearchBox from './SearchBox'
 import bg from '../assets/bg.jpg'
 
-import { Logo2, Ellipsis } from '../components/icons'
+import { Logo2 } from '../components/icons'
 
 const HERO_HEIGHT = Dimensions.get('screen').height / 3
 
@@ -67,9 +66,6 @@ const SearchPageAnimation = ({ isSearchFocus, onSearchFocus }) => {
           <View style={styles.logoContainer}>
             <Logo2 />
           </View>
-          <TouchableOpacity style={{ position: 'absolute', top: 0, right: 20 }}>
-            <Ellipsis size={24} color="white" />
-          </TouchableOpacity>
         </ImageBackground>
       </Animated.View>
 
@@ -85,6 +81,5 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center'
-    // backgroundColor: 'yellow'
   }
 })
