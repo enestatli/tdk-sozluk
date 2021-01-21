@@ -16,6 +16,8 @@ const HomeStack = createStackNavigator()
 const Tab = createBottomTabNavigator()
 
 const SearchStack = () => {
+  const search = React.useContext(searchContext)
+
   const config2 = {
     animation: 'timing',
     config: {
@@ -23,7 +25,6 @@ const SearchStack = () => {
       easing: Easing.ease
     }
   }
-  const search = React.useContext(searchContext)
 
   return (
     <HomeStack.Navigator>
