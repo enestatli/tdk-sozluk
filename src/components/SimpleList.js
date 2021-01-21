@@ -49,7 +49,7 @@ const SimpleList = ({
                 <Circle style={styles.circleIcon} color={theme.colors.red} />
               )
             ) : (
-              chevron && <Right style={styles.rightIcon} />
+              chevron && <Right size={18} style={styles.rightIcon} />
             )}
           </SimpleCard>
         </View>
@@ -98,8 +98,6 @@ const styles = StyleSheet.create({
   },
   rightIcon: {
     marginLeft: 'auto',
-    height: 18,
-    width: 18,
     color: theme.colors.red
   },
   headerText: {

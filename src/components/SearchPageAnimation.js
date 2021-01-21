@@ -4,14 +4,14 @@ import {
   StyleSheet,
   ImageBackground,
   Dimensions,
-  Animated
+  Animated,
+  TouchableOpacity
 } from 'react-native'
 
 import SearchBox from './SearchBox'
 import bg from '../assets/bg.jpg'
 
-import { Logo2, Right } from '../components/icons'
-import { TouchableOpacity } from 'react-native-gesture-handler'
+import { Logo2, Ellipsis } from '../components/icons'
 
 const HERO_HEIGHT = Dimensions.get('screen').height / 3
 
@@ -67,6 +67,9 @@ const SearchPageAnimation = ({ isSearchFocus, onSearchFocus }) => {
           <View style={styles.logoContainer}>
             <Logo2 />
           </View>
+          <TouchableOpacity style={{ position: 'absolute', top: 0, right: 20 }}>
+            <Ellipsis size={24} color="white" />
+          </TouchableOpacity>
         </ImageBackground>
       </Animated.View>
 
