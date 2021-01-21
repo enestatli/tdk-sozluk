@@ -5,6 +5,8 @@ module.exports = {
     semi: 'off',
     'no-extra-semi': 0,
     'comma-dangle': 'off',
-    'no-shadow': 'off'
+    'no-shadow': 'off',
+    'react-hooks/exhaustive-deps': 'off',
+    'react-native/no-inline-styles': 'off'
   }
 }

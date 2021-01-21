@@ -29,7 +29,6 @@ const SearchView = ({ navigation }) => {
     return () => {
       searchData.setKeyword('')
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   useFocusEffect(

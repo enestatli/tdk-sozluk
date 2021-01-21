@@ -21,7 +21,6 @@ const FavoriteView = ({ navigation }) => {
         favorites.setSelectable(false)
         favorites.updateSelectedList([])
       }
-      // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
   )
 

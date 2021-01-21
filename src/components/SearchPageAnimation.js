@@ -10,7 +10,8 @@ import {
 import SearchBox from './SearchBox'
 import bg from '../assets/bg.jpg'
 
-import { Logo2 } from '../components/icons'
+import { Logo2, Right } from '../components/icons'
+import { TouchableOpacity } from 'react-native-gesture-handler'
 
 const HERO_HEIGHT = Dimensions.get('screen').height / 3
 
@@ -67,6 +68,11 @@ const SearchPageAnimation = ({ isSearchFocus, onSearchFocus }) => {
             <Logo2 />
           </View>
         </ImageBackground>
+        <TouchableOpacity
+          style={{ position: 'absolute', right: 0, top: 10, zIndex: 99 }}
+        >
+          <Right size={64} color="blue" />
+        </TouchableOpacity>
       </Animated.View>
 
       <SearchBox onChangeFocus={(status) => onSearchFocus(status)} />

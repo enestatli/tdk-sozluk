@@ -87,13 +87,11 @@ const DetailView = ({ route, navigation }) => {
         }
       }
     })()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [keyword])
 
   useEffect(() => {
     history.addToHistory(keyword)
     setSelectedTab(tabs[0].id)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [keyword])
 
   useEffect(() => {
@@ -104,7 +102,6 @@ const DetailView = ({ route, navigation }) => {
           ? theme.colors.softRed
           : theme.colors.atasozleriLight
       )
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [search?.lastDataType])
 
   useFocusEffect(
@@ -113,7 +110,6 @@ const DetailView = ({ route, navigation }) => {
       return () => {
         resultsData.clearResults()
       }
-      // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [keyword])
   )
 

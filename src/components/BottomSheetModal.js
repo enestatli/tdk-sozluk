@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef } from 'react'
+import React, { useEffect, useRef } from 'react'
 import {
   Animated,
   Dimensions,
@@ -48,7 +48,6 @@ const BottomSheet = ({ visible, closeBottomSheet, children, ...props }) => {
     if (visible) {
       _resetPositionAnim.start()
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [visible])
 
   return (
@@ -60,24 +59,11 @@ const BottomSheet = ({ visible, closeBottomSheet, children, ...props }) => {
       statusBarTranslucent={true}
     >
       <KeyboardAvoidingView
-        style={[
-          styles.overlay,
-          {
-            // backgroundColor: visible && 'rgba(56,56,56,0.8)',
-            justifyContent: 'flex-end'
-          }
-        ]}
+        style={styles.overlay}
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       >
         <Animated.View
-          style={[
-            styles.container,
-            {
-              top,
-              flex: 0.4,
-              paddingTop: 12
-            }
-          ]}
+          style={[styles.container, { top }]}
           {..._panResponders.panHandlers}
         >
           {children}
@@ -100,8 +86,6 @@ const styles = StyleSheet.create({
     paddingTop: 12,
     borderTopRightRadius: 6,
     borderTopLeftRadius: 6,
-    borderBottomEndRadius: 6,
-    borderBottomLeftRadius: 6,
-    flex: 0.5
+    flex: 0.36
   }
 })

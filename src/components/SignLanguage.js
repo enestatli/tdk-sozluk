@@ -27,47 +27,57 @@ const hasGif = (letter) => letters.includes(letter)
 const SignLanguage = ({ keyword }) => {
   const fixed = fixKeyword(keyword)
 
+  // return (
+  //   <View>
+  //     <View style={styles.secondBox} />
+  //     <View>
+  //       <Text style={styles.headerTitle}>Türk İşaret Dili</Text>
+  //       <Text style={styles.headerSubTitle}>
+  //         Parmak Alfabesiyle Gösterilişi
+  //       </Text>
+  //     </View>
+  //   </View>
+  // )
+
   return (
-    <View style={styles.container}>
-      <View style={styles.secondContainer}>
-        <View style={styles.box}>
-          <View style={styles.secondBox} />
-        </View>
-        <View>
-          <Text style={styles.headerTitle}>Türk İşaret Dili</Text>
-          <Text style={styles.headerSubTitle}>
-            Parmak Alfabesiyle Gösterilişi
-          </Text>
-        </View>
-        <View style={styles.flatList}>
-          <FlatList
-            horizontal={true}
-            data={fixed.map((el, i) => ({ letter: el, id: i + '_' + el }))}
-            keyExtractor={(item) => item.id}
-            ItemSeparatorComponent={() => <View style={{ width: 5 }} />}
-            renderItem={({ item }) => {
-              return (
+    <View style={styles.secondContainer}>
+      <View style={styles.box}>
+        <View style={styles.secondBox} />
+      </View>
+      <View>
+        <Text style={styles.headerTitle}>Türk İşaret Dili</Text>
+        <Text style={styles.headerSubTitle}>
+          Parmak Alfabesiyle Gösterilişi
+        </Text>
+      </View>
+      <View style={styles.flatList}>
+        <FlatList
+          horizontal={true}
+          data={fixed.map((el, i) => ({ letter: el, id: i + '_' + el }))}
+          keyExtractor={(item) => item.id}
+          ItemSeparatorComponent={() => <View style={{ width: 5 }} />}
+          renderItem={({ item }) => {
+            return (
+              <View>
                 <View>
-                  <View>
-                    {hasGif(item.letter) ? (
-                      <View style={styles.gif}>
-                        <Image
-                          style={{ height: 44, width: 123 / 2 }}
-                          source={{ uri: imgUrl(item.letter) }}
-                        />
-                      </View>
-                    ) : (
-                      <View style={styles.noGif} />
-                    )}
-                  </View>
-                  <View style={styles.letterContainer}>
-                    <Text style={styles.letter}>{item.letter}</Text>
-                  </View>
+                  {hasGif(item.letter) ? (
+                    <View style={styles.gif}>
+                      <Image
+                        style={{ height: 44, width: 123 / 2 }}
+                        source={{ uri: imgUrl(item.letter) }}
+                      />
+                    </View>
+                  ) : (
+                    <View style={styles.noGif} />
+                  )}
                 </View>
-              )
-            }}
-          />
-        </View>
+                <View style={styles.letterContainer}>
+                  <Text style={styles.letter}>{item.letter}</Text>
+                </View>
+              </View>
+            )
+          }}
+        />
       </View>
     </View>
   )
@@ -78,20 +88,13 @@ export default SignLanguage
 const styles = StyleSheet.create({
   container: {
     height: '100%',
-    shadowColor: '#000',
-    shadowOpacity: 0.16,
-    shadowRadius: 4,
-    shadowOffset: {
-      width: 0,
-      height: -2
-    }
+    backgroundColor: 'red'
   },
   secondContainer: {
-    flexDirection: 'column',
+    // flexDirection: 'column',
     backgroundColor: 'white',
     flex: 1,
-    marginTop: 20,
-    borderRadius: 15,
+    // marginTop: 20,
     paddingHorizontal: 24,
     paddingTop: 16,
     paddingBottom: 48
@@ -109,7 +112,7 @@ const styles = StyleSheet.create({
   },
   flatList: {
     width: '100%',
-    flex: 1,
+    height: 120,
     marginTop: 32
   },
   gif: {

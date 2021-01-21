@@ -18,7 +18,6 @@ const HistoryView = ({ navigation }) => {
       StatusBar.setBarStyle('dark-content')
       Platform.OS === 'android' &&
         StatusBar.setBackgroundColor(theme.colors.softRed)
-      // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
   )
 

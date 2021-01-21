@@ -12,7 +12,7 @@ import {
   FavoriteProvider
 } from './context/'
 
-//TODO add your own bottom sheet modal
+//TODO give transition navigation
 //TODO fix codepush
 
 const App = () => {
