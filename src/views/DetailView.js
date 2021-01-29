@@ -240,9 +240,7 @@ const DetailView = ({ route, navigation }) => {
             </ActionButton.Title>
           </ActionButton>
         </View>
-        {/* Content  */}
-        {/* TODO make it FlatList */}
-        {/* Anlamlar  */}
+
         {selectedTab === tabs[0].id && (
           <View style={styles.anlamlarContainer}>
             {(resultsData.data?.anlamlar ?? [1, 2, 3]).map((item) => (
@@ -256,7 +254,7 @@ const DetailView = ({ route, navigation }) => {
             <View style={styles.footer} />
           </View>
         )}
-        {/* Atasozleri */}
+
         {selectedTab === tabs[1].id && (
           <View style={styles.atasozleriContainer}>
             {(resultsData.data?.atasozu ?? [1, 2, 3]).map((item) => (
@@ -271,14 +269,14 @@ const DetailView = ({ route, navigation }) => {
                   <SimpleCard.Title style={styles.atasozCardTitle}>
                     {item.title}
                   </SimpleCard.Title>
-                  <Right style={styles.rightIcon} />
+                  <Right size={18} style={styles.rightIcon} />
                 </SimpleCard>
               </View>
             ))}
             <View style={styles.footer} />
           </View>
         )}
-        {/* Birlesikler */}
+
         {selectedTab === tabs[2].id && (
           <View style={styles.atasozleriContainer}>
             {(resultsData.data?.birlesikler ?? [1, 2, 3]).map((item) => (
@@ -293,7 +291,7 @@ const DetailView = ({ route, navigation }) => {
                   <SimpleCard.Title style={styles.atasozCardTitle}>
                     {item.title}
                   </SimpleCard.Title>
-                  <Right style={styles.rightIcon} />
+                  <Right size={18} style={styles.rightIcon} />
                 </SimpleCard>
               </View>
             ))}
@@ -362,8 +360,6 @@ const styles = StyleSheet.create({
   },
   rightIcon: {
     marginLeft: 'auto',
-    height: 18,
-    width: 18,
     color: theme.colors.red
   },
   footer: {
