@@ -4,19 +4,24 @@ import {
   StyleSheet,
   ImageBackground,
   Dimensions,
-  Animated
+  Animated,
+  TouchableOpacity
 } from 'react-native'
 
 import SearchBox from './SearchBox'
 import bg from '../assets/bg.jpg'
 
-import { Logo2 } from '../components/icons'
+import { Ellipsis, Logo2 } from '../components/icons'
+import BottomSheet from './BottomSheetModal'
+import Gift from './Gift'
 
 const HERO_HEIGHT = Dimensions.get('screen').height / 3
 
 const SearchPageAnimation = ({ isSearchFocus, onSearchFocus }) => {
   const opaictyAnim = React.useRef(new Animated.Value(1)).current
   const heroAnim = React.useRef(new Animated.Value(HERO_HEIGHT)).current
+
+  const [showPurchaseModal, setshowPurchaseModal] = React.useState(false)
 
   useEffect(() => {
     if (isSearchFocus) {
@@ -66,8 +71,21 @@ const SearchPageAnimation = ({ isSearchFocus, onSearchFocus }) => {
           <View style={styles.logoContainer}>
             <Logo2 />
           </View>
+          <TouchableOpacity
+            style={{ position: 'absolute', top: 0, right: 20 }}
+            onPress={() => setshowPurchaseModal((f) => !f)}
+          >
+            <Ellipsis size={24} color="white" />
+          </TouchableOpacity>
         </ImageBackground>
       </Animated.View>
+
+      <BottomSheet
+        visible={showPurchaseModal}
+        closeBottomSheet={() => setshowPurchaseModal((f) => !f)}
+      >
+        <Gift />
+      </BottomSheet>
 
       <SearchBox onChangeFocus={(status) => onSearchFocus(status)} />
     </>
