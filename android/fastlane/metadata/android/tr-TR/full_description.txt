@@ -1,0 +1,1 @@
+Modern ve kolay kullanıma sahip arayüz ile oluşturulmuş Türkçe sözlük. Bütün kelimeler TDK veritabanından güncel olarak alınır.

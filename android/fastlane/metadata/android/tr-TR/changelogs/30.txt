@@ -1,0 +1,2 @@
+- Performans güncellemeleri yapıldı.
+- Uygulama boyutu düşürüldü.
