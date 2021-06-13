@@ -1,4 +1,4 @@
-![alt text](https://raw.githubusercontent.com/aliemir/turkce-sozluk/master/screen-shot.jpg)
+![alt text](https://i.imgur.com/SiXKjLx_d.webp?maxwidth=760&fidelity=grand)
 
 ## Turkish Dictionary
 
